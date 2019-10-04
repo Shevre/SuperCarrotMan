@@ -1,2 +1,0 @@
-name|test level|
-startPos|25,26|

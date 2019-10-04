@@ -7,7 +7,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{79386672-FDCB-414E-9261-CF02C7AF5DE6}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SuperCarrotMan</RootNamespace>
     <AssemblyName>SuperCarrotMan</AssemblyName>
@@ -40,7 +40,11 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DevConsole.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="MainClasses.cs" />
     <Compile Include="Player.cs" />

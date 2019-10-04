@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.IO;
+using System;
 
 namespace SuperCarrotMan
 {
@@ -14,6 +15,8 @@ namespace SuperCarrotMan
         string LevelPath = "";
         int _nScreenWidth = 1280;
         int _nScreenHeight = 720;
+        bool _blDevConsole = false;
+        
 
         public Game1()
         {
@@ -23,34 +26,73 @@ namespace SuperCarrotMan
         List<Level> levels = new List<Level>();
         protected override void Initialize()
         {
-            string[] gamers = new string[10];
-            gamers[0] = "..........";
-            gamers[1] = "..........";
-            gamers[2] = "..........";
-            gamers[3] = "G.........";
-            gamers[4] = "GGG..GGGGG";
-            gamers[5] = "GGG..GGGGG";
-            gamers[6] = "GGG..GGGGG";
-            gamers[7] = "GGG..GGGGG";
-            gamers[8] = "GGG..GGGGG";
-            gamers[9] = "GGG..GGGGG";
 
-            #region Startup Config read
+            #region Config stuff
 
             if (File.Exists("config.cfg")) 
             {
-               LevelPath = getBetween(File.ReadAllText("config.cfg"), "LevelPath=", "\n");
-               _nScreenHeight = int.Parse(getBetween(File.ReadAllText("config.cfg"), "ScreenWidth=", "\n"));
-                _nScreenHeight = int.Parse(getBetween(File.ReadAllText("config.cfg"), "ScreenHeight=", "\n"));
+                string[] _sConfig =File.ReadAllText("config.cfg").Split(';');
+                
+                foreach (string s in _sConfig)
+                {
+                    Console.WriteLine(s);
+                    if (s.Contains("LevelPath="))
+                    {
+                        LevelPath = s.Replace("LevelPath=", "");
+                    }
+                    else if (s.Contains("ScreenWidth="))
+                    {
+                        _nScreenWidth = Convert.ToInt32(s.Replace("ScreenWidth=", ""));
+                    }
+                    else if (s.Contains("ScreenHeight="))
+                    {
+                        _nScreenHeight = Convert.ToInt32(s.Replace("ScreenHeight=", ""));
+                    }
+                    else if (s.Contains("Fullscreen="))
+                    {
+                        if (s.ToLower().Contains("true")) graphics.IsFullScreen = true;
+                        else graphics.IsFullScreen = false;
+
+                    }
+                    else if (s.Contains("DevConsole="))
+                    {
+                        if (s.ToLower().Contains("true")) _blDevConsole = true;
+                        else _blDevConsole = false;
+
+                    }
+                }
             }
             else 
             {
-                File.WriteAllText("config.cfg", "");
+                File.WriteAllText("config.cfg", @"LevelPath=C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\Levels;" + Environment.NewLine +"ScreenWidth = 1280;\nScreenHeight = 720;\nFullscreen = false;");
             }
 
+            graphics.PreferredBackBufferWidth = _nScreenWidth;
+            graphics.PreferredBackBufferHeight = _nScreenHeight;
+            graphics.ApplyChanges();
             #endregion
-
+            bool _blLoop = true;
+            int i = 1;
+            while(_blLoop)
+            {
+                Console.WriteLine(LevelPath + @"\level" + i.ToString());
+                if (File.Exists(LevelPath +  @"\level" + i.ToString() + @"\properties.cfg"))
+                {
+                    levels.Add(new Level(LevelPath + @"\level" + i.ToString()));
+                }
+                else 
+                {
+                    _blLoop = false;
+                }
+                i++;
+            }
+            foreach (Level l in levels)
+            {
+                Console.WriteLine(l);
+            }
+            
             base.Initialize();
+            
         }
 
         protected override void LoadContent()
@@ -84,19 +126,6 @@ namespace SuperCarrotMan
             base.Draw(gameTime);
         }
 
-        public static string getBetween(string strSource, string strStart, string strEnd)
-        {
-            int Start, End;
-            if (strSource.Contains(strStart) && strSource.Contains(strEnd))
-            {
-                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
-                End = strSource.IndexOf(strEnd, Start);
-                return strSource.Substring(Start, End - Start);
-            }
-            else
-            {
-                return "";
-            }
-        }
+      
     }
 }
