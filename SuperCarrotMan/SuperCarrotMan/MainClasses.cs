@@ -26,4 +26,5 @@ namespace SuperCarrotMan
             this.playerStartPos = playerStartPos;
         }
     }
+    
 }

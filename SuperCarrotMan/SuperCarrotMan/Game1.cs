@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 
 namespace SuperCarrotMan
@@ -11,13 +11,16 @@ namespace SuperCarrotMan
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        string LevelPath = "";
+        int _nScreenWidth = 1280;
+        int _nScreenHeight = 720;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
-        Level level;
+        List<Level> levels = new List<Level>();
         protected override void Initialize()
         {
             string[] gamers = new string[10];
@@ -32,8 +35,21 @@ namespace SuperCarrotMan
             gamers[8] = "GGG..GGGGG";
             gamers[9] = "GGG..GGGGG";
 
-            level = new Level(gamers, new Vector2(200, 200));
-            File.WriteAllText("level.json", JsonConvert.SerializeObject(level,Formatting.Indented));
+            #region Startup Config read
+
+            if (File.Exists("config.cfg")) 
+            {
+               LevelPath = getBetween(File.ReadAllText("config.cfg"), "LevelPath=", "\n");
+               _nScreenHeight = int.Parse(getBetween(File.ReadAllText("config.cfg"), "ScreenWidth=", "\n"));
+                _nScreenHeight = int.Parse(getBetween(File.ReadAllText("config.cfg"), "ScreenHeight=", "\n"));
+            }
+            else 
+            {
+                File.WriteAllText("config.cfg", "");
+            }
+
+            #endregion
+
             base.Initialize();
         }
 
@@ -66,6 +82,21 @@ namespace SuperCarrotMan
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+
+        public static string getBetween(string strSource, string strStart, string strEnd)
+        {
+            int Start, End;
+            if (strSource.Contains(strStart) && strSource.Contains(strEnd))
+            {
+                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
+                End = strSource.IndexOf(strEnd, Start);
+                return strSource.Substring(Start, End - Start);
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 }
