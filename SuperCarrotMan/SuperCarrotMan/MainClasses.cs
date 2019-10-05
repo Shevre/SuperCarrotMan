@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.IO;
+using System.Xml;
 
 namespace SuperCarrotMan
 {
@@ -15,36 +16,89 @@ namespace SuperCarrotMan
         char[,] level;
         Vector2 playerStartPos;
         string name;
-        public Level(string LevelFolder) 
+        int tilesetId, tileW, tileH;
+        
+        public Level(string levelXml) 
         {
-            string[] _s = File.ReadAllText(LevelFolder + @"\properties.cfg").Split(';');
-            foreach (string s in _s)
+            XmlReader levelReader = XmlReader.Create(levelXml);
+            while (levelReader.Read())
             {
-                if (s.Contains("Name="))
+                if (levelReader.NodeType == XmlNodeType.Element)
                 {
-                    name = s.Replace("Name=", "");
-                }
-                else if (s.Contains("StartPos=")) 
-                {
-                    string[] _i = s.Replace("StartPos=", "").Split(',');
-                    playerStartPos = new Vector2(Convert.ToInt32(_i[0]), Convert.ToInt32(_i[1]));
+                    switch (levelReader.Name)
+                    {
+                        case "name":
+                           name =  levelReader.GetAttribute("name");
+                            break;
+                        case "tileset":
+                            tilesetId = int.Parse(levelReader.GetAttribute("id"));
+                            Console.WriteLine(tilesetId);
+                            break;
+                        case "startPos":
+                            playerStartPos = new Vector2(int.Parse(levelReader.GetAttribute("x")), int.Parse(levelReader.GetAttribute("y")));
+                            break;
+                        case "terrain":
+                            string[] _slevel = levelReader.GetAttribute("terrainValue").Split(',');
+                            
+                            level = new char[_slevel.Length, _slevel[0].Length];
+                            tileH = _slevel.Length;
+                            tileW = _slevel[0].Length;
+                            for (int y = 0; y < _slevel.Length; y++)
+                            {
+                                Console.WriteLine(_slevel[y]);
+                                for (int x = 0; x < _slevel[y].Length; x++)
+                                {
+                                    level[y, x] = _slevel[y][x];
+                                    
+                                }
+                                
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
-            string[] sLevel = File.ReadAllText(LevelFolder + @"\terrain.txt").Split(',');
-            level = new char[sLevel.Length, sLevel[0].Length];
-            for (int y = 0; y < sLevel.Length; y++)
-            {
-                for (int x = 0; x < sLevel[0].Length; x++)
-                {
-                    level[y, x] = sLevel[y][x];
-                }
-            }
-            
         }
 
+        public void Draw(SpriteBatch spriteBatch,TilesetCollection tilesetCollection,Camera camera)
+        {
+            
+            for (int y = 0; y < tileH; y++)
+            {
+                for (int x = 0; x < tileW; x++)
+                {
+                    if(level[y,x] == 'G')spriteBatch.Draw(tilesetCollection.GroundTiles[tilesetId],camera.applyCamera(new Vector2(x * 64,y * 64)),Color.White);
+                }
+            }
+        }
         public override string ToString()
         {
             return name;
+        }
+    }
+
+    class TilesetCollection
+    {
+        public List<Texture2D> GroundTiles = new List<Texture2D>();
+        public TilesetCollection()
+        {
+
+        }
+    }
+
+    class Camera
+    {
+        public float offsetX = 0, offsetY = 0;
+        public Camera(float offsetX = 0,float offsetY = 0)
+        {
+            this.offsetX = offsetX;
+            this.offsetY = offsetY;
+        }
+
+        public Vector2 applyCamera(Vector2 v)
+        {
+            return new Vector2(v.X + offsetX, v.Y + offsetY);
         }
     }
     

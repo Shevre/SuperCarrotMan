@@ -20,3 +20,27 @@ C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarr
 C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\obj\x86\Debug\SuperCarrotMan.csproj.CopyComplete
 C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\obj\x86\Debug\SuperCarrotMan.exe
 C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\obj\x86\Debug\SuperCarrotMan.pdb
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SuperCarrotMan.exe
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SuperCarrotMan.pdb
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\MonoGame.Framework.dll
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.dll
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.XInput.dll
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\MonoGame.Framework.xml
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.xml
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.XInput.xml
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\obj\x86\Debug\SuperCarrotMan.csprojAssemblyReference.cache
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\obj\x86\Debug\SuperCarrotMan.csproj.CoreCompileInputs.cache
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\obj\x86\Debug\SuperCarrotMan.csproj.CopyComplete
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\obj\x86\Debug\SuperCarrotMan.exe
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\obj\x86\Debug\SuperCarrotMan.pdb
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\Ground1.xnb
