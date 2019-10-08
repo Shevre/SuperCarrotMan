@@ -134,6 +134,7 @@ namespace SuperCarrotEditor
             // every update we can now query the keyboard & mouse for our WpfGame
             var mouseState = _mouse.GetState();
             var keyboardState = _keyboard.GetState();
+            camera.update(_mouse);
         }
 
         protected override void Draw(GameTime time)

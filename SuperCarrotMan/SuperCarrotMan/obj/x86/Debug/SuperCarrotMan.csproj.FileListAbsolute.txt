@@ -45,3 +45,7 @@ C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\obj\x86\
 C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\obj\x86\Debug\SuperCarrotMan.pdb
 C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\Ground1.xnb
 C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\Ground1.xnb
+C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.Direct3D9.dll
+C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.Mathematics.dll
+C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
+C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.Mathematics.xml

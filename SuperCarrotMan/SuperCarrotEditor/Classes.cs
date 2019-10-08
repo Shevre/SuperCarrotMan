@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Framework.WpfInterop.Input;
 using System.Xml;
+using Microsoft.Xna.Framework.Input;
 
 namespace SuperCarrotEditor
 {
@@ -94,15 +95,31 @@ namespace SuperCarrotEditor
     }
 
     class Camera 
-    { 
+    {
+        int cameraoffsetX = 0, cameraoffsetY = 0;
         public Camera() 
         { 
 
         }
-
+        private int oldX = 0, oldY = 0;
         public Vector2 applyCamera(Vector2 v) 
         {
-            return v;
+            return new Vector2(v.X + cameraoffsetX, v.Y + cameraoffsetY);
+        }
+
+        public void update(WpfMouse wpfMouse) 
+        {
+            if (wpfMouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                int x = wpfMouse.GetState().X;
+                int y = wpfMouse.GetState().Y;
+                cameraoffsetX += x - oldX;
+                cameraoffsetY += y - oldY;
+                oldX = x;
+                oldY = y;
+                Console.WriteLine(cameraoffsetX);
+                Console.WriteLine(cameraoffsetY);
+            }
         }
     }
 
