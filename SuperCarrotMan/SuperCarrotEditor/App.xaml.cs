@@ -29,15 +29,20 @@ namespace SuperCarrotEditor
     public class EditorFrame : WpfGame
     {
         private IGraphicsDeviceService _graphicsDeviceManager;
-        
 
+        public int currentLevel = 1;
+        public int TileBrushId = 1;
         SpriteBatch spriteBatch;
         private WpfKeyboard _keyboard;
         private WpfMouse _mouse;
-        TilesetCollection tilesetCollection = new TilesetCollection();
+        List<Texture2D> tiles = new List<Texture2D>();
         string LevelPath;
-        List<Level> levels = new List<Level>();
+        private List<Level> levels = new List<Level>();
         Camera camera = new Camera();
+        TileDrawer tileDrawer = new TileDrawer();
+
+        internal List<Level> Levels { get => levels; set => levels = value; }
+
         protected override void Initialize()
         {
             
@@ -102,19 +107,21 @@ namespace SuperCarrotEditor
 
             // content loading now possible
             Content.RootDirectory = "Content";
+            tiles.Add(Content.Load<Texture2D>("Grid"));
+            tiles.Add(Content.Load<Texture2D>("Ground1"));
+            tiles.Add(Content.Load<Texture2D>("Ground2"));
 
-            tilesetCollection.GroundTiles.Add(Content.Load<Texture2D>("Ground1"));
 
-            
 
             bool _blLoop = true;
             int i = 1;
+            levels.Add(null);
             while (_blLoop)
             {
                 Console.WriteLine(LevelPath + @"\level" + i.ToString() + ".xml");
                 if (File.Exists(LevelPath + @"\level" + i.ToString() + ".xml"))
                 {
-                    levels.Add(new Level(LevelPath + @"\level" + i.ToString() + ".xml"));
+                    Levels.Add(new Level(LevelPath + @"\level" + i.ToString() + ".xml"));
                 }
                 else
                 {
@@ -122,7 +129,7 @@ namespace SuperCarrotEditor
                 }
                 i++;
             }
-            foreach (Level l in levels)
+            foreach (Level l in Levels)
             {
                 Console.WriteLine(l);
             }
@@ -135,14 +142,15 @@ namespace SuperCarrotEditor
             var mouseState = _mouse.GetState();
             var keyboardState = _keyboard.GetState();
             camera.update(_mouse);
+            tileDrawer.update(_mouse,camera,levels[currentLevel].level,TileBrushId);
         }
 
         protected override void Draw(GameTime time)
         {
             //GraphicsDevice.Clear(new Color(234, 234, 234));
-            GraphicsDevice.Clear(levels[0].skyColor);
+            GraphicsDevice.Clear(Levels[currentLevel].skyColor);
             spriteBatch.Begin();
-            levels[0].Draw(spriteBatch, tilesetCollection, camera);
+            Levels[currentLevel].Draw(spriteBatch, tiles, camera);
             spriteBatch.End();
         }
     }

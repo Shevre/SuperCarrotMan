@@ -24,5 +24,31 @@ namespace SuperCarrotEditor
         {
             InitializeComponent();
         }
+
+        private void ReloadButton_Click(object sender, RoutedEventArgs e)
+        {
+            Editor.Levels[Editor.currentLevel].Reload();
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            Editor.Levels[Editor.currentLevel].name = NameBox.Text;
+            Editor.Levels[Editor.currentLevel].save();
+        }
+
+        private void TileIdSelector0_Checked(object sender, RoutedEventArgs e)
+        {
+            Editor.TileBrushId = 0;
+        }
+
+        private void TileIdSelector1_Checked(object sender, RoutedEventArgs e)
+        {
+            Editor.TileBrushId = 1;
+        }
+
+        private void TileIdSelector2_Checked(object sender, RoutedEventArgs e)
+        {
+            Editor.TileBrushId = 2;
+        }
     }
 }

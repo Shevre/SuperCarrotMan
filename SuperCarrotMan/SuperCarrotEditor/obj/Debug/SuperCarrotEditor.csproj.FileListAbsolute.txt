@@ -39,3 +39,20 @@ C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarr
 C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SuperCarrotEditor.exe.config
 C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SuperCarrotEditor.exe
 C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SuperCarrotEditor.pdb
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SuperCarrotEditor.exe.config
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SuperCarrotEditor.exe
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SuperCarrotEditor.pdb
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotEditor\obj\Debug\SuperCarrotEditor.csprojAssemblyReference.cache
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotEditor\obj\Debug\MainWindow.g.cs
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotEditor\obj\Debug\App.g.cs
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotEditor\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotEditor\obj\Debug\SuperCarrotEditor_MarkupCompile.cache
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotEditor\obj\Debug\SuperCarrotEditor_MarkupCompile.lref
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotEditor\obj\Debug\MainWindow.baml
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotEditor\obj\Debug\SuperCarrotEditor.g.resources
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotEditor\obj\Debug\SuperCarrotEditor.Properties.Resources.resources
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotEditor\obj\Debug\SuperCarrotEditor.csproj.GenerateResource.cache
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotEditor\obj\Debug\SuperCarrotEditor.csproj.CoreCompileInputs.cache
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotEditor\obj\Debug\SuperCarrotEditor.csproj.CopyComplete
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotEditor\obj\Debug\SuperCarrotEditor.exe
+C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotEditor\obj\Debug\SuperCarrotEditor.pdb

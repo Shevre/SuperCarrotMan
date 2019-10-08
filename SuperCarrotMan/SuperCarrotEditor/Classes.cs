@@ -14,14 +14,31 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SuperCarrotEditor
 {
-    class Level
+    public class Level
     {
-        char[,] level;
+        public int[,] level;
         Vector2 playerStartPos;
-        string name;
+        public string name;
         int tilesetId, tileW, tileH;
         public Color skyColor;
+        string levelXml;
+        XmlDocument xmlDoc = new XmlDocument();
         public Level(string levelXml)
+        {
+            this.levelXml = levelXml;
+            xmlDoc.Load(levelXml);
+            loadXml(levelXml);
+            
+        }
+
+        public void Reload()
+        {
+            xmlDoc.Load(levelXml);
+            loadXml(levelXml);
+            
+        }
+
+        public void loadXml(string levelXml)
         {
             XmlReader levelReader = XmlReader.Create(levelXml);
             while (levelReader.Read())
@@ -41,21 +58,21 @@ namespace SuperCarrotEditor
                             playerStartPos = new Vector2(int.Parse(levelReader.GetAttribute("x")), int.Parse(levelReader.GetAttribute("y")));
                             break;
                         case "terrain":
-                            string[] _slevel = levelReader.GetAttribute("terrainValue").Split(',');
-
-                            level = new char[_slevel.Length, _slevel[0].Length];
+                            string[] _slevel = xmlDoc.SelectSingleNode("//level/terrain").InnerText.Split('\n');
+                            
+                            level = new int[_slevel.Length, _slevel[0].Length];
                             tileH = _slevel.Length;
                             tileW = _slevel[0].Length;
-                            for (int y = 0; y < _slevel.Length; y++)
+
+                            for (int i = 0; i < _slevel.Length; i++)
                             {
-                                Console.WriteLine(_slevel[y]);
-                                for (int x = 0; x < _slevel[y].Length; x++)
+                                string[] _ystring = _slevel[i].Split(',');
+                                for (int j = 0; j < _ystring.Length; j++)
                                 {
-                                    level[y, x] = _slevel[y][x];
-
+                                    level[i, j] = int.Parse(_ystring[j]);
                                 }
-
                             }
+
                             break;
                         case "skyColor":
                             string[] _srgb = levelReader.GetAttribute("rgbval").Split(',');
@@ -68,14 +85,15 @@ namespace SuperCarrotEditor
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, TilesetCollection tilesetCollection, Camera camera)
+        public void Draw(SpriteBatch spriteBatch, List<Texture2D> tiles, Camera camera)
         {
 
             for (int y = 0; y < tileH; y++)
             {
                 for (int x = 0; x < tileW; x++)
                 {
-                    if (level[y, x] == 'G') spriteBatch.Draw(tilesetCollection.GroundTiles[tilesetId], camera.applyCamera(new Vector2(x * 64, y * 64)), Color.White);
+                    if (level[y, x] != 0) spriteBatch.Draw(tiles[level[y,x]], camera.applyCamera(new Vector2(x * 64, y * 64)), Color.White);
+                    spriteBatch.Draw(tiles[0], camera.applyCamera(new Vector2(x * 64, y * 64)), Color.White);
                 }
             }
         }
@@ -83,30 +101,46 @@ namespace SuperCarrotEditor
         {
             return name;
         }
-    }
-
-    class TilesetCollection
-    {
-        public List<Texture2D> GroundTiles = new List<Texture2D>();
-        public TilesetCollection()
+        public void save()
         {
+            xmlDoc.SelectSingleNode("//level/name").Attributes.GetNamedItem("name").Value = name;
+            string terrainString = "";
 
+            for (int y = 0; y < tileH; y++)
+            {
+                for (int x = 0; x < tileW; x++)
+                {
+                    terrainString += level[y, x].ToString() + ",";
+                }
+                terrainString = terrainString.Remove(terrainString.Length - 1);
+                terrainString += Environment.NewLine;
+            }
+            terrainString = terrainString.Remove(terrainString.Length - 2);
+
+            xmlDoc.SelectSingleNode("//level/terrain").InnerText = terrainString;
+            xmlDoc.Save(levelXml);
         }
     }
 
-    class Camera 
+    
+
+    public class Camera 
     {
         int cameraoffsetX = 0, cameraoffsetY = 0;
         public Camera() 
         { 
 
         }
-        private int oldX = 0, oldY = 0;
+        //private int oldX = 0, oldY = 0;
         private int firstx = 0, firsty = 0, oldcamoffsetX = 0, oldcamoffsetY = 0;
         private bool firstgo = false;
         public Vector2 applyCamera(Vector2 v) 
         {
             return new Vector2(v.X + cameraoffsetX, v.Y + cameraoffsetY);
+        }
+        public Vector2 revApplyCamera(Vector2 v)
+        {
+            return new Vector2(v.X - cameraoffsetX, v.Y - cameraoffsetY);
         }
 
         public void update(WpfMouse wpfMouse) 
@@ -118,8 +152,8 @@ namespace SuperCarrotEditor
                 int y = wpfMouse.GetState().Y;
                 cameraoffsetX = x - firstx + oldcamoffsetX;
                 cameraoffsetY = y - firsty + oldcamoffsetY;
-                Console.WriteLine(cameraoffsetX);
-                Console.WriteLine(cameraoffsetY);
+                //Console.WriteLine(cameraoffsetX);
+                //Console.WriteLine(cameraoffsetY);
             }
             else if (wpfMouse.GetState().RightButton == ButtonState.Pressed && !firstgo)
             {
@@ -137,4 +171,21 @@ namespace SuperCarrotEditor
         }
     }
 
+    public class TileDrawer
+    {
+        public TileDrawer()
+        {
+
+        }
+
+        public void update(WpfMouse wpfMouse, Camera camera, int[,] levelArray,int tileDrawerId)
+        {
+            if (wpfMouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                int x = wpfMouse.GetState().X, y = wpfMouse.GetState().Y;
+                Vector2 drawPos = camera.revApplyCamera(new Vector2(x, y));
+                levelArray[(int)(drawPos.Y / 64), (int)(drawPos.X / 64)] = tileDrawerId;
+            }
+        }
+    }
 }

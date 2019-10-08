@@ -11,15 +11,37 @@ using System.Xml;
 
 namespace SuperCarrotMan
 {
-    class Level
+    public class Level
     {
-        char[,] level;
+        int[,] level;
         Vector2 playerStartPos;
-        string name;
+        public string name;
         int tilesetId, tileW, tileH;
         public Color skyColor;
+        string levelXml;
+        XmlDocument xmlDoc = new XmlDocument();
         
         public Level(string levelXml) 
+        {
+            this.levelXml = levelXml;
+            xmlDoc.Load(levelXml);
+            loadXml(levelXml);
+            
+        }
+
+        public void Reload()
+        {
+            xmlDoc.Load(levelXml);
+            loadXml(levelXml);
+            
+        }
+
+        public void setName(string name)
+        {
+            this.name = name;
+        }
+
+        private void loadXml(string levelXml)
         {
             XmlReader levelReader = XmlReader.Create(levelXml);
             while (levelReader.Read())
@@ -29,7 +51,7 @@ namespace SuperCarrotMan
                     switch (levelReader.Name)
                     {
                         case "name":
-                           name =  levelReader.GetAttribute("name");
+                            name = levelReader.GetAttribute("name");
                             break;
                         case "tileset":
                             tilesetId = int.Parse(levelReader.GetAttribute("id"));
@@ -39,27 +61,25 @@ namespace SuperCarrotMan
                             playerStartPos = new Vector2(int.Parse(levelReader.GetAttribute("x")), int.Parse(levelReader.GetAttribute("y")));
                             break;
                         case "terrain":
-                            string[] _slevel = levelReader.GetAttribute("terrainValue").Split(',');
-                            
-                            level = new char[_slevel.Length, _slevel[0].Length];
+                            string[] _slevel = xmlDoc.SelectSingleNode("//level/terrain").InnerText.Split('\n');
+
+                            level = new int[_slevel.Length, _slevel[0].Length];
                             tileH = _slevel.Length;
                             tileW = _slevel[0].Length;
-                            for (int y = 0; y < _slevel.Length; y++)
+
+                            for (int i = 0; i < _slevel.Length; i++)
                             {
-                                Console.WriteLine(_slevel[y]);
-                                for (int x = 0; x < _slevel[y].Length; x++)
+                                string[] _ystring = _slevel[i].Split(',');
+                                for (int j = 0; j < _ystring.Length; j++)
                                 {
-                                    level[y, x] = _slevel[y][x];
-                                    
+                                    level[i, j] = int.Parse(_ystring[j]);
                                 }
-                                
                             }
                             break;
                         case "skyColor":
                             string[] _srgb = levelReader.GetAttribute("rgbval").Split(',');
                             skyColor = new Color(int.Parse(_srgb[0]), int.Parse(_srgb[1]), int.Parse(_srgb[2]));
                             break;
-
                         default:
                             break;
                     }
@@ -67,14 +87,14 @@ namespace SuperCarrotMan
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch,TilesetCollection tilesetCollection,Camera camera)
+        public void Draw(SpriteBatch spriteBatch,List<Texture2D> tiles,Camera camera)
         {
-            
+
             for (int y = 0; y < tileH; y++)
             {
                 for (int x = 0; x < tileW; x++)
                 {
-                    if(level[y,x] == 'G')spriteBatch.Draw(tilesetCollection.GroundTiles[tilesetId],camera.applyCamera(new Vector2(x * 64,y * 64)),Color.White);
+                    if (level[y, x] != 0) spriteBatch.Draw(tiles[level[y, x]], camera.applyCamera(new Vector2(x * 64, y * 64)), Color.White);
                 }
             }
         }
@@ -82,18 +102,12 @@ namespace SuperCarrotMan
         {
             return name;
         }
+        
     }
 
-    class TilesetCollection
-    {
-        public List<Texture2D> GroundTiles = new List<Texture2D>();
-        public TilesetCollection()
-        {
+    
 
-        }
-    }
-
-    class Camera
+    public class Camera
     {
         public float offsetX = 0, offsetY = 0;
         public Camera(float offsetX = 0,float offsetY = 0)

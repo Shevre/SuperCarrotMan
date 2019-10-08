@@ -18,6 +18,7 @@ namespace SuperCarrotMan
         int _nScreenHeight = 720;
         bool _blDevConsole = false;
         Camera camera = new Camera();
+        List<Texture2D> tiles = new List<Texture2D>();
 
         public Game1()
         {
@@ -25,7 +26,7 @@ namespace SuperCarrotMan
             Content.RootDirectory = "Content";
         }
         List<Level> levels = new List<Level>();
-        TilesetCollection tilesetCollection = new TilesetCollection();
+        
         protected override void Initialize()
         {
 
@@ -124,8 +125,10 @@ namespace SuperCarrotMan
         {
             
             spriteBatch = new SpriteBatch(GraphicsDevice);
-           
-            tilesetCollection.GroundTiles.Add(Content.Load<Texture2D>("Ground1"));
+
+            tiles.Add(null);
+            tiles.Add(Content.Load<Texture2D>("Ground1"));
+            tiles.Add(Content.Load<Texture2D>("Ground2"));
 
 
         }
@@ -163,7 +166,7 @@ namespace SuperCarrotMan
         {
             GraphicsDevice.Clear(levels[0].skyColor);
             spriteBatch.Begin();
-            levels[0].Draw(spriteBatch, tilesetCollection,camera);
+            levels[0].Draw(spriteBatch, tiles,camera);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
