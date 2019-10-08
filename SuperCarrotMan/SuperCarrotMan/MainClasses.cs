@@ -17,6 +17,7 @@ namespace SuperCarrotMan
         Vector2 playerStartPos;
         string name;
         int tilesetId, tileW, tileH;
+        public Color skyColor;
         
         public Level(string levelXml) 
         {
@@ -54,6 +55,11 @@ namespace SuperCarrotMan
                                 
                             }
                             break;
+                        case "skyColor":
+                            string[] _srgb = levelReader.GetAttribute("rgbval").Split(',');
+                            skyColor = new Color(int.Parse(_srgb[0]), int.Parse(_srgb[1]), int.Parse(_srgb[2]));
+                            break;
+
                         default:
                             break;
                     }

@@ -161,7 +161,7 @@ namespace SuperCarrotMan
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(levels[0].skyColor);
             spriteBatch.Begin();
             levels[0].Draw(spriteBatch, tilesetCollection,camera);
             spriteBatch.End();

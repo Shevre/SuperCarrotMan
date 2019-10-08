@@ -3,4 +3,5 @@
 <tileset id="0"/>
 <startPos x="100" y="100"/>
 <terrain terrainValue="G.........................................,G...............................G.........,G..............................GG.........,G.............................GGG.........,G............................GGGG.........,G...........................GGGGG.........,G............GGGG........GGGGGGGG.........,GG.........GGGGGGGGGGGG..GGG...GG.........,GGGGGG....GGGGGGGGGGGGG..GGG..............,GGGGGGGGGGGGGGGGGGGGGGG..GGGGGGGGGGGGGGGGG,GGGGGGGGGGGGGGGGGGGGGGG..GGGGGGGGGGGGGGGGG,GGGGGGGGGGGGGGGGGGGGGGG..GGGGGGGGGGGGGGGGG,GGGGGGGGGGGGGGGGGGGGGGG..GGGGGGGGGGGGGGGGG"/>
+<skyColor rgbval="117,221,250"/>
 </level>
