@@ -102,6 +102,8 @@ namespace SuperCarrotEditor
 
         }
         private int oldX = 0, oldY = 0;
+        private int firstx = 0, firsty = 0, oldcamoffsetX = 0, oldcamoffsetY = 0;
+        private bool firstgo = false;
         public Vector2 applyCamera(Vector2 v) 
         {
             return new Vector2(v.X + cameraoffsetX, v.Y + cameraoffsetY);
@@ -109,17 +111,29 @@ namespace SuperCarrotEditor
 
         public void update(WpfMouse wpfMouse) 
         {
-            if (wpfMouse.GetState().RightButton == ButtonState.Pressed)
+            if (wpfMouse.GetState().RightButton == ButtonState.Pressed && firstgo)
             {
+                
                 int x = wpfMouse.GetState().X;
                 int y = wpfMouse.GetState().Y;
-                cameraoffsetX += x - oldX;
-                cameraoffsetY += y - oldY;
-                oldX = x;
-                oldY = y;
+                cameraoffsetX = x - firstx + oldcamoffsetX;
+                cameraoffsetY = y - firsty + oldcamoffsetY;
                 Console.WriteLine(cameraoffsetX);
                 Console.WriteLine(cameraoffsetY);
             }
+            else if (wpfMouse.GetState().RightButton == ButtonState.Pressed && !firstgo)
+            {
+                firstgo = true;
+                firstx = wpfMouse.GetState().X;
+                firsty = wpfMouse.GetState().Y;
+                oldcamoffsetX = cameraoffsetX;
+                oldcamoffsetY = cameraoffsetY;
+            }
+            else 
+            {
+                firstgo = false;
+            }
+
         }
     }
 
