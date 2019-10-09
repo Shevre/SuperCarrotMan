@@ -50,5 +50,26 @@ namespace SuperCarrotEditor
         {
             Editor.TileBrushId = 2;
         }
+
+        private void WindowMain_Initialized(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void TileViewer_Initialized(object sender, EventArgs e)
+        {
+            //TileViewer.SetTilesList(Editor.getTilesList());
+        }
+
+        private void TileViewer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+
+        private void TileViewer_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Editor.TileBrushId = TileViewer.selectedId;
+            
+        }
     }
 }

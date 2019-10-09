@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentConfig>
+    <Tile name="Grid"/>
+    <Tile name="Ground1"/>
+    <Tile name = "Ground2"/>
+    <Selector name="Selector"/>
+</ContentConfig>

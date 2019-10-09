@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Framework.WpfInterop.Input;
 using System.IO;
 using System.Xml;
+using Microsoft.Xna.Framework.Input;
 
 namespace SuperCarrotEditor
 {
@@ -107,9 +108,8 @@ namespace SuperCarrotEditor
 
             // content loading now possible
             Content.RootDirectory = "Content";
-            tiles.Add(Content.Load<Texture2D>("Grid"));
-            tiles.Add(Content.Load<Texture2D>("Ground1"));
-            tiles.Add(Content.Load<Texture2D>("Ground2"));
+            ContentLoader contentLoader = new ContentLoader();
+            contentLoader.SetContent("ContentConfig.xml", Content, tiles);
 
 
 
@@ -136,6 +136,11 @@ namespace SuperCarrotEditor
             
         }
 
+        public List<Texture2D> getTilesList()
+        {
+            return tiles;
+        }
+
         protected override void Update(GameTime time)
         {
             // every update we can now query the keyboard & mouse for our WpfGame
@@ -154,4 +159,162 @@ namespace SuperCarrotEditor
             spriteBatch.End();
         }
     }
+
+    public class TileViewer : WpfGame
+    {
+        private IGraphicsDeviceService _graphicsDeviceManager;
+        private WpfKeyboard _keyboard;
+        private WpfMouse _mouse;
+        List<Texture2D> tiles = new List<Texture2D>();
+        private Texture2D selector;
+        SpriteBatch spriteBatch;
+        public int Mode = 0;
+        int selectedX = 0, selectedY = 0;
+        public int selectedId = 0;
+        int scrolloffset = 0;
+        int mousewheeloffset = 0;
+        bool canscroll = false;
+        int extraRows;
+
+        protected override void Initialize()
+        {
+            // must be initialized. required by Content loading and rendering (will add itself to the Services)
+            // note that MonoGame requires this to be initialized in the constructor, while WpfInterop requires it to
+            // be called inside Initialize (before base.Initialize())
+            _graphicsDeviceManager = new WpfGraphicsDeviceService(this);
+
+            // wpf and keyboard need reference to the host control in order to receive input
+            // this means every WpfGame control will have it's own keyboard & mouse manager which will only react if the mouse is in the control
+            _keyboard = new WpfKeyboard(this);
+            _mouse = new WpfMouse(this);
+
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            // must be called after the WpfGraphicsDeviceService instance was created
+            base.Initialize();
+
+            // content loading now possible
+            Content.RootDirectory = "Content";
+            selector = Content.Load<Texture2D>("Selector");
+            /*tiles.Add(Content.Load<Texture2D>("Grid"));
+            tiles.Add(Content.Load<Texture2D>("Ground1"));
+            tiles.Add(Content.Load<Texture2D>("Ground2"));*/
+            ContentLoader contentLoader = new ContentLoader();
+            contentLoader.SetContent("ContentConfig.xml", Content, tiles,null,selector);
+            
+            Console.WriteLine($"{this.Width},{this.Height}");
+            Console.WriteLine(tiles.Count);
+            Console.WriteLine((this.Width / 64) * (this.Height / 64));
+            if (tiles.Count > (this.Width / 64) * (this.Height / 64)) 
+            {
+                canscroll = true;
+                extraRows = (int)((tiles.Count - ((this.Width / 64) * (this.Height / 64))) / (this.Width / 64)) + 1;
+                Console.WriteLine(extraRows);
+            }
+        }
+
+        public void SetTilesList(List<Texture2D> tiles)
+        {
+            this.tiles = tiles;
+        }
+
+
+        int PrevScrollval = 0;
+
+        protected override void Update(GameTime time)
+        {
+            // every update we can now query the keyboard & mouse for our WpfGame
+            var mouseState = _mouse.GetState();
+            var keyboardState = _keyboard.GetState();
+
+            if (mouseState.LeftButton == ButtonState.Pressed)
+            {
+                selectedX = (int)(mouseState.X / 64);
+                selectedY = (int)((mouseState.Y - scrolloffset) / 64);
+                
+                selectedId = selectedX + ((int)(this.Width / 64) * selectedY);
+                if (selectedId > tiles.Count - 1)
+                {
+                    selectedId = 0;
+                    
+                }
+                Console.WriteLine(selectedId);
+            }
+            if (canscroll)
+            {
+                
+                int scrollVal = mouseState.ScrollWheelValue;
+                int scrollValDelta = scrollVal - PrevScrollval;
+                if (scrollValDelta < 0)
+                {
+                    if (!(scrolloffset <= -extraRows * 64)) scrolloffset -= 32;
+
+
+                }
+                else if (scrollValDelta > 0)
+                {
+                    if (!(scrolloffset >= 0)) scrolloffset += 32;
+                    
+                    
+                }
+                PrevScrollval = scrollVal;
+            }
+            else
+            {
+                mousewheeloffset = mouseState.ScrollWheelValue;
+            }
+            
+            //Console.WriteLine(scrolloffset);
+
+        }
+
+        protected override void Draw(GameTime time)
+        {
+            GraphicsDevice.Clear(new Color(175, 175, 175));
+            spriteBatch.Begin();
+            if (Mode == 0)
+            {
+                int x = 0;
+                int y = 0;
+                foreach (Texture2D tile in tiles)
+                {
+                    if(!(x == 0 && y == 0))spriteBatch.Draw(tile, new Vector2(x * 64, (y * 64) + scrolloffset), Color.White);
+                    x++;
+                    if (x * 64 > this.Width - 64)
+                    {
+                        x = 0;
+                        y++;
+                    }
+
+                }
+
+            }
+            spriteBatch.Draw(selector, new Vector2(selectedX * 64, selectedY * 64 + scrolloffset), Color.White);
+
+            spriteBatch.End();
+        }
+    }
+    
+    public struct ContentLoader
+    {
+        public void SetContent(string contentConfigPath, Microsoft.Xna.Framework.Content.ContentManager Content, List<Texture2D> Tiles, List<Texture2D> EnemyTextures = null, Texture2D Selector = null)
+        {
+            XmlDocument contentConfig = new XmlDocument();
+            contentConfig.Load(contentConfigPath);
+            XmlNodeList Tilenodes = contentConfig.SelectNodes("//ContentConfig/Tile");
+            foreach (XmlNode node in Tilenodes)
+            {
+                Tiles.Add(Content.Load<Texture2D>(node.Attributes.GetNamedItem("name").Value));
+            }
+            if(EnemyTextures != null)
+            {
+
+            }
+            if(Selector != null)
+            {
+                Selector = Content.Load<Texture2D>(contentConfig.SelectSingleNode("//ContentConfig/Selector").Attributes.GetNamedItem("name").Value);
+            }
+        }
+    }
+
+    
 }
