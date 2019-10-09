@@ -4,9 +4,9 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Shev/Desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grid.png</File>
-    <File>C:/Users/Shev/Desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Ground1.png</File>
-    <File>C:/Users/Shev/Desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Ground2.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grid.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Ground1.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Ground2.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

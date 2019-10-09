@@ -55,3 +55,5 @@ C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Wind
 C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
 C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\SharpDX.Mathematics.xml
 C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\Grid.xnb
+C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\Grid.xnb
+C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\Ground2.xnb

@@ -59,14 +59,14 @@ namespace SuperCarrotEditor
                             break;
                         case "terrain":
                             string[] _slevel = xmlDoc.SelectSingleNode("//level/terrain").InnerText.Split('\n');
-                            
-                            level = new int[_slevel.Length, _slevel[0].Length];
+                            string[] _ystring = _slevel[0].Split(',');
+                            level = new int[_slevel.Length, _ystring.Length];
                             tileH = _slevel.Length;
-                            tileW = _slevel[0].Length;
+                            tileW = _ystring.Length;
 
                             for (int i = 0; i < _slevel.Length; i++)
                             {
-                                string[] _ystring = _slevel[i].Split(',');
+                                _ystring = _slevel[i].Split(',');
                                 for (int j = 0; j < _ystring.Length; j++)
                                 {
                                     level[i, j] = int.Parse(_ystring[j]);
