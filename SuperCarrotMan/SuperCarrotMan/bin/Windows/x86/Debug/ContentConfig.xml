@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentConfig>
     <Tile name="Grid"/>
-    <Tile name="Ground1"/>
-    <Tile name = "Ground2"/>
+    <Tile name="Grid"/>
+    <Tile name="Grid"/>
+    <Tile name="Grid"/>
+    <Tile name="Grid"/>
+    <Tile name="Grass\00"/>
+    <Tile name = "Grass\01"/>
+    <Tile name = "Grass\02"/>
+    <Tile name="Grid"/>
+    <Tile name="Grid"/>
+    <Tile name = "Grass\10"/>
+    <Tile name = "Grass\11"/>
+    <Tile name = "Grass\12"/>
+    <Tile name="Grid"/>
+    <Tile name="Grid"/>
+    <Tile name = "Grass\20"/>
+    <Tile name = "Grass\21"/>
+    <Tile name = "Grass\22"/>
     <Selector name="Selector"/>
 </ContentConfig>

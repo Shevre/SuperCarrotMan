@@ -25,7 +25,7 @@ namespace SuperCarrotEditor
 
     }
 
-    
+    public enum TileBrushMode {Single,Selection };
     
     public class EditorFrame : WpfGame
     {
@@ -33,6 +33,7 @@ namespace SuperCarrotEditor
 
         public int currentLevel = 1;
         public int TileBrushId = 1;
+        public TileBrushMode brushMode = TileBrushMode.Single;
         SpriteBatch spriteBatch;
         private WpfKeyboard _keyboard;
         private WpfMouse _mouse;
@@ -41,6 +42,7 @@ namespace SuperCarrotEditor
         private List<Level> levels = new List<Level>();
         Camera camera = new Camera();
         TileDrawer tileDrawer = new TileDrawer();
+        List<List<int>> SelectedIds = new List<List<int>>();
 
         internal List<Level> Levels { get => levels; set => levels = value; }
 
@@ -110,7 +112,7 @@ namespace SuperCarrotEditor
             Content.RootDirectory = "Content";
             ContentLoader contentLoader = new ContentLoader();
             contentLoader.SetContent("ContentConfig.xml", Content, tiles);
-
+            
 
 
             bool _blLoop = true;
@@ -175,6 +177,7 @@ namespace SuperCarrotEditor
         int mousewheeloffset = 0;
         bool canscroll = false;
         int extraRows;
+        public TileBrushMode brushMode = TileBrushMode.Single;
 
         protected override void Initialize()
         {
@@ -195,9 +198,7 @@ namespace SuperCarrotEditor
             // content loading now possible
             Content.RootDirectory = "Content";
             selector = Content.Load<Texture2D>("Selector");
-            /*tiles.Add(Content.Load<Texture2D>("Grid"));
-            tiles.Add(Content.Load<Texture2D>("Ground1"));
-            tiles.Add(Content.Load<Texture2D>("Ground2"));*/
+            
             ContentLoader contentLoader = new ContentLoader();
             contentLoader.SetContent("ContentConfig.xml", Content, tiles,null,selector);
             
@@ -236,6 +237,19 @@ namespace SuperCarrotEditor
                 {
                     selectedId = 0;
                     
+                }
+                Console.WriteLine(selectedId);
+            }
+            if (mouseState.LeftButton == ButtonState.Pressed && keyboardState.IsKeyDown(Keys.LeftControl))
+            {
+                selectedX = (int)(mouseState.X / 64);
+                selectedY = (int)((mouseState.Y - scrolloffset) / 64);
+
+                selectedId = selectedX + ((int)(this.Width / 64) * selectedY);
+                if (selectedId > tiles.Count - 1)
+                {
+                    selectedId = 0;
+
                 }
                 Console.WriteLine(selectedId);
             }

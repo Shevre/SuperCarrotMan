@@ -19,6 +19,7 @@ namespace SuperCarrotMan
         bool _blDevConsole = false;
         Camera camera = new Camera();
         List<Texture2D> tiles = new List<Texture2D>();
+        Random PeterGriffin = new Random();
 
         public Game1()
         {
@@ -126,9 +127,8 @@ namespace SuperCarrotMan
             
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            tiles.Add(null);
-            tiles.Add(Content.Load<Texture2D>("Ground1"));
-            tiles.Add(Content.Load<Texture2D>("Ground2"));
+            ContentLoader contentLoader = new ContentLoader();
+            contentLoader.SetContent("ContentConfig.xml", Content, tiles);
 
 
         }
@@ -167,6 +167,7 @@ namespace SuperCarrotMan
             GraphicsDevice.Clear(levels[0].skyColor);
             spriteBatch.Begin();
             levels[0].Draw(spriteBatch, tiles,camera);
+            
             spriteBatch.End();
             // TODO: Add your drawing code here
 
@@ -174,5 +175,27 @@ namespace SuperCarrotMan
         }
 
       
+    }
+}
+
+public struct ContentLoader
+{
+    public void SetContent(string contentConfigPath, Microsoft.Xna.Framework.Content.ContentManager Content, List<Texture2D> Tiles, List<Texture2D> EnemyTextures = null, Texture2D Selector = null)
+    {
+        XmlDocument contentConfig = new XmlDocument();
+        contentConfig.Load(contentConfigPath);
+        XmlNodeList Tilenodes = contentConfig.SelectNodes("//ContentConfig/Tile");
+        foreach (XmlNode node in Tilenodes)
+        {
+            Tiles.Add(Content.Load<Texture2D>(node.Attributes.GetNamedItem("name").Value));
+        }
+        if (EnemyTextures != null)
+        {
+
+        }
+        if (Selector != null)
+        {
+            Selector = Content.Load<Texture2D>(contentConfig.SelectSingleNode("//ContentConfig/Selector").Attributes.GetNamedItem("name").Value);
+        }
     }
 }
