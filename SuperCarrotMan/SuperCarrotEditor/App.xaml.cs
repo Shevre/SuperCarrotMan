@@ -178,7 +178,8 @@ namespace SuperCarrotEditor
         bool canscroll = false;
         int extraRows;
         public TileBrushMode brushMode = TileBrushMode.Single;
-
+        List<List<int>> selectedIds = new List<List<int>>();
+ 
         protected override void Initialize()
         {
             // must be initialized. required by Content loading and rendering (will add itself to the Services)
@@ -220,15 +221,17 @@ namespace SuperCarrotEditor
 
 
         int PrevScrollval = 0;
-
+        bool initialSelectionCheck = true;
+        int initSelectX, initSelectY;
         protected override void Update(GameTime time)
         {
             // every update we can now query the keyboard & mouse for our WpfGame
             var mouseState = _mouse.GetState();
             var keyboardState = _keyboard.GetState();
-
-            if (mouseState.LeftButton == ButtonState.Pressed)
+            Console.WriteLine(brushMode);
+            if (mouseState.LeftButton == ButtonState.Pressed && !keyboardState.IsKeyDown(Keys.LeftControl))
             {
+                brushMode = TileBrushMode.Single;
                 selectedX = (int)(mouseState.X / 64);
                 selectedY = (int)((mouseState.Y - scrolloffset) / 64);
                 
@@ -242,17 +245,38 @@ namespace SuperCarrotEditor
             }
             if (mouseState.LeftButton == ButtonState.Pressed && keyboardState.IsKeyDown(Keys.LeftControl))
             {
+                brushMode = TileBrushMode.Selection;
+                selectedIds.Clear();
+                if (initialSelectionCheck)
+                {
+                    initSelectX = selectedX;
+                    initSelectY = selectedY;
+                    
+                    
+                    initialSelectionCheck = false;
+                }
                 selectedX = (int)(mouseState.X / 64);
                 selectedY = (int)((mouseState.Y - scrolloffset) / 64);
-
-                selectedId = selectedX + ((int)(this.Width / 64) * selectedY);
-                if (selectedId > tiles.Count - 1)
+                
+                for (int y = initSelectY; y <= selectedY; y++)
                 {
-                    selectedId = 0;
+                    Console.WriteLine(initSelectY);
+                    List<int> Xints = new List<int>();
 
+
+                    for (int x = initSelectX; x <= selectedX; x++)
+                    {
+                        Console.WriteLine(initSelectX);
+                        Xints.Add(x + y * (int)(this.Width / 64));
+                    }
+                    selectedIds.Add(Xints);
                 }
-                Console.WriteLine(selectedId);
             }
+            else if(!initialSelectionCheck)
+            {
+                initialSelectionCheck = true;
+            }
+            
             if (canscroll)
             {
                 
@@ -302,7 +326,20 @@ namespace SuperCarrotEditor
                 }
 
             }
-            spriteBatch.Draw(selector, new Vector2(selectedX * 64, selectedY * 64 + scrolloffset), Color.White);
+            if (brushMode == TileBrushMode.Single) spriteBatch.Draw(selector, new Vector2(selectedX * 64, selectedY * 64 + scrolloffset), Color.White);
+            if (brushMode == TileBrushMode.Selection)
+            {
+                for (int y = 0; y < selectedIds.Count; y++)
+                {
+                    for (int x = 0; x < selectedIds[y].Count; x++)
+                    {
+                        Console.WriteLine(selectedIds[y][x]);
+                        spriteBatch.Draw(selector, new Vector2(x * 64, y * 64 + scrolloffset), Color.White);
+                    }
+                }
+            }
+            
+            
 
             spriteBatch.End();
         }
