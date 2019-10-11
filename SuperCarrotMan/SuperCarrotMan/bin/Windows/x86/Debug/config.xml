@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Config>
-<levelPath path="C:\Users\Shev\Desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\Levels" />
+<levelPath path="..\..\..\..\Levels" />
 <screen width="1280" height="720" fullscreen="false"/>
 <devConsole enabled="true"/>
 </Config>
