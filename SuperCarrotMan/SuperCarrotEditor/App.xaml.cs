@@ -149,8 +149,8 @@ namespace SuperCarrotEditor
             var mouseState = _mouse.GetState();
             var keyboardState = _keyboard.GetState();
             camera.update(_mouse);
-            if (brushMode == TileBrushMode.Single) tileDrawer.update(_mouse, camera, levels[currentLevel].level, TileBrushId);
-            else if(brushMode == TileBrushMode.Selection) tileDrawer.update(_mouse, camera, levels[currentLevel].level, SelectedIds);
+            if (brushMode == TileBrushMode.Single) tileDrawer.update(_mouse, camera, levels[currentLevel], TileBrushId);
+            else if(brushMode == TileBrushMode.Selection) tileDrawer.update(_mouse, camera, levels[currentLevel], SelectedIds);
 
         }
 
@@ -268,7 +268,7 @@ namespace SuperCarrotEditor
 
                         List<int> Xints = new List<int>();
 
-                        if (initSelectX < selectedX)
+                        if (initSelectX <= selectedX)
                         {
                             for (int x = initSelectX; x <= selectedX; x++)
                             {
@@ -276,7 +276,7 @@ namespace SuperCarrotEditor
                                 Xints.Add(x + y * 5);
                             }
                         }
-                        else if(initSelectX > selectedX) 
+                        else if(initSelectX >= selectedX) 
                         {
                             for (int x = initSelectX; x >= selectedX; x++)
                             {
@@ -299,7 +299,7 @@ namespace SuperCarrotEditor
                         {
                             for (int x = initSelectX; x <= selectedX; x++)
                             {
-                                SelectedTiles.Add(new Vector2(x * 64, (y * 64) + scrolloffset));
+                                SelectedTiles.Add(new Vector2(x * 64, (y * 64) /*+ scrolloffset*/));
                                 Xints.Add(x + y * 5);
                             }
                         }
@@ -307,7 +307,7 @@ namespace SuperCarrotEditor
                         {
                             for (int x = initSelectX; x >= selectedX; x--)
                             {
-                                SelectedTiles.Add(new Vector2(x * 64, (y * 64) + scrolloffset));
+                                SelectedTiles.Add(new Vector2(x * 64, (y * 64) /*+ scrolloffset*/));
                                 Xints.Add(x + y * 5);
                             }
                         }
@@ -376,7 +376,9 @@ namespace SuperCarrotEditor
             {
                 foreach (Vector2 v in SelectedTiles)
                 {
-                    spriteBatch.Draw(selector, v, Color.White);
+                    if (!initialSelectionCheck) spriteBatch.Draw(selector, new Vector2(v.X, v.Y), Color.White);
+                    else spriteBatch.Draw(selector, new Vector2(v.X, v.Y + scrolloffset), Color.White);
+
                 }
                 
                         

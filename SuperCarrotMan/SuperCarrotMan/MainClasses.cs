@@ -20,6 +20,7 @@ namespace SuperCarrotMan
         public Color skyColor;
         string levelXml;
         XmlDocument xmlDoc = new XmlDocument();
+        Random peterGriffin = new Random();
         
         public Level(string levelXml) 
         {
@@ -94,7 +95,7 @@ namespace SuperCarrotMan
             {
                 for (int x = 0; x < tileW; x++)
                 {
-                    if (level[y, x] != 0) spriteBatch.Draw(tiles[level[y, x]], camera.applyCamera(new Vector2(x * 64, y * 64)), Color.White);
+                    if (level[y, x] != 0) spriteBatch.Draw(tiles[level[y, x]], camera.applyCamera(new Vector2(x * 64 , y * 64)), Color.White);
                 }
             }
         }

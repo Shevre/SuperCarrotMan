@@ -19,7 +19,7 @@ namespace SuperCarrotEditor
         public int[,] level;
         Vector2 playerStartPos;
         public string name;
-        int tilesetId, tileW, tileH;
+        public int tileW, tileH;
         public Color skyColor;
         string levelXml;
         XmlDocument xmlDoc = new XmlDocument();
@@ -49,10 +49,6 @@ namespace SuperCarrotEditor
                     {
                         case "name":
                             name = levelReader.GetAttribute("name");
-                            break;
-                        case "tileset":
-                            tilesetId = int.Parse(levelReader.GetAttribute("id"));
-                            Console.WriteLine(tilesetId);
                             break;
                         case "startPos":
                             playerStartPos = new Vector2(int.Parse(levelReader.GetAttribute("x")), int.Parse(levelReader.GetAttribute("y")));
@@ -178,31 +174,41 @@ namespace SuperCarrotEditor
 
         }
 
-        public void update(WpfMouse wpfMouse, Camera camera, int[,] levelArray,int tileDrawerId)
+        public void update(WpfMouse wpfMouse, Camera camera, Level level,int tileDrawerId)
         {
+            
             if (wpfMouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 int x = wpfMouse.GetState().X, y = wpfMouse.GetState().Y;
                 Vector2 drawPos = camera.revApplyCamera(new Vector2(x, y));
-                levelArray[(int)(drawPos.Y / 64), (int)(drawPos.X / 64)] = tileDrawerId;
+                if (!(drawPos.X >= level.tileW * 64 || drawPos.Y > level.tileH * 64 || drawPos.Y < 0 || drawPos.X < 0))
+                {
+                    level.level[(int)(drawPos.Y / 64), (int)(drawPos.X / 64)] = tileDrawerId;
+                }
+                
             }
         }
 
-        public void update(WpfMouse wpfMouse, Camera camera, int[,] levelArray, List<List<int>> tileDrawerIds)
+        public void update(WpfMouse wpfMouse, Camera camera, Level level, List<List<int>> tileDrawerIds)
         {
             if (wpfMouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 int x = wpfMouse.GetState().X, y = wpfMouse.GetState().Y;
+               
                 Vector2 drawPos = camera.revApplyCamera(new Vector2(x, y));
-                for (int yy = 0; yy < tileDrawerIds.Count; yy++)
+                if (!(drawPos.X >= level.tileW * 64 || drawPos.Y > level.tileH * 64 || drawPos.Y < 0 || drawPos.X < 0))
                 {
-                    for (int xx = 0; xx < tileDrawerIds[yy].Count; xx++)
+                    for (int yy = 0; yy < tileDrawerIds.Count; yy++)
                     {
-                        int xxx = (int)(drawPos.X / 64) + xx;
-                        int yyy = (int)(drawPos.Y / 64) + yy;
-                        levelArray[yyy, xxx] = tileDrawerIds[yy][xx];
+                        for (int xx = 0; xx < tileDrawerIds[yy].Count; xx++)
+                        {
+                            int xxx = (int)(drawPos.X / 64) + xx;
+                            int yyy = (int)(drawPos.Y / 64) + yy;
+                            level.level[yyy, xxx] = tileDrawerIds[yy][xx];
+                        }
                     }
                 }
+                
             }
         }
     }
