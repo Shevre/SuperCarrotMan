@@ -18,5 +18,17 @@
     <Tile name = "Grass\20"/>
     <Tile name = "Grass\21"/>
     <Tile name = "Grass\22"/>
+    <Tile name="Grid"/>
+    <Tile name="Grid"/>
+    <Tile name = "Cloud\00"/>
+    <Tile name = "Cloud\01"/>
+    <Tile name = "Cloud\02"/>
+    <Tile name="Tree\00"/>
+    <Tile name="Tree\01"/>
+    <Tile name = "Cloud\10"/>
+    <Tile name = "Cloud\11"/>
+    <Tile name = "Cloud\12"/>
+    <Tile name="Tree\10"/>
+    <Tile name="Tree\11"/>
     <Selector name="Selector"/>
 </ContentConfig>

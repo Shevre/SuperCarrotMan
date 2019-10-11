@@ -187,5 +187,23 @@ namespace SuperCarrotEditor
                 levelArray[(int)(drawPos.Y / 64), (int)(drawPos.X / 64)] = tileDrawerId;
             }
         }
+
+        public void update(WpfMouse wpfMouse, Camera camera, int[,] levelArray, List<List<int>> tileDrawerIds)
+        {
+            if (wpfMouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                int x = wpfMouse.GetState().X, y = wpfMouse.GetState().Y;
+                Vector2 drawPos = camera.revApplyCamera(new Vector2(x, y));
+                for (int yy = 0; yy < tileDrawerIds.Count; yy++)
+                {
+                    for (int xx = 0; xx < tileDrawerIds[yy].Count; xx++)
+                    {
+                        int xxx = (int)(drawPos.X / 64) + xx;
+                        int yyy = (int)(drawPos.Y / 64) + yy;
+                        levelArray[yyy, xxx] = tileDrawerIds[yy][xx];
+                    }
+                }
+            }
+        }
     }
 }

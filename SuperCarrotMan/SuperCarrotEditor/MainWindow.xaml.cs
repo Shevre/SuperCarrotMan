@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -23,6 +24,10 @@ namespace SuperCarrotEditor
         public MainWindow()
         {
             InitializeComponent();
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += DispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            dispatcherTimer.Start();
         }
 
         private void ReloadButton_Click(object sender, RoutedEventArgs e)
@@ -36,24 +41,20 @@ namespace SuperCarrotEditor
             Editor.Levels[Editor.currentLevel].save();
         }
 
-        private void TileIdSelector0_Checked(object sender, RoutedEventArgs e)
-        {
-            Editor.TileBrushId = 0;
-        }
+        
 
-        private void TileIdSelector1_Checked(object sender, RoutedEventArgs e)
-        {
-            Editor.TileBrushId = 1;
-        }
-
-        private void TileIdSelector2_Checked(object sender, RoutedEventArgs e)
-        {
-            Editor.TileBrushId = 2;
-        }
+       
 
         private void WindowMain_Initialized(object sender, EventArgs e)
         {
             
+        }
+
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        {
+
+            epiclabel.Content = $"{TileViewer.initSelectX},{TileViewer.initSelectY}";
+           
         }
 
         private void TileViewer_Initialized(object sender, EventArgs e)
@@ -68,7 +69,18 @@ namespace SuperCarrotEditor
 
         private void TileViewer_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Editor.TileBrushId = TileViewer.selectedId;
+            if (TileViewer.brushMode == TileBrushMode.Single)
+            {
+                Editor.TileBrushId = TileViewer.selectedId;
+                Editor.brushMode = TileBrushMode.Single;
+            }
+            else if (TileViewer.brushMode == TileBrushMode.Selection)
+            {
+                Editor.SelectedIds = TileViewer.selectedIds;
+                Editor.brushMode = TileBrushMode.Selection;
+            }
+            
+            
             
         }
     }
