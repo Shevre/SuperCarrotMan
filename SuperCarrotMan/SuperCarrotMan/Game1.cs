@@ -158,8 +158,11 @@ namespace SuperCarrotMan
 
         protected override void Update(GameTime gameTime)
         {
-            
-            if (gameState == GameState.Playing)
+            if (gameState == GameState.MainMenu)
+            {
+                mainMenu.Update();
+            }
+            else if (gameState == GameState.Playing)
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 {

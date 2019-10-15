@@ -18,9 +18,15 @@ namespace SuperCarrotMan
         public MainMenu(int ScreenWidth, int ScreenHeight,ContentManager content) 
         {
             ButtonTextures buttonTextures = new ButtonTextures(content);
-            StartButton = new Button(buttonTextures, new Vector2(ScreenWidth / 2, 200),"Start");
-            CloseButton = new Button(buttonTextures, new Vector2(ScreenWidth / 2, 270), "Exit");
+            StartButton = new Button(buttonTextures, new Vector2(ScreenWidth / 2, 200),"Start",420,70);
+            CloseButton = new Button(buttonTextures, new Vector2(ScreenWidth / 2, 280), "Exit",420,70);
 
+        }
+
+        public void Update() 
+        {
+            StartButton.Update();
+            CloseButton.Update();
         }
 
         public void Draw(SpriteBatch spriteBatch) 
@@ -28,6 +34,8 @@ namespace SuperCarrotMan
             StartButton.Draw(spriteBatch);
             CloseButton.Draw(spriteBatch);
         }
+
+        
     }
 
     class Button
@@ -44,13 +52,18 @@ namespace SuperCarrotMan
 
         ButtonTextures buttonTextures;
 
-        public Button(ButtonTextures buttonTextures,Vector2 pos,string Text)
+       
+
+        public Button(ButtonTextures buttonTextures,Vector2 pos,string Text,int Width,int Height) //min size is 6x6
         {
 
             this.buttonTextures = buttonTextures;
-            Width =  buttonTextures.Default.Width;
-            Height = buttonTextures.Default.Height;
+            this.Width = Width;
+            this.Height = Height;
             Position = new Vector2(pos.X - (Width / 2), pos.Y - (Height / 2));
+
+
+
 
         }
 
@@ -79,12 +92,53 @@ namespace SuperCarrotMan
         {
             if (state == State.Default)
             {
-                spriteBatch.Draw(buttonTextures.Default, Position, Color.White);
+                spriteBatch.Draw(buttonTextures.Default, Position,new Rectangle(0,0,3,3), Color.White);
+                spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + Width - 3,Position.Y), new Rectangle(4, 0, 3, 3), Color.White);
+                spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X,Position.Y + Height - 3), new Rectangle(0, 4, 3, 3), Color.White);
+                spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + Width - 3, Position.Y + Height - 3), new Rectangle(4, 4, 3, 3), Color.White);
+                for (int i = 3; i < Width - 3; i++)
+                {
+                    spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + i, Position.Y), new Rectangle(3, 0, 1, 3), Color.White);
+                    spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + i, Position.Y + Height - 3), new Rectangle(3, 0, 1, 3), Color.White);
+                }
+                for (int i = 3; i < Height - 3; i++)
+                {
+                    spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X , Position.Y + i), new Rectangle(0, 3, 3, 1), Color.White);
+                    spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + Width - 3, Position.Y + i), new Rectangle(0, 3, 3, 1), Color.White);
+                }
+                for (int y = 3; y < Height - 3; y++)
+                {
+                    for (int x = 3; x < Width - 3; x++)
+                    {
+                        spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + x, Position.Y + y), new Rectangle(3, 3, 1, 1), Color.White);
+                    }
+                }
+
 
             }
             else if(state == State.Pressed) 
             {
-                spriteBatch.Draw(buttonTextures.Pressed, Position, Color.White);
+                spriteBatch.Draw(buttonTextures.Pressed, Position, new Rectangle(0, 0, 3, 3), Color.White);
+                spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + Width - 3, Position.Y), new Rectangle(4, 0, 3, 3), Color.White);
+                spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X, Position.Y + Height - 3), new Rectangle(0, 4, 3, 3), Color.White);
+                spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + Width - 3, Position.Y + Height - 3), new Rectangle(4, 4, 3, 3), Color.White);
+                for (int i = 3; i < Width - 3; i++)
+                {
+                    spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + i, Position.Y), new Rectangle(3, 0, 1, 3), Color.White);
+                    spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + i, Position.Y + Height - 3), new Rectangle(3, 0, 1, 3), Color.White);
+                }
+                for (int i = 3; i < Height - 3; i++)
+                {
+                    spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X, Position.Y + i), new Rectangle(0, 3, 3, 1), Color.White);
+                    spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + Width - 3, Position.Y + i), new Rectangle(0, 3, 3, 1), Color.White);
+                }
+                for (int y = 3; y < Height - 3; y++)
+                {
+                    for (int x = 3; x < Width - 3; x++)
+                    {
+                        spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + x, Position.Y + y), new Rectangle(3, 3, 1, 1), Color.White);
+                    }
+                }
             }
 
         }
@@ -93,6 +147,7 @@ namespace SuperCarrotMan
     struct ButtonTextures 
     {
         public Texture2D Default, Pressed;
+               
         public ButtonTextures(ContentManager content) 
         {
             Default = content.Load<Texture2D>("Button");
