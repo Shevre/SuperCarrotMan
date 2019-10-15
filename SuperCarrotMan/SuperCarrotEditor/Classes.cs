@@ -16,12 +16,13 @@ namespace SuperCarrotEditor
 {
     public class Level
     {
-        public int[,] level;
+        public List<int[,]> levelLayers = new List<int[,]>();
         Vector2 playerStartPos;
         public string name;
         public int tileW, tileH;
         public Color skyColor;
         string levelXml;
+        public int CurrentLayer = 0;
         XmlDocument xmlDoc = new XmlDocument();
         public Level(string levelXml)
         {
@@ -54,20 +55,28 @@ namespace SuperCarrotEditor
                             playerStartPos = new Vector2(int.Parse(levelReader.GetAttribute("x")), int.Parse(levelReader.GetAttribute("y")));
                             break;
                         case "terrain":
-                            string[] _slevel = xmlDoc.SelectSingleNode("//level/terrain").InnerText.Split('\n');
-                            string[] _ystring = _slevel[0].Split(',');
-                            level = new int[_slevel.Length, _ystring.Length];
-                            tileH = _slevel.Length;
-                            tileW = _ystring.Length;
+                            XmlNode node = xmlDoc.SelectSingleNode("//level/terrain");
+                            
+                                string[] _slevel = node.InnerText.Split('\n');
+                                string[] _ystring = _slevel[0].Split(',');
 
-                            for (int i = 0; i < _slevel.Length; i++)
-                            {
-                                _ystring = _slevel[i].Split(',');
-                                for (int j = 0; j < _ystring.Length; j++)
+
+                                levelLayers.Add(new int[_slevel.Length, _ystring.Length]);
+                                tileH = _slevel.Length;
+                                tileW = _ystring.Length;
+
+
+
+                                for (int i = 0; i < _slevel.Length; i++)
                                 {
-                                    level[i, j] = int.Parse(_ystring[j]);
+                                    _ystring = _slevel[i].Split(',');
+                                    for (int j = 0; j < _ystring.Length; j++)
+                                    {
+                                        levelLayers[0][i, j] = int.Parse(_ystring[j]);
+                                    }
                                 }
-                            }
+                            
+                            
 
                             break;
                         case "skyColor":
@@ -83,12 +92,25 @@ namespace SuperCarrotEditor
 
         public void Draw(SpriteBatch spriteBatch, List<Texture2D> tiles, Camera camera)
         {
-
+            
+            foreach (int[,] layer in levelLayers)
+            {
+                for (int y = 0; y < tileH; y++)
+                {
+                    for (int x = 0; x < tileW; x++)
+                    {
+                        if (layer[y, x] != 0) spriteBatch.Draw(tiles[layer[y, x]], camera.applyCamera(new Vector2(x * 64, y * 64)), Color.White);
+                        
+                       
+                    }
+                }
+            }
             for (int y = 0; y < tileH; y++)
             {
                 for (int x = 0; x < tileW; x++)
                 {
-                    if (level[y, x] != 0) spriteBatch.Draw(tiles[level[y,x]], camera.applyCamera(new Vector2(x * 64, y * 64)), Color.White);
+
+
                     spriteBatch.Draw(tiles[0], camera.applyCamera(new Vector2(x * 64, y * 64)), Color.White);
                 }
             }
@@ -100,20 +122,26 @@ namespace SuperCarrotEditor
         public void save()
         {
             xmlDoc.SelectSingleNode("//level/name").Attributes.GetNamedItem("name").Value = name;
-            string terrainString = "";
-
-            for (int y = 0; y < tileH; y++)
+            XmlNodeList TerrainNodes = xmlDoc.SelectNodes("//level/terrain");
+            int i = 0;
+            foreach (XmlNode node in TerrainNodes)
             {
-                for (int x = 0; x < tileW; x++)
-                {
-                    terrainString += level[y, x].ToString() + ",";
-                }
-                terrainString = terrainString.Remove(terrainString.Length - 1);
-                terrainString += Environment.NewLine;
-            }
-            terrainString = terrainString.Remove(terrainString.Length - 2);
+                string terrainString = "";
 
-            xmlDoc.SelectSingleNode("//level/terrain").InnerText = terrainString;
+                for (int y = 0; y < tileH; y++)
+                {
+                    for (int x = 0; x < tileW; x++)
+                    {
+                        terrainString += levelLayers[i][y, x].ToString() + ",";
+                    }
+                    terrainString = terrainString.Remove(terrainString.Length - 1);
+                    terrainString += Environment.NewLine;
+                }
+                terrainString = terrainString.Remove(terrainString.Length - 2);
+
+                node.InnerText = terrainString;
+                i++;
+            }
             xmlDoc.Save(levelXml);
         }
     }
@@ -183,7 +211,7 @@ namespace SuperCarrotEditor
                 Vector2 drawPos = camera.revApplyCamera(new Vector2(x, y));
                 if (!(drawPos.X >= level.tileW * 64 || drawPos.Y > level.tileH * 64 || drawPos.Y < 0 || drawPos.X < 0))
                 {
-                    level.level[(int)(drawPos.Y / 64), (int)(drawPos.X / 64)] = tileDrawerId;
+                    level.levelLayers[level.CurrentLayer][(int)(drawPos.Y / 64), (int)(drawPos.X / 64)] = tileDrawerId;
                 }
                 
             }
@@ -204,7 +232,7 @@ namespace SuperCarrotEditor
                         {
                             int xxx = (int)(drawPos.X / 64) + xx;
                             int yyy = (int)(drawPos.Y / 64) + yy;
-                            level.level[yyy, xxx] = tileDrawerIds[yy][xx];
+                            level.levelLayers[level.CurrentLayer][yyy, xxx] = tileDrawerIds[yy][xx];
                         }
                     }
                 }

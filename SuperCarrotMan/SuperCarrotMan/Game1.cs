@@ -9,17 +9,33 @@ using System.Xml;
 namespace SuperCarrotMan
 {
 
+    enum GameState { MainMenu,Paused,Playing};
+
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
         string LevelPath = "";
+
         int _nScreenWidth = 1280;
         int _nScreenHeight = 720;
+
+        
         bool _blDevConsole = false;
+
         Camera camera = new Camera();
+
         List<Texture2D> tiles = new List<Texture2D>();
+        Texture2D Cursor;
+
         Random PeterGriffin = new Random();
+
+        MainMenu mainMenu;
+
+        int CurrentLevel = 0;
+
+        GameState gameState = GameState.MainMenu;
 
         public Game1()
         {
@@ -129,6 +145,8 @@ namespace SuperCarrotMan
 
             ContentLoader contentLoader = new ContentLoader();
             contentLoader.SetContent("ContentConfig.xml", Content, tiles);
+            Cursor = Content.Load<Texture2D>("Cursor");
+            mainMenu = new MainMenu(_nScreenWidth, _nScreenHeight, Content);
 
 
         }
@@ -140,22 +158,27 @@ namespace SuperCarrotMan
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            
+            if (gameState == GameState.Playing)
             {
-                camera.offsetY += 2;
+                if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                {
+                    camera.offsetY += 2;
+                }
+                if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                {
+                    camera.offsetY -= 2;
+                }
+                if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                {
+                    camera.offsetX -= 2;
+                }
+                if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                {
+                    camera.offsetX += 2;
+                }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                camera.offsetY -= 2;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                camera.offsetX -= 2;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                camera.offsetX += 2;
-            }
+            
 
             // TODO: Add your update logic here
 
@@ -164,13 +187,27 @@ namespace SuperCarrotMan
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(levels[0].skyColor);
             spriteBatch.Begin();
-            levels[0].Draw(spriteBatch, tiles,camera);
-            
-            spriteBatch.End();
-            // TODO: Add your drawing code here
+            if (gameState == GameState.MainMenu || gameState == GameState.Paused)
+            {
+                GraphicsDevice.Clear(new Color(125,20,120));
+                
+                mainMenu.Draw(spriteBatch);
 
+                spriteBatch.Draw(Cursor, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), Color.White);
+            }
+            if (gameState == GameState.Playing)
+            {
+                GraphicsDevice.Clear(levels[CurrentLevel].skyColor);
+                
+                levels[CurrentLevel].Draw(spriteBatch, tiles, camera);
+            }
+
+
+
+
+            // TODO: Add your drawing code here
+            spriteBatch.End();
             base.Draw(gameTime);
         }
 

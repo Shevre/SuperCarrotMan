@@ -28,6 +28,8 @@ namespace SuperCarrotEditor
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
             dispatcherTimer.Start();
+            
+            
         }
 
         private void ReloadButton_Click(object sender, RoutedEventArgs e)
@@ -82,6 +84,25 @@ namespace SuperCarrotEditor
             
             
             
+        }
+
+        private void LayerSelector_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+
+        }
+
+        private void Editor_Initialized(object sender, EventArgs e)
+        {
+            //for (int i = 0; i < Editor.Levels[Editor.currentLevel].levelLayers.Count(); i++)
+            //{
+            //    LayerSelector.Items.Add(i);
+            //}
+        }
+
+        private void ChangeLayer_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+            Editor.Levels[Editor.currentLevel].CurrentLayer = int.Parse(b.Content.ToString());
         }
     }
 }

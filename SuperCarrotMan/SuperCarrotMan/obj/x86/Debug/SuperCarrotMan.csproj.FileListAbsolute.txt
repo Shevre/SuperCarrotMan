@@ -78,3 +78,6 @@ C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarr
 C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\Cloud\10.xnb
 C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\Cloud\11.xnb
 C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\Cloud\12.xnb
+C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\Button.xnb
+C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\Button_P.xnb
+C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\Cursor.xnb

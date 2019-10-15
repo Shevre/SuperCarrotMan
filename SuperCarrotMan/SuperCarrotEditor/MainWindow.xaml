@@ -10,11 +10,12 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <local:EditorFrame x:Name="Editor" Margin="325,0,0,0"/>
+        <local:EditorFrame x:Name="Editor" Margin="325,0,0,0" Initialized="Editor_Initialized"/>
         <Button x:Name="reloadButton" Content="Reload level" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="ReloadButton_Click"/>
         <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="20" Margin="10,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112"/>
         <Button x:Name="SaveButton" Content="Save Level" HorizontalAlignment="Left" Margin="10,360,0,0" VerticalAlignment="Top" Width="75" Click="SaveButton_Click"/>
         <local:TileViewer x:Name="TileViewer" HorizontalAlignment="Left" Height="320" Margin="0,35,0,0" VerticalAlignment="Top" Width="320" Initialized="TileViewer_Initialized" MouseLeftButtonDown="TileViewer_MouseLeftButtonDown" MouseLeftButtonUp="TileViewer_MouseLeftButtonUp"/>
         <Label x:Name="epiclabel" Content="" HorizontalAlignment="Left" Margin="47,410,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="LayerSelector" HorizontalAlignment="Left" Height="100" Margin="10,410,0,0" VerticalAlignment="Top" Width="100" TargetUpdated="LayerSelector_TargetUpdated"/>
     </Grid>
 </Window>
