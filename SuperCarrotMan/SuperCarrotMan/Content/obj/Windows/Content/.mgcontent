@@ -4,32 +4,32 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Button.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Button_P.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/00.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/01.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/02.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/10.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/11.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/12.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cursor.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/00.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/01.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/02.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/10.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/11.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/12.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/20.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/21.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/22.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grid.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Ground1.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Ground2.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Selector.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Tree/00.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Tree/01.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Tree/10.png</File>
-    <File>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Tree/11.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Button.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Button_P.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/00.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/01.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/02.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/10.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/11.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/12.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cursor.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/00.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/01.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/02.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/10.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/11.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/12.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/20.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/21.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grass/22.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Grid.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Ground1.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Ground2.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Selector.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Tree/00.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Tree/01.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Tree/10.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Tree/11.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
