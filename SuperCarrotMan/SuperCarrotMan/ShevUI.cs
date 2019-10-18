@@ -2,41 +2,106 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace Shev.monoGameUI
 {
-    class Button
+    enum TextAllign {Center,Right,Left };
+    class UIElement 
+    {
+        public Vector2 Position;
+        public string name;
+        public int width, height;
+        public Texture2D DefaultTexture;
+
+        public void Update() 
+        {
+            
+        }
+
+        public void Draw(SpriteBatch spriteBatch) 
+        {
+            spriteBatch.Draw(DefaultTexture, Position, Color.White);
+        }
+    }
+
+    class Menu 
+    {
+        List<UIElement> uIElements = new List<UIElement>();
+        Color backgroundColor;
+
+        public Menu(Color backgroundColor) 
+        {
+            this.backgroundColor = backgroundColor;
+        }
+
+        public void Update() 
+        {
+            foreach (UIElement ui in uIElements)
+            {
+                ui.Update();
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch) 
+        {
+            foreach (UIElement ui in uIElements)
+            {
+                ui.Draw(spriteBatch);
+            }
+        }
+
+        public Button getButton(string name) 
+        {
+            foreach (Button b in uIElements)
+            {
+                if (b.name == name)
+                {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+        public void AddUIElement(UIElement ui) 
+        {
+            uIElements.Add(ui);
+        }
+
+    }
+
+    class Button : UIElement
     {
         enum State { Default, Pressed }
         State state = State.Default;
-
-
-        int Width, Height;
-
-        Vector2 Position;
 
         public bool ButtonClicked = false;
 
         ButtonTextures buttonTextures;
 
+        SpriteFont font;
+        string text;
+        TextAllign textAllign;
 
-
-        public Button(ButtonTextures buttonTextures, Vector2 pos, string Text, int Width, int Height) //min size is 6x6
+        public Button(string name,ButtonTextures buttonTextures, Vector2 pos, int width, int height, string Text,SpriteFont font,TextAllign textAllign) //min size is 6x6
         {
-
+            this.name = name;
             this.buttonTextures = buttonTextures;
-            this.Width = Width;
-            this.Height = Height;
-            Position = new Vector2(pos.X - (Width / 2), pos.Y - (Height / 2));
+            this.width = width;
+            this.height = height;
+            Position = new Vector2(pos.X - (width / 2), pos.Y - (height / 2));
+            this.font = font;
+            this.text = Text;
+            this.textAllign = textAllign;
 
 
 
 
         }
 
-        public void Update()
+        public new void Update()
         {
-            if (Mouse.GetState().X > Position.X && Mouse.GetState().X < Position.X + Width && Mouse.GetState().Y > Position.Y && Mouse.GetState().Y < Position.Y + Height)
+            if (Mouse.GetState().X > Position.X && Mouse.GetState().X < Position.X + width && Mouse.GetState().Y > Position.Y && Mouse.GetState().Y < Position.Y + height)
             {
                 state = State.Pressed;
             }
@@ -55,30 +120,30 @@ namespace Shev.monoGameUI
 
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public new void Draw(SpriteBatch spriteBatch)
         {
             if (state == State.Default)
             {
                 spriteBatch.Draw(buttonTextures.Default, Position, new Rectangle(0, 0, 3, 3), Color.White);
-                spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + Width - 3, Position.Y), new Rectangle(4, 0, 3, 3), Color.White);
-                spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X, Position.Y + Height - 3), new Rectangle(0, 4, 3, 3), Color.White);
-                spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + Width - 3, Position.Y + Height - 3), new Rectangle(4, 4, 3, 3), Color.White);
+                spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + width - 3, Position.Y), new Rectangle(4, 0, 3, 3), Color.White);
+                spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X, Position.Y + height - 3), new Rectangle(0, 4, 3, 3), Color.White);
+                spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + width - 3, Position.Y + height - 3), new Rectangle(4, 4, 3, 3), Color.White);
 
-                for (int i = 3; i < Width - 3; i++)
+                for (int i = 3; i < width - 3; i++)
                 {
                     spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + i, Position.Y), new Rectangle(3, 0, 1, 3), Color.White);
-                    spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + i, Position.Y + Height - 3), new Rectangle(3, 0, 1, 3), Color.White);
+                    spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + i, Position.Y + height - 3), new Rectangle(3, 0, 1, 3), Color.White);
                 }
 
-                for (int i = 3; i < Height - 3; i++)
+                for (int i = 3; i < height - 3; i++)
                 {
                     spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X, Position.Y + i), new Rectangle(0, 3, 3, 1), Color.White);
-                    spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + Width - 3, Position.Y + i), new Rectangle(0, 3, 3, 1), Color.White);
+                    spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + width - 3, Position.Y + i), new Rectangle(0, 3, 3, 1), Color.White);
                 }
 
-                for (int y = 3; y < Height - 3; y++)
+                for (int y = 3; y < height - 3; y++)
                 {
-                    for (int x = 3; x < Width - 3; x++)
+                    for (int x = 3; x < width - 3; x++)
                     {
                         spriteBatch.Draw(buttonTextures.Default, new Vector2(Position.X + x, Position.Y + y), new Rectangle(3, 3, 1, 1), Color.White);
                     }
@@ -90,30 +155,44 @@ namespace Shev.monoGameUI
             {
                 
                 spriteBatch.Draw(buttonTextures.Pressed, Position, new Rectangle(0, 0, 3, 3), Color.White);
-                spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + Width - 3, Position.Y), new Rectangle(4, 0, 3, 3), Color.White);
-                spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X, Position.Y + Height - 3), new Rectangle(0, 4, 3, 3), Color.White);
-                spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + Width - 3, Position.Y + Height - 3), new Rectangle(4, 4, 3, 3), Color.White);
+                spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + width - 3, Position.Y), new Rectangle(4, 0, 3, 3), Color.White);
+                spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X, Position.Y + height - 3), new Rectangle(0, 4, 3, 3), Color.White);
+                spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + width - 3, Position.Y + height - 3), new Rectangle(4, 4, 3, 3), Color.White);
 
-                for (int i = 3; i < Width - 3; i++)
+                for (int i = 3; i < width - 3; i++)
                 {
                     spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + i, Position.Y), new Rectangle(3, 0, 1, 3), Color.White);
-                    spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + i, Position.Y + Height - 3), new Rectangle(3, 0, 1, 3), Color.White);
+                    spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + i, Position.Y + height - 3), new Rectangle(3, 0, 1, 3), Color.White);
                 }
 
-                for (int i = 3; i < Height - 3; i++)
+                for (int i = 3; i < height - 3; i++)
                 {
                     spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X, Position.Y + i), new Rectangle(0, 3, 3, 1), Color.White);
-                    spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + Width - 3, Position.Y + i), new Rectangle(0, 3, 3, 1), Color.White);
+                    spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + width - 3, Position.Y + i), new Rectangle(0, 3, 3, 1), Color.White);
                 }
 
-                for (int y = 3; y < Height - 3; y++)
+                for (int y = 3; y < height - 3; y++)
                 {
-                    for (int x = 3; x < Width - 3; x++)
+                    for (int x = 3; x < width - 3; x++)
                     {
                         spriteBatch.Draw(buttonTextures.Pressed, new Vector2(Position.X + x, Position.Y + y), new Rectangle(3, 3, 1, 1), Color.White);
                     }
                 }
             }
+            switch (textAllign)
+            {
+                case TextAllign.Center:
+                    spriteBatch.DrawString(font, text, new Vector2(Position.X + (int)(width / 2),Position.Y), Color.Black);
+                    break;
+                case TextAllign.Right:
+                    spriteBatch.DrawString(font, text, Position, Color.Black);
+                    break;
+                case TextAllign.Left:
+                    break;
+                default:
+                    break;
+            }
+            
 
         }
     }

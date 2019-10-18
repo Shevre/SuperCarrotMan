@@ -37,6 +37,13 @@
 /processorParam:TextureFormat=Color
 /build:Button_P.png
 
+#begin ButtonText.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:ButtonText.spritefont
+
 #begin Cloud/00.png
 /importer:TextureImporter
 /processor:TextureProcessor

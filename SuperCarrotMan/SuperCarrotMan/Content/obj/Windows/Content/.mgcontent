@@ -6,6 +6,7 @@
   <SourceFiles>
     <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Button.png</File>
     <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Button_P.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/ButtonText.spritefont</File>
     <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/00.png</File>
     <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/01.png</File>
     <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Cloud/02.png</File>
@@ -32,6 +33,7 @@
     <File>C:/Users/Leerling/Desktop/Anime Pictures/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/Tree/11.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
