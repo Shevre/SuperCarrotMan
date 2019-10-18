@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using System.Xml;
+using Shev.monoGameUI;
 
 namespace SuperCarrotMan
 {
@@ -31,7 +32,7 @@ namespace SuperCarrotMan
 
         Random PeterGriffin = new Random();
 
-        MainMenu mainMenu;
+        Menu mainMenu;
 
         int CurrentLevel = 0;
 
@@ -146,7 +147,14 @@ namespace SuperCarrotMan
             ContentLoader contentLoader = new ContentLoader();
             contentLoader.SetContent("ContentConfig.xml", Content, tiles);
             Cursor = Content.Load<Texture2D>("Cursor");
-            mainMenu = new MainMenu(_nScreenWidth, _nScreenHeight, Content);
+            mainMenu = new Menu(new Color(57, 247, 235));
+            ButtonTextures buttonTextures = new ButtonTextures(Content.Load<Texture2D>("Button"), Content.Load<Texture2D>("Button_P"), 3, 1);
+
+            Texture2D defaultTexture = Content.Load<Texture2D>("Button");
+            Texture2D pressedTexture = Content.Load<Texture2D>("Button_P");
+
+            mainMenu.AddUIElement(new Button("StartButton",defaultTexture,pressedTexture, new Vector2(_nScreenWidth / 2, 200), 600, 80, "Start",Content.Load<SpriteFont>("ButtonText"),TextAllign.Center));
+            mainMenu.AddUIElement(new Button("CloseButton",defaultTexture,pressedTexture, new Vector2(_nScreenWidth / 2, 290), 420, 80, "Exit",Content.Load<SpriteFont>("ButtonText"),TextAllign.Center,ButtonTypes.CloseButton));
 
 
         }
@@ -160,7 +168,12 @@ namespace SuperCarrotMan
         {
             if (gameState == GameState.MainMenu)
             {
-                mainMenu.Update();
+                mainMenu.Update(this);
+                if (mainMenu.getButton("StartButton").ButtonClicked)
+                {
+                    gameState = GameState.Playing;
+                }
+                
             }
             else if (gameState == GameState.Playing)
             {
@@ -193,7 +206,7 @@ namespace SuperCarrotMan
             spriteBatch.Begin();
             if (gameState == GameState.MainMenu || gameState == GameState.Paused)
             {
-                GraphicsDevice.Clear(new Color(125,20,120));
+                GraphicsDevice.Clear(mainMenu.backgroundColor);
                 
                 mainMenu.Draw(spriteBatch);
 
