@@ -3,11 +3,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System;
 
 namespace Shev.monoGameUI
 {
     enum TextAllign {Center,Right,Left };
-    enum ButtonTypes { CloseButton,BackButton,GenericButton }
+    enum ButtonTypes { CloseButton,BackButton,GenericButton,MenuButton }
     class UIElement 
     {
         public Vector2 Position;
@@ -26,47 +27,69 @@ namespace Shev.monoGameUI
         }
     }
 
-    
-
     class Menu 
     {
         List<UIElement> uIElements = new List<UIElement>();
-        List<Menu> subMenus = new List<Menu>();
-        Menu parentMenu = null;
-        public bool TopMenu = false;
+        public List<Menu> subMenus = new List<Menu>();
+        public Menu parentMenu = null;
+        public bool TopMenu = true;
         public Color backgroundColor;
+        public int SelectedMenu = 0; //0 is the menu itself, the others represent submenus.
 
-        public Menu(Color backgroundColor,Menu parentMenu = null) 
+        public Menu(Color backgroundColor) 
         {
             this.backgroundColor = backgroundColor;
+        }
 
-            if (parentMenu == null) TopMenu = true;
-            else this.parentMenu = parentMenu;
+        public void SetParentMenu(Menu menu) 
+        {
+            TopMenu = false;
+            parentMenu = menu;
         }
 
         public void Update(Game game) 
         {
-            foreach (UIElement ui in uIElements)
+            if (SelectedMenu != 0)
             {
-                if (ui.GetType() == typeof(Button))
+                subMenus[SelectedMenu - 1].Update(game);
+            }
+            else 
+            {
+                foreach (UIElement ui in uIElements)
                 {
-                    Button b = (Button)ui;
-                    b.Update(game);
+                    if (ui.GetType() == typeof(Button))
+                    {
+                        Button b = (Button)ui;
+                        b.Update(game, this);
+                    }
                 }
             }
+            
         }
 
-        public void Draw(SpriteBatch spriteBatch) 
+        public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (UIElement ui in uIElements)
+            if (SelectedMenu != 0)
             {
-                if(ui.GetType() == typeof(Button)) 
-                {
-                    Button b = (Button)ui;
-                    b.Draw(spriteBatch);
-                }
-               
+                subMenus[SelectedMenu - 1].Draw(spriteBatch);
             }
+            else 
+            {
+                foreach (UIElement ui in uIElements)
+                {
+                    if (ui.GetType() == typeof(Button))
+                    {
+                        Button b = (Button)ui;
+                        b.Draw(spriteBatch);
+                    }
+                    else 
+                    {
+                        ui.Draw(spriteBatch);
+                    }
+
+                }
+            }
+            
         }
 
         public Button getButton(string name) 
@@ -88,14 +111,19 @@ namespace Shev.monoGameUI
 
         public void AddSubMenu(Menu menu) 
         {
+            menu.SetParentMenu(this);
             subMenus.Add(menu);
         }
 
+        public override string ToString()
+        {
+            return "Menu";
+        }
     }
 
     class Button : UIElement
     {
-        enum State { Default, Pressed }
+        enum State { Default, Down }
         State state = State.Default;
 
         ButtonTypes type;
@@ -108,35 +136,67 @@ namespace Shev.monoGameUI
         string text;
         TextAllign textAllign;
 
-        public Button(string name,Texture2D defaultTexture, Texture2D pressedTexture, Vector2 pos, int width, int height, string Text,SpriteFont font,TextAllign textAllign,ButtonTypes buttonType = ButtonTypes.GenericButton) //min size is 6x6
+        Menu NavigateTo;
+
+        Texture2D image;
+
+        public Button(string name,Texture2D defaultTexture, Texture2D pressedTexture, Vector2 pos, int width, int height, string Text,SpriteFont font,TextAllign textAllign = TextAllign.Center,ButtonTypes buttonType = ButtonTypes.GenericButton,Menu NavigateTo = null) //min size is 6x6
         {
             this.name = name;
             this.defaultTexture = defaultTexture;
             this.pressedTexture = pressedTexture;
             this.width = width;
             this.height = height;
-            Position = new Vector2(pos.X - (width / 2), pos.Y - (height / 2));
+            Position = pos;
             this.font = font;
             this.text = Text;
             this.textAllign = textAllign;
             type = buttonType;
 
 
-
+            if (type == ButtonTypes.MenuButton)
+            {
+                this.NavigateTo = NavigateTo;
+                Console.WriteLine(this.NavigateTo.ToString());
+            }
 
         }
+        public Button(string name, Texture2D defaultTexture, Texture2D pressedTexture, Vector2 pos, int width, int height,Texture2D image, TextAllign textAllign = TextAllign.Center, ButtonTypes buttonType = ButtonTypes.GenericButton, Menu NavigateTo = null) //min size is 6x6
+        {
+            this.name = name;
+            this.defaultTexture = defaultTexture;
+            this.pressedTexture = pressedTexture;
+            this.width = width;
+            this.height = height;
+            Position = pos;
+            
+            this.textAllign = textAllign;
+            type = buttonType;
+            this.image = image;
 
-        public void Update(Game game)
+            if (type == ButtonTypes.MenuButton)
+            {
+                this.NavigateTo = NavigateTo;
+                Console.WriteLine(this.NavigateTo.ToString());
+            }
+
+        }
+        private bool MouseHold = false;
+        public void Update(Game game,Menu menu)
         {
             if (Mouse.GetState().X > Position.X && Mouse.GetState().X < Position.X + width && Mouse.GetState().Y > Position.Y && Mouse.GetState().Y < Position.Y + height)
             {
-                state = State.Pressed;
+                state = State.Down;
             }
             else
             {
                 state = State.Default;
             }
-            if (state == State.Pressed && Mouse.GetState().LeftButton == ButtonState.Pressed)
+            if (state == State.Down && Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                MouseHold = true;
+            }
+            else if(state == State.Down && Mouse.GetState().LeftButton == ButtonState.Released && MouseHold) 
             {
                 ButtonClicked = true;
 
@@ -146,16 +206,30 @@ namespace Shev.monoGameUI
                         game.Exit();
                         break;
                     case ButtonTypes.BackButton:
-                        
+                        if (!menu.TopMenu)
+                        {
+                            menu.parentMenu.SelectedMenu = 0;
+                        }
+                        break;
+                    case ButtonTypes.MenuButton:
+
+                        if (NavigateTo != null)
+                        {
+                            menu.SelectedMenu = menu.subMenus.IndexOf(NavigateTo) + 1;
+
+                        }
+
                         break;
                     default:
                         break;
+                        
                 }
-
+                MouseHold = false;
             }
             else
             {
                 ButtonClicked = false;
+                MouseHold = false;
             }
 
         }
@@ -191,7 +265,7 @@ namespace Shev.monoGameUI
 
 
             }
-            else if (state == State.Pressed)
+            else if (state == State.Down)
             {
                 
                 spriteBatch.Draw(pressedTexture, Position, new Rectangle(0, 0, 3, 3), Color.White);
@@ -222,34 +296,48 @@ namespace Shev.monoGameUI
             switch (textAllign)
             {
                 case TextAllign.Center:
-                    spriteBatch.DrawString(font, text, new Vector2(Position.X + (width / 2) - (font.MeasureString(text).X / 2) ,Position.Y + (height / 2) - (font.MeasureString(text).Y / 2)), Color.Black);
+                    if (text != null) spriteBatch.DrawString(font, text, new Vector2(Position.X + (width / 2) - (font.MeasureString(text).X / 2), Position.Y + (height / 2) - (font.MeasureString(text).Y / 2)), Color.Black);
+                    
                     break;
                 case TextAllign.Right:
-                    spriteBatch.DrawString(font, text, new Vector2(Position.X, Position.Y + (height / 2) - (font.MeasureString(text).Y / 2)), Color.Black);
+                    if (text != null) spriteBatch.DrawString(font, text, new Vector2(Position.X, Position.Y + (height / 2) - (font.MeasureString(text).Y / 2)), Color.Black);
                     break;
                 case TextAllign.Left:
-                    spriteBatch.DrawString(font, text, new Vector2(Position.X + width - font.MeasureString(text).X - 6, Position.Y + (height / 2) - (font.MeasureString(text).Y / 2)), Color.Black);
+                    if (text != null) spriteBatch.DrawString(font, text, new Vector2(Position.X + width - font.MeasureString(text).X - 6, Position.Y + (height / 2) - (font.MeasureString(text).Y / 2)), Color.Black);
                     break;
                 default:
                     break;
                     
             }
+            if (image != null) spriteBatch.Draw(image, new Vector2(Position.X + (width / 2) - (image.Width / 2), (Position.Y + (height / 2) - (image.Height / 2))), Color.White);
+
+        }
+
+        public override string ToString()
+        {
+            return name;
+        }
+    }
+
+    class ImageBox : UIElement 
+    {
+        public ImageBox(string name, Texture2D image, Vector2 pos) 
+        {
+            defaultTexture = image;
+            this.name = name;
+            this.Position = pos;
+            this.width = image.Width;
+            this.height = image.Height;
+
+        }
+        public ImageBox(string name, string imageLocation, Vector2 pos)
+        {
+            
+            this.name = name;
+            this.Position = pos;
             
 
         }
     }
-
-    struct ButtonTextures
-    {
-        public Texture2D Default, Pressed;
-        public int BorderSize, BodyTileSize;
-
-        public ButtonTextures(Texture2D defaultTex,Texture2D pressedTex,int BorderSize,int BodyTileSize)
-        {
-            Default = defaultTex;
-            Pressed = pressedTex;
-            this.BorderSize = BorderSize;
-            this.BodyTileSize = BodyTileSize;
-        }
-    }
+    
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/ButtonText.spritefont</SourceFile>
-  <SourceTime>2019-10-21T18:39:40.4246432+02:00</SourceTime>
-  <DestFile>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/bin/Windows/ButtonText.xnb</DestFile>
-  <DestTime>2019-10-21T21:03:13.4193352+02:00</DestTime>
+  <SourceFile>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/WingDings.spritefont</SourceFile>
+  <SourceTime>2019-10-21T21:03:08.69295+02:00</SourceTime>
+  <DestFile>R:/desktop/epic/SuperCarrotMan/SuperCarrotMan/SuperCarrotMan/Content/bin/Windows/WingDings.xnb</DestFile>
+  <DestTime>2019-10-21T21:03:13.7644377+02:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

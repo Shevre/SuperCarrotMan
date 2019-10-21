@@ -19,8 +19,11 @@ namespace SuperCarrotMan
 
         string LevelPath = "";
 
-        int _nScreenWidth = 1280;
-        int _nScreenHeight = 720;
+        static int defScreenWidth = 960;
+        static int defScreenHeight = 540;
+
+        int _nScreenWidth = defScreenHeight;
+        int _nScreenHeight = defScreenHeight;
 
         
         bool _blDevConsole = false;
@@ -30,11 +33,12 @@ namespace SuperCarrotMan
         List<Texture2D> tiles = new List<Texture2D>();
         Texture2D Cursor;
 
-        Random PeterGriffin = new Random();
+        
 
         Menu mainMenu;
+        Menu levelSelectMenu;
 
-        int CurrentLevel = 0;
+        int currentLevel = 0;
 
         GameState gameState = GameState.MainMenu;
 
@@ -101,8 +105,8 @@ namespace SuperCarrotMan
                 configWriter.WriteEndElement();
 
                 configWriter.WriteStartElement("screen");
-                configWriter.WriteAttributeString("width", "1280");
-                configWriter.WriteAttributeString("height", "720");
+                configWriter.WriteAttributeString("width", defScreenWidth.ToString());
+                configWriter.WriteAttributeString("height", defScreenHeight.ToString());
                 configWriter.WriteAttributeString("fullscreen", "false");
                 
 
@@ -147,15 +151,37 @@ namespace SuperCarrotMan
             ContentLoader contentLoader = new ContentLoader();
             contentLoader.SetContent("ContentConfig.xml", Content, tiles);
             Cursor = Content.Load<Texture2D>("Cursor");
-            mainMenu = new Menu(new Color(57, 247, 235));
-            ButtonTextures buttonTextures = new ButtonTextures(Content.Load<Texture2D>("Button"), Content.Load<Texture2D>("Button_P"), 3, 1);
 
+            #region Menus
+            mainMenu = new Menu(new Color(57, 247, 235));
+
+            Texture2D BackImage = Content.Load<Texture2D>("Back");
             Texture2D defaultTexture = Content.Load<Texture2D>("Button");
             Texture2D pressedTexture = Content.Load<Texture2D>("Button_P");
 
-            mainMenu.AddUIElement(new Button("StartButton",defaultTexture,pressedTexture, new Vector2(_nScreenWidth / 2, 200), 600, 80, "Start",Content.Load<SpriteFont>("ButtonText"),TextAllign.Center));
-            mainMenu.AddUIElement(new Button("CloseButton",defaultTexture,pressedTexture, new Vector2(_nScreenWidth / 2, 290), 420, 80, "Exit",Content.Load<SpriteFont>("ButtonText"),TextAllign.Center,ButtonTypes.CloseButton));
 
+            mainMenu.AddUIElement(new Button("CloseButton",defaultTexture,pressedTexture, new Vector2(_nScreenWidth / 2, 290), 420, 80, "Exit",Content.Load<SpriteFont>("ButtonText"),TextAllign.Center,ButtonTypes.CloseButton));
+            mainMenu.AddUIElement(new ImageBox(("TestImage"), tiles[6], new Vector2(20, 20)));
+
+            #region Submenus
+
+            #region Level Select
+            levelSelectMenu = new Menu(new Color(201, 201, 70));
+            levelSelectMenu.AddUIElement(new Button("BackButton", defaultTexture, pressedTexture, new Vector2(20, _nScreenHeight - 100), 80, 80, BackImage, TextAllign.Center, ButtonTypes.BackButton));
+
+            for (int i = 0; i < levels.Count; i++)
+            {
+                levelSelectMenu.AddUIElement(new Button($"levelButton{i}", defaultTexture, pressedTexture, new Vector2(((_nScreenWidth / 2) - 210), 80 + i * 90),420,80, levels[i].name,Content.Load<SpriteFont>("ButtonText")));
+            }
+
+            #endregion
+
+
+            #endregion
+
+            mainMenu.AddSubMenu(levelSelectMenu);
+            mainMenu.AddUIElement(new Button("SelectButton", defaultTexture, pressedTexture, new Vector2(_nScreenWidth / 2, 200), 600, 80, "Select Level", Content.Load<SpriteFont>("ButtonText"), TextAllign.Center, ButtonTypes.MenuButton, levelSelectMenu));
+            #endregion
 
         }
 
@@ -169,9 +195,13 @@ namespace SuperCarrotMan
             if (gameState == GameState.MainMenu)
             {
                 mainMenu.Update(this);
-                if (mainMenu.getButton("StartButton").ButtonClicked)
+                for (int i = 0; i < levels.Count; i++)
                 {
-                    gameState = GameState.Playing;
+                    if (levelSelectMenu.getButton($"levelButton{i}").ButtonClicked)
+                    {
+                        currentLevel = i;
+                        gameState = GameState.Playing;
+                    }
                 }
                 
             }
@@ -214,9 +244,9 @@ namespace SuperCarrotMan
             }
             if (gameState == GameState.Playing)
             {
-                GraphicsDevice.Clear(levels[CurrentLevel].skyColor);
+                GraphicsDevice.Clear(levels[currentLevel].skyColor);
                 
-                levels[CurrentLevel].Draw(spriteBatch, tiles, camera);
+                levels[currentLevel].Draw(spriteBatch, tiles, camera);
             }
 
 
