@@ -26,6 +26,7 @@ namespace SuperCarrotMan
         int _nScreenWidth = defScreenHeight;
         int _nScreenHeight = defScreenHeight;
 
+        Gravity gravity = new Gravity(0.125f);
         
         bool _blDevConsole = false;
 
@@ -153,11 +154,11 @@ namespace SuperCarrotMan
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             ContentLoader contentLoader = new ContentLoader();
-            AnimationSet playerWalk = new AnimationSet(null, 100);
-            AnimationSet playerRun = new AnimationSet(null, 100);
+            AnimationSet playerWalk = contentLoader.GetAnimSet("ContentConfig.xml", "PlayerFrameWalk", Content, 100);
+            AnimationSet playerRun = contentLoader.GetAnimSet("ContentConfig.xml", "PlayerFrameRun", Content, 100);
             contentLoader.SetContent("ContentConfig.xml", Content, tiles);
-            playerWalk = contentLoader.GetPlayerWalk("ContentConfig.xml", Content, 100);
-            player = new Player(new Vector2(128, 128), playerWalk, playerRun, camera, 0.5f, playerKeyboardKeys, playerControllerButtons);
+             
+            player = new Player(new Vector2(128, 128), playerWalk, playerRun, camera, 0.25f, playerKeyboardKeys, playerControllerButtons);
             
             Cursor = Content.Load<Texture2D>("Cursor");
 
@@ -232,7 +233,8 @@ namespace SuperCarrotMan
                 {
                     camera.offsetX += 2;
                 }*/
-                player.Update(gameTime);
+                player.Update(gameTime,gravity);
+                levels[currentLevel].Update(gameTime, player,gravity);
             }
             
 
@@ -256,7 +258,7 @@ namespace SuperCarrotMan
             {
                 GraphicsDevice.Clear(levels[currentLevel].skyColor);
                 
-                levels[currentLevel].Draw(spriteBatch, tiles, camera);
+                levels[currentLevel].Draw(spriteBatch, tiles, camera,_nScreenWidth,_nScreenHeight);
                 player.Draw(spriteBatch,gameTime);
             }
 
@@ -310,20 +312,19 @@ namespace SuperCarrotMan
             }
         }
 
-        public AnimationSet GetPlayerWalk(string contentConfigPath, Microsoft.Xna.Framework.Content.ContentManager Content, int cycleTime_ms) 
+        public AnimationSet GetAnimSet(string contentConfigPath,string NodeName, Microsoft.Xna.Framework.Content.ContentManager Content, int cycleTime_ms) 
         {
             XmlDocument contentConfig = new XmlDocument();
             contentConfig.Load(contentConfigPath);
             
-            XmlNodeList PlayerFrameNode = contentConfig.SelectNodes("//ContentConfig/PlayerFrame");
+            XmlNodeList PlayerFrameNode = contentConfig.SelectNodes("//ContentConfig/" + NodeName);
             
             List<Texture2D> playerWalk = new List<Texture2D>();
             foreach (XmlNode node in PlayerFrameNode)
             {
-                if (node.Attributes.GetNamedItem("type").Value == "Walk")
-                {
-                    playerWalk.Add(Content.Load<Texture2D>(node.Attributes.GetNamedItem("name").Value));
-                }
+                
+               playerWalk.Add(Content.Load<Texture2D>(node.Attributes.GetNamedItem("name").Value));
+               
                 
             }
             return new AnimationSet(playerWalk.ToArray(), cycleTime_ms);

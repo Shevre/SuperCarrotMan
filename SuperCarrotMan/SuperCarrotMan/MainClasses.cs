@@ -11,9 +11,10 @@ using System.Xml;
 
 namespace SuperCarrotMan
 {
-    public class Level
+    class Level
     {
         int[,] level;
+        int[,] collision;
         Vector2 playerStartPos;
         public string name;
         int tilesetId, tileW, tileH;
@@ -27,7 +28,7 @@ namespace SuperCarrotMan
             this.levelXml = levelXml;
             xmlDoc.Load(levelXml);
             loadXml(levelXml);
-            
+
         }
 
         public void Reload()
@@ -63,7 +64,11 @@ namespace SuperCarrotMan
                             break;
                         case "terrain":
                             string[] _slevel = xmlDoc.SelectSingleNode("//level/terrain").InnerText.Split('\n');
-
+                            foreach (string s in _slevel)
+                            {
+                                Console.WriteLine(s);
+                            }
+                            Console.WriteLine();
                             level = new int[_slevel.Length, _slevel[0].Length];
                             tileH = _slevel.Length;
                             tileW = _slevel[0].Length;
@@ -74,6 +79,26 @@ namespace SuperCarrotMan
                                 for (int j = 0; j < _ystring.Length; j++)
                                 {
                                     level[i, j] = int.Parse(_ystring[j]);
+                                }
+                            }
+                            break;
+                        case "Collision":
+                            string[] _slevelc = xmlDoc.SelectSingleNode("//level/Collision").InnerText.Split('\n');
+                            foreach (string s in _slevelc)
+                            {
+                                Console.WriteLine(s);
+                            }
+                            Console.WriteLine(); 
+                            collision = new int[_slevelc.Length, _slevelc[0].Length];
+                            tileH = _slevelc.Length;
+                            tileW = _slevelc[0].Length;
+
+                            for (int i = 0; i < _slevelc.Length; i++)
+                            {
+                                string[] _ystring = _slevelc[i].Split(',');
+                                for (int j = 0; j < _ystring.Length; j++)
+                                {
+                                    collision[i, j] = int.Parse(_ystring[j]);
                                 }
                             }
                             break;
@@ -88,14 +113,32 @@ namespace SuperCarrotMan
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch,List<Texture2D> tiles,Camera camera)
+
+        public void Update(GameTime gameTime,Player player,Gravity gravity) 
+        {
+            Vector2 gridPos = player.position / 64;
+            Console.Clear();
+            Console.WriteLine($"{(int)gridPos.X},{(int)gridPos.Y}");
+            if (collision[(int)gridPos.Y + 2,(int)gridPos.X] == 1 || collision[(int)gridPos.Y + 2,(int)gridPos.X + 1] == 1)
+            {
+                gravity.TurnOff();
+                Console.WriteLine("collided.");
+            }
+            else 
+            {
+                gravity.TurnOn();
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch,List<Texture2D> tiles,Camera camera,int screenWidth, int screenHeight)
         {
 
             for (int y = 0; y < tileH; y++)
             {
                 for (int x = 0; x < tileW; x++)
                 {
-                    if (level[y, x] != 0) spriteBatch.Draw(tiles[level[y, x]], camera.applyCamera(new Vector2(x * 64 , y * 64)), Color.White);
+                    Vector2 pos = camera.applyCamera(new Vector2(x * 64, y * 64));
+                    if (level[y, x] != 0 && !(pos.X > screenWidth)  && !(pos.X < 0) && !(pos.Y > screenHeight) && !(pos.Y < 0)) spriteBatch.Draw(tiles[level[y, x]], pos, Color.White);
                 }
             }
         }
@@ -128,12 +171,15 @@ namespace SuperCarrotMan
         float cycleTime_ms, cycleTimeSpent_ms = 0;
         public float GetCycleTime() { return cycleTime_ms; }
         int currentFrame = 1;
+        int Width, Height;
         Texture2D[] frames;
         
         public AnimationSet(Texture2D[] frames,float cycleTime_ms) 
         {
             this.cycleTime_ms = cycleTime_ms;
             this.frames = frames;
+            Width = frames[0].Width;
+            Height = frames[0].Height;
         }
 
 
@@ -157,6 +203,40 @@ namespace SuperCarrotMan
                 currentFrame = 0;
             }
             return frames[currentFrame];
+        }
+    }
+
+    class Gravity 
+    {
+        float G,originalG;
+        bool on = true;
+
+        public Gravity(float g)
+        {
+            G = g;
+            originalG = g;
+        }
+
+        public Vector2 applyGravity(Vector2 velocity,GameTime gameTime) 
+        {
+            if (on)
+            {
+                return new Vector2(velocity.X, G * (float)gameTime.ElapsedGameTime.TotalMilliseconds);
+            }
+            else 
+            {
+                return new Vector2(velocity.X, 0);
+            }
+            
+        }
+
+        public void TurnOn() 
+        {
+            on = true;
+        }
+        public void TurnOff() 
+        {
+            on = false;
         }
     }
 

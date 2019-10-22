@@ -33,19 +33,19 @@
   
     <Selector name="Selector"/>
   
-    <PlayerFrame type="Walk" name="CarrotMan\Walk\1"/>
-    <PlayerFrame type="Walk" name="CarrotMan\Walk\2"/>
-    <PlayerFrame type="Walk" name="CarrotMan\Walk\3"/>
-    <PlayerFrame type="Walk" name="CarrotMan\Walk\4"/>
-    <PlayerFrame type="Walk" name="CarrotMan\Walk\5"/>
-    <PlayerFrame type="Walk" name="CarrotMan\Walk\6"/>
-    <PlayerFrame type="Walk" name="CarrotMan\Walk\7"/>
-    <PlayerFrame type="Walk" name="CarrotMan\Walk\8"/>
+    <PlayerFrameWalk name="CarrotMan\Walk\1"/>
+    <PlayerFrameWalk name="CarrotMan\Walk\2"/>
+    <PlayerFrameWalk name="CarrotMan\Walk\3"/>
+    <PlayerFrameWalk name="CarrotMan\Walk\4"/>
+    <PlayerFrameWalk name="CarrotMan\Walk\5"/>
+    <PlayerFrameWalk name="CarrotMan\Walk\6"/>
+    <PlayerFrameWalk name="CarrotMan\Walk\7"/>
+    <PlayerFrameWalk name="CarrotMan\Walk\8"/>
   
-    <PlayerFrame type="Run" name="CarrotMan\Run\1"/>
-    <PlayerFrame type="Run" name="CarrotMan\Run\2"/>
-    <PlayerFrame type="Run" name="CarrotMan\Run\3"/>
-    <PlayerFrame type="Run" name="CarrotMan\Run\4"/>
-    <PlayerFrame type="Run" name="CarrotMan\Run\5"/>
-    <PlayerFrame type="Run" name="CarrotMan\Run\6"/>
+    <PlayerFrameRun name="CarrotMan\Run\1"/>
+    <PlayerFrameRun name="CarrotMan\Run\2"/>
+    <PlayerFrameRun name="CarrotMan\Run\3"/>
+    <PlayerFrameRun name="CarrotMan\Run\4"/>
+    <PlayerFrameRun name="CarrotMan\Run\5"/>
+    <PlayerFrameRun name="CarrotMan\Run\6"/>
 </ContentConfig>

@@ -21,7 +21,7 @@ namespace SuperCarrotMan
 
         public float movementSpeed;
 
-        public void Update(GameTime gameTime) 
+        public void Update(GameTime gameTime, Gravity gravity) 
         {
             position += velocity;
         }

@@ -13,12 +13,17 @@ namespace SuperCarrotMan
         enum Direction {Left,Right }
         #region Base Stuff
         Camera camera;
+        
         MovementStates movementState = MovementStates.Idle;
         Direction direction = Direction.Right;
         bool jumping = false;
+        
+
         PlayerKeyboardKeys playerKeyboardKeys;
         PlayerControllerButtons playerControllerButtons;
         AnimationSet animSetRun;
+
+        float runningMultiplier = 1;
 
         public Player(Vector2 startPos, AnimationSet animSetWalk,AnimationSet animSetRun,Camera camera,float movementSpeed,PlayerKeyboardKeys keyboardKeys, PlayerControllerButtons controllerButtons) 
         {
@@ -29,11 +34,12 @@ namespace SuperCarrotMan
             playerKeyboardKeys = keyboardKeys;
             this.movementSpeed = movementSpeed;
             this.animSetRun = animSetRun;
+            
         }
 
-        public new void Update(GameTime gameTime) 
+        public new void Update(GameTime gameTime,Gravity gravity) 
         {
-            CheckMovement(gameTime);
+            CheckMovement(gameTime,gravity);
             ApplyVelocity();
         }
 
@@ -82,16 +88,24 @@ namespace SuperCarrotMan
 
         #region Movement
 
-        private void CheckMovement (GameTime gameTime)
+        private void CheckMovement (GameTime gameTime,Gravity gravity)
         {
-            if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Left)) SetVelocity(new Vector2(-movementSpeed * (float)gameTime.ElapsedGameTime.TotalMilliseconds,velocity.Y  ));
-            else if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Right)) SetVelocity(new Vector2(movementSpeed * (float)gameTime.ElapsedGameTime.TotalMilliseconds, velocity.Y));
-            else SetVelocity(new Vector2(velocity.Y, 0));
+            if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Run)) runningMultiplier = 1.5f;
+            else runningMultiplier = 1;
+            if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Left)) SetVelocity(new Vector2(-movementSpeed * runningMultiplier * (float)gameTime.ElapsedGameTime.TotalMilliseconds,velocity.Y  ));
+            else if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Right)) SetVelocity(new Vector2(movementSpeed * runningMultiplier * (float)gameTime.ElapsedGameTime.TotalMilliseconds, velocity.Y));
+            else SetVelocity(new Vector2(0, velocity.Y));
 
+            SetVelocity(gravity.applyGravity(velocity, gameTime));
+
+            if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Jump)) SetVelocity(new Vector2(velocity.X, -0.25f * (float)gameTime.ElapsedGameTime.TotalMilliseconds));
+            
 
             if (velocity.X != 0)
             {
-                movementState = MovementStates.Walking;
+                if (runningMultiplier > 1) movementState = MovementStates.Running;
+                else movementState = MovementStates.Walking;
+
                 if (velocity.X > 0)
                 {
                     direction = Direction.Right;
