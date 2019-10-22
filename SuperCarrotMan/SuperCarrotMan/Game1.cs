@@ -14,6 +14,7 @@ namespace SuperCarrotMan
 
     public class Game1 : Game
     {
+        
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -33,7 +34,10 @@ namespace SuperCarrotMan
         List<Texture2D> tiles = new List<Texture2D>();
         Texture2D Cursor;
 
-        
+        PlayerKeyboardKeys playerKeyboardKeys = new PlayerKeyboardKeys(Keys.Up, Keys.Right, Keys.Down, Keys.Left, Keys.Space, Keys.Q,Keys.LeftShift,Keys.S);
+        PlayerControllerButtons playerControllerButtons = new PlayerControllerButtons(Buttons.DPadUp,Buttons.DPadRight,Buttons.DPadDown,Buttons.DPadLeft,Buttons.B,Buttons.A,Buttons.Y,Buttons.X);
+
+        Player player;
 
         Menu mainMenu;
         Menu levelSelectMenu;
@@ -149,7 +153,12 @@ namespace SuperCarrotMan
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             ContentLoader contentLoader = new ContentLoader();
+            AnimationSet playerWalk = new AnimationSet(null, 100);
+            AnimationSet playerRun = new AnimationSet(null, 100);
             contentLoader.SetContent("ContentConfig.xml", Content, tiles);
+            playerWalk = contentLoader.GetPlayerWalk("ContentConfig.xml", Content, 100);
+            player = new Player(new Vector2(128, 128), playerWalk, playerRun, camera, 0.5f, playerKeyboardKeys, playerControllerButtons);
+            
             Cursor = Content.Load<Texture2D>("Cursor");
 
             #region Menus
@@ -207,7 +216,7 @@ namespace SuperCarrotMan
             }
             else if (gameState == GameState.Playing)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                /*if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 {
                     camera.offsetY += 2;
                 }
@@ -222,7 +231,8 @@ namespace SuperCarrotMan
                 if (Keyboard.GetState().IsKeyDown(Keys.Left))
                 {
                     camera.offsetX += 2;
-                }
+                }*/
+                player.Update(gameTime);
             }
             
 
@@ -247,6 +257,7 @@ namespace SuperCarrotMan
                 GraphicsDevice.Clear(levels[currentLevel].skyColor);
                 
                 levels[currentLevel].Draw(spriteBatch, tiles, camera);
+                player.Draw(spriteBatch,gameTime);
             }
 
 
@@ -259,26 +270,67 @@ namespace SuperCarrotMan
 
       
     }
-}
-
-public struct ContentLoader
-{
-    public void SetContent(string contentConfigPath, Microsoft.Xna.Framework.Content.ContentManager Content, List<Texture2D> Tiles, List<Texture2D> EnemyTextures = null, Texture2D Selector = null)
+    public struct ContentLoader
     {
-        XmlDocument contentConfig = new XmlDocument();
-        contentConfig.Load(contentConfigPath);
-        XmlNodeList Tilenodes = contentConfig.SelectNodes("//ContentConfig/Tile");
-        foreach (XmlNode node in Tilenodes)
+        public void SetContent(string contentConfigPath, Microsoft.Xna.Framework.Content.ContentManager Content, List<Texture2D> Tiles, AnimationSet playerAnimSet = null,AnimationSet playerRunAnimSet = null, List<Texture2D> EnemyTextures = null, Texture2D Selector = null)
         {
-            Tiles.Add(Content.Load<Texture2D>(node.Attributes.GetNamedItem("name").Value));
-        }
-        if (EnemyTextures != null)
-        {
+            XmlDocument contentConfig = new XmlDocument();
+            contentConfig.Load(contentConfigPath);
+            XmlNodeList Tilenodes = contentConfig.SelectNodes("//ContentConfig/Tile");
+            foreach (XmlNode node in Tilenodes)
+            {
+                Tiles.Add(Content.Load<Texture2D>(node.Attributes.GetNamedItem("name").Value));
+            }
+            if (playerAnimSet != null)
+            {
+                XmlNodeList PlayerFrameNode = contentConfig.SelectNodes("//ContentConfig/PlayerFrame");
+                List<Texture2D> playerRun = new List<Texture2D>();
+                List<Texture2D> playerWalk = new List<Texture2D>();
+                foreach (XmlNode node in PlayerFrameNode)
+                {
+                    if (node.Attributes.GetNamedItem("type").Value == "Walk" )
+                    {
+                        playerWalk.Add(Content.Load<Texture2D>(node.Attributes.GetNamedItem("name").Value));
+                    }
+                    else if (node.Attributes.GetNamedItem("type").Value == "Run")
+                    {
+                        playerRun.Add(Content.Load<Texture2D>(node.Attributes.GetNamedItem("name").Value));
+                    }
+                }
+                playerAnimSet = new AnimationSet(playerWalk.ToArray(), playerAnimSet.GetCycleTime());
+                if(playerRunAnimSet != null)playerRunAnimSet = new AnimationSet(playerRun.ToArray(), playerRunAnimSet.GetCycleTime());
+            }
+            if (EnemyTextures != null)
+            {
 
+            }
+            if (Selector != null)
+            {
+                Selector = Content.Load<Texture2D>(contentConfig.SelectSingleNode("//ContentConfig/Selector").Attributes.GetNamedItem("name").Value);
+            }
         }
-        if (Selector != null)
+
+        public AnimationSet GetPlayerWalk(string contentConfigPath, Microsoft.Xna.Framework.Content.ContentManager Content, int cycleTime_ms) 
         {
-            Selector = Content.Load<Texture2D>(contentConfig.SelectSingleNode("//ContentConfig/Selector").Attributes.GetNamedItem("name").Value);
+            XmlDocument contentConfig = new XmlDocument();
+            contentConfig.Load(contentConfigPath);
+            
+            XmlNodeList PlayerFrameNode = contentConfig.SelectNodes("//ContentConfig/PlayerFrame");
+            
+            List<Texture2D> playerWalk = new List<Texture2D>();
+            foreach (XmlNode node in PlayerFrameNode)
+            {
+                if (node.Attributes.GetNamedItem("type").Value == "Walk")
+                {
+                    playerWalk.Add(Content.Load<Texture2D>(node.Attributes.GetNamedItem("name").Value));
+                }
+                
+            }
+            return new AnimationSet(playerWalk.ToArray(), cycleTime_ms);
+                
+            
         }
     }
 }
+
+

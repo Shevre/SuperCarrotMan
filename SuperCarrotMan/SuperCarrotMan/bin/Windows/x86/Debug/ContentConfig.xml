@@ -30,5 +30,22 @@
     <Tile name = "Cloud\12"/>
     <Tile name="Tree\10"/>
     <Tile name="Tree\11"/>
+  
     <Selector name="Selector"/>
+  
+    <PlayerFrame type="Walk" name="CarrotMan\Walk\1"/>
+    <PlayerFrame type="Walk" name="CarrotMan\Walk\2"/>
+    <PlayerFrame type="Walk" name="CarrotMan\Walk\3"/>
+    <PlayerFrame type="Walk" name="CarrotMan\Walk\4"/>
+    <PlayerFrame type="Walk" name="CarrotMan\Walk\5"/>
+    <PlayerFrame type="Walk" name="CarrotMan\Walk\6"/>
+    <PlayerFrame type="Walk" name="CarrotMan\Walk\7"/>
+    <PlayerFrame type="Walk" name="CarrotMan\Walk\8"/>
+  
+    <PlayerFrame type="Run" name="CarrotMan\Run\1"/>
+    <PlayerFrame type="Run" name="CarrotMan\Run\2"/>
+    <PlayerFrame type="Run" name="CarrotMan\Run\3"/>
+    <PlayerFrame type="Run" name="CarrotMan\Run\4"/>
+    <PlayerFrame type="Run" name="CarrotMan\Run\5"/>
+    <PlayerFrame type="Run" name="CarrotMan\Run\6"/>
 </ContentConfig>

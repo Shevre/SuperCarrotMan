@@ -126,7 +126,8 @@ namespace SuperCarrotMan
     public class AnimationSet 
     {
         float cycleTime_ms, cycleTimeSpent_ms = 0;
-        int currentFrame = 0;
+        public float GetCycleTime() { return cycleTime_ms; }
+        int currentFrame = 1;
         Texture2D[] frames;
         
         public AnimationSet(Texture2D[] frames,float cycleTime_ms) 
@@ -134,6 +135,14 @@ namespace SuperCarrotMan
             this.cycleTime_ms = cycleTime_ms;
             this.frames = frames;
         }
+
+
+        public Texture2D getIdle() 
+        {
+            currentFrame = 1;
+            return frames[0];
+        }
+
 
         public Texture2D getFrame(GameTime gameTime) 
         {
@@ -148,6 +157,54 @@ namespace SuperCarrotMan
                 currentFrame = 0;
             }
             return frames[currentFrame];
+        }
+    }
+
+    struct PlayerKeyboardKeys
+    {
+        public Keys Up;
+        public Keys Right;
+        public Keys Down;
+        public Keys Left;
+        public Keys Jump;
+        public Keys Attack;
+        public Keys Run;
+        public Keys Interact;
+
+        public PlayerKeyboardKeys(Keys up, Keys right, Keys down, Keys left, Keys jump, Keys attack, Keys run, Keys interact)
+        {
+            Up = up;
+            Right = right;
+            Down = down;
+            Left = left;
+            Jump = jump;
+            Attack = attack;
+            Run = run;
+            Interact = interact;
+        }
+    }
+
+    struct PlayerControllerButtons
+    {
+        public Buttons Up;
+        public Buttons Right;
+        public Buttons Down;
+        public Buttons Left;
+        public Buttons Jump;
+        public Buttons Attack;
+        public Buttons Run;
+        public Buttons Interact;
+
+        public PlayerControllerButtons(Buttons up, Buttons right, Buttons down, Buttons left, Buttons jump, Buttons attack, Buttons run, Buttons interact)
+        {
+            Up = up;
+            Right = right;
+            Down = down;
+            Left = left;
+            Jump = jump;
+            Attack = attack;
+            Run = run;
+            Interact = interact;
         }
     }
     
