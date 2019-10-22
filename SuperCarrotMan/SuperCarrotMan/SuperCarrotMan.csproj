@@ -45,9 +45,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DevConsole.cs" />
+    <Compile Include="Entities.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="MainClasses.cs" />
-    <Compile Include="MainMenu.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

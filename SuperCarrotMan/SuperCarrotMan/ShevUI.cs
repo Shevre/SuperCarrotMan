@@ -11,6 +11,7 @@ namespace Shev.monoGameUI
     enum ButtonTypes { CloseButton,BackButton,GenericButton,MenuButton }
     class UIElement 
     {
+        
         public Vector2 Position;
         public string name;
         public int width, height;

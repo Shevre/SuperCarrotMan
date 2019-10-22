@@ -122,5 +122,33 @@ namespace SuperCarrotMan
             return new Vector2(v.X + offsetX, v.Y + offsetY);
         }
     }
+
+    public class AnimationSet 
+    {
+        float cycleTime_ms, cycleTimeSpent_ms = 0;
+        int currentFrame = 0;
+        Texture2D[] frames;
+        
+        public AnimationSet(Texture2D[] frames,float cycleTime_ms) 
+        {
+            this.cycleTime_ms = cycleTime_ms;
+            this.frames = frames;
+        }
+
+        public Texture2D getFrame(GameTime gameTime) 
+        {
+            cycleTimeSpent_ms += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (cycleTimeSpent_ms >= cycleTime_ms)
+            {
+                cycleTimeSpent_ms = 0;
+                currentFrame++;
+            }
+            if (currentFrame >= frames.Length)
+            {
+                currentFrame = 0;
+            }
+            return frames[currentFrame];
+        }
+    }
     
 }

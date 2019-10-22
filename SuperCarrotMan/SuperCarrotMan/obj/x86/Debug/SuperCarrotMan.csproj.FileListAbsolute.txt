@@ -137,3 +137,5 @@ C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarr
 R:\desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\ButtonText.xnb
 R:\desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\WingDings.xnb
 R:\desktop\epic\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\back.xnb
+C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\back.xnb
+C:\Users\Leerling\Desktop\Anime Pictures\SuperCarrotMan\SuperCarrotMan\SuperCarrotMan\bin\Windows\x86\Debug\Content\WingDings.xnb
