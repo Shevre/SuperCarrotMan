@@ -340,5 +340,47 @@ namespace Shev.monoGameUI
 
         }
     }
+
+    class bgBox : UIElement 
+    {
+        public bgBox(string name, Texture2D texture,Vector2 pos, int width, int height,) 
+        {
+            this.name = name;
+            this.Position = pos;
+            this.width = width;
+            this.height = height;
+            this.defaultTexture = texture;
+        }
+
+        public new void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(defaultTexture, Position, new Rectangle(0, 0, 3, 3), Color.White);
+            spriteBatch.Draw(defaultTexture, new Vector2(Position.X + width - 3, Position.Y), new Rectangle(4, 0, 3, 3), Color.White);
+            spriteBatch.Draw(defaultTexture, new Vector2(Position.X, Position.Y + height - 3), new Rectangle(0, 4, 3, 3), Color.White);
+            spriteBatch.Draw(defaultTexture, new Vector2(Position.X + width - 3, Position.Y + height - 3), new Rectangle(4, 4, 3, 3), Color.White);
+
+            for (int i = 3; i < width - 3; i++)
+            {
+                spriteBatch.Draw(defaultTexture, new Vector2(Position.X + i, Position.Y), new Rectangle(3, 0, 1, 3), Color.White);
+                spriteBatch.Draw(defaultTexture, new Vector2(Position.X + i, Position.Y + height - 3), new Rectangle(3, 0, 1, 3), Color.White);
+            }
+
+            for (int i = 3; i < height - 3; i++)
+            {
+                spriteBatch.Draw(defaultTexture, new Vector2(Position.X, Position.Y + i), new Rectangle(0, 3, 3, 1), Color.White);
+                spriteBatch.Draw(defaultTexture, new Vector2(Position.X + width - 3, Position.Y + i), new Rectangle(0, 3, 3, 1), Color.White);
+            }
+
+            for (int y = 3; y < height - 3; y++)
+            {
+                for (int x = 3; x < width - 3; x++)
+                {
+                    spriteBatch.Draw(defaultTexture, new Vector2(Position.X + x, Position.Y + y), new Rectangle(3, 3, 1, 1), Color.White);
+                }
+            }
+        }
+    }
+    
+    
     
 }

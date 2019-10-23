@@ -117,12 +117,12 @@ namespace SuperCarrotMan
         public void Update(GameTime gameTime,Player player,Gravity gravity) 
         {
             Vector2 gridPos = player.position / 64;
-            Console.Clear();
-            Console.WriteLine($"{(int)gridPos.X},{(int)gridPos.Y}");
+            //Console.Clear();
+            //Console.WriteLine($"{(int)gridPos.X},{(int)gridPos.Y}");
             if (collision[(int)gridPos.Y + 2,(int)gridPos.X] == 1 || collision[(int)gridPos.Y + 2,(int)gridPos.X + 1] == 1)
             {
                 gravity.TurnOff();
-                Console.WriteLine("collided.");
+                //Console.WriteLine("collided.");
             }
             else 
             {
@@ -130,15 +130,15 @@ namespace SuperCarrotMan
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch,List<Texture2D> tiles,Camera camera,int screenWidth, int screenHeight)
+        public void Draw(SpriteBatch spriteBatch,List<Texture2D> tiles,Camera camera,int screenWidth, int screenHeight,float Scale)
         {
 
             for (int y = 0; y < tileH; y++)
             {
                 for (int x = 0; x < tileW; x++)
                 {
-                    Vector2 pos = camera.applyCamera(new Vector2(x * 64, y * 64));
-                    if (level[y, x] != 0 && !(pos.X > screenWidth)  && !(pos.X < 0) && !(pos.Y > screenHeight) && !(pos.Y < 0)) spriteBatch.Draw(tiles[level[y, x]], pos, Color.White);
+                    Vector2 pos = camera.applyCamera(new Vector2(x * 64 * Scale, y * 64 * Scale));
+                    if (level[y, x] != 0 && !(pos.X > screenWidth)  && !(pos.X < 0) && !(pos.Y > screenHeight) && !(pos.Y < 0)) spriteBatch.Draw(tiles[level[y, x]], pos, null, Color.White, 0, new Vector2(0, 0), Scale, SpriteEffects.None, 0);
                 }
             }
         }
@@ -250,8 +250,9 @@ namespace SuperCarrotMan
         public Keys Attack;
         public Keys Run;
         public Keys Interact;
+        public Keys Start;
 
-        public PlayerKeyboardKeys(Keys up, Keys right, Keys down, Keys left, Keys jump, Keys attack, Keys run, Keys interact)
+        public PlayerKeyboardKeys(Keys up, Keys right, Keys down, Keys left, Keys jump, Keys attack, Keys run, Keys interact, Keys start)
         {
             Up = up;
             Right = right;
@@ -261,6 +262,7 @@ namespace SuperCarrotMan
             Attack = attack;
             Run = run;
             Interact = interact;
+            Start = start;
         }
     }
 
@@ -274,8 +276,9 @@ namespace SuperCarrotMan
         public Buttons Attack;
         public Buttons Run;
         public Buttons Interact;
+        public Buttons Start;
 
-        public PlayerControllerButtons(Buttons up, Buttons right, Buttons down, Buttons left, Buttons jump, Buttons attack, Buttons run, Buttons interact)
+        public PlayerControllerButtons(Buttons up, Buttons right, Buttons down, Buttons left, Buttons jump, Buttons attack, Buttons run, Buttons interact,Buttons start)
         {
             Up = up;
             Right = right;
@@ -285,6 +288,7 @@ namespace SuperCarrotMan
             Attack = attack;
             Run = run;
             Interact = interact;
+            Start = start;
         }
     }
     

@@ -26,6 +26,8 @@ namespace SuperCarrotMan
         int _nScreenWidth = defScreenHeight;
         int _nScreenHeight = defScreenHeight;
 
+        float Scale = 1;
+
         Gravity gravity = new Gravity(0.125f);
         
         bool _blDevConsole = false;
@@ -35,8 +37,8 @@ namespace SuperCarrotMan
         List<Texture2D> tiles = new List<Texture2D>();
         Texture2D Cursor;
 
-        PlayerKeyboardKeys playerKeyboardKeys = new PlayerKeyboardKeys(Keys.Up, Keys.Right, Keys.Down, Keys.Left, Keys.Space, Keys.Q,Keys.LeftShift,Keys.S);
-        PlayerControllerButtons playerControllerButtons = new PlayerControllerButtons(Buttons.DPadUp,Buttons.DPadRight,Buttons.DPadDown,Buttons.DPadLeft,Buttons.B,Buttons.A,Buttons.Y,Buttons.X);
+        PlayerKeyboardKeys playerKeyboardKeys = new PlayerKeyboardKeys(Keys.Up, Keys.Right, Keys.Down, Keys.Left, Keys.Space, Keys.Q,Keys.LeftShift,Keys.S,Keys.Enter);
+        PlayerControllerButtons playerControllerButtons = new PlayerControllerButtons(Buttons.DPadUp,Buttons.DPadRight,Buttons.DPadDown,Buttons.DPadLeft,Buttons.B,Buttons.A,Buttons.Y,Buttons.X,Buttons.Start);
 
         Player player;
 
@@ -122,6 +124,8 @@ namespace SuperCarrotMan
             graphics.PreferredBackBufferWidth = _nScreenWidth;
             graphics.PreferredBackBufferHeight = _nScreenHeight;
             graphics.ApplyChanges();
+
+            Scale = (float)_nScreenWidth / (float)defScreenWidth;
             #endregion
 
             bool _blLoop = true;
@@ -258,8 +262,8 @@ namespace SuperCarrotMan
             {
                 GraphicsDevice.Clear(levels[currentLevel].skyColor);
                 
-                levels[currentLevel].Draw(spriteBatch, tiles, camera,_nScreenWidth,_nScreenHeight);
-                player.Draw(spriteBatch,gameTime);
+                levels[currentLevel].Draw(spriteBatch, tiles, camera,_nScreenWidth,_nScreenHeight,Scale);
+                player.Draw(spriteBatch,gameTime,Scale);
             }
 
 

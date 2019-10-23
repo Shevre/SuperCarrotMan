@@ -26,9 +26,9 @@ namespace SuperCarrotMan
             position += velocity;
         }
 
-        public void Draw(SpriteBatch spriteBatch,GameTime gameTime) 
+        public void Draw(SpriteBatch spriteBatch,GameTime gameTime,float Scale) 
         {
-            spriteBatch.Draw(animSet.getFrame(gameTime), position, Color.White);
+            spriteBatch.Draw(animSet.getFrame(gameTime), position, null, Color.White, 0, new Vector2(0, 0), Scale, SpriteEffects.None, 0);
         }
         
     }

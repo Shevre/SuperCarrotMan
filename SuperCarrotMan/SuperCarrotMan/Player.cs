@@ -43,17 +43,17 @@ namespace SuperCarrotMan
             ApplyVelocity();
         }
 
-        public new void Draw(SpriteBatch spriteBatch, GameTime gameTime) 
+        public new void Draw(SpriteBatch spriteBatch, GameTime gameTime,float Scale) 
         {
             if (movementState == MovementStates.Walking)
             {
                 if (direction == Direction.Right)
                 {
-                    spriteBatch.Draw(animSet.getFrame(gameTime), position, Color.White);
+                    spriteBatch.Draw(animSet.getFrame(gameTime), position * Scale, null, Color.White, 0, new Vector2(0, 0), Scale, SpriteEffects.None, 0);
                 }
                 else 
                 {
-                    spriteBatch.Draw(animSet.getFrame(gameTime), position, null, null,null,0, null, null, SpriteEffects.FlipHorizontally, 0);
+                    spriteBatch.Draw(animSet.getFrame(gameTime), position * Scale, null, Color.White, 0, new Vector2(0,0), Scale, SpriteEffects.FlipHorizontally, 0);
                 }
                 
             }
@@ -61,11 +61,11 @@ namespace SuperCarrotMan
             {
                 if (direction == Direction.Right)
                 {
-                    spriteBatch.Draw(animSetRun.getFrame(gameTime), position, Color.White);
+                    spriteBatch.Draw(animSetRun.getFrame(gameTime), position * Scale, null, Color.White, 0, new Vector2(0, 0), Scale, SpriteEffects.None, 0);
                 }
                 else
                 {
-                    spriteBatch.Draw(animSetRun.getFrame(gameTime), position, null, null, null, 0, null, null, SpriteEffects.FlipHorizontally, 0);
+                    spriteBatch.Draw(animSetRun.getFrame(gameTime), position * Scale, null, Color.White, 0, new Vector2(0, 0), Scale, SpriteEffects.FlipHorizontally, 0);
                 }
 
                 
@@ -74,11 +74,11 @@ namespace SuperCarrotMan
             {
                 if (direction == Direction.Right)
                 {
-                    spriteBatch.Draw(animSet.getIdle(), position, Color.White);
+                    spriteBatch.Draw(animSet.getIdle(), position * Scale,null, Color.White,0,new Vector2(0,0),Scale,SpriteEffects.None,0);
                 }
                 else
                 {
-                    spriteBatch.Draw(animSet.getIdle(), position, null, null, null, 0, null, null, SpriteEffects.FlipHorizontally, 0);
+                    spriteBatch.Draw(animSet.getIdle(), position * Scale, null, Color.White, 0, new Vector2(0, 0), Scale, SpriteEffects.FlipHorizontally, 0);
                 }
 
                 
