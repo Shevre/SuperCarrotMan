@@ -15,7 +15,7 @@ namespace SuperCarrotMan
     {
         int[,] level;
         int[,] collision;
-        Vector2 playerStartPos;
+        public Vector2 playerStartPos;
         public string name;
         int tilesetId, tileW, tileH;
         public Color skyColor;
@@ -116,10 +116,11 @@ namespace SuperCarrotMan
 
         public void Update(GameTime gameTime,Player player,Gravity gravity) 
         {
-            Vector2 gridPos = player.position / 64;
+            Vector2 gridPos = new Vector2((player.position.X + player.Xoffset) / 64, (player.position.Y) / 64);
+            Vector2 gridPosR = new Vector2((player.position.X + player.Xoffset + player.width) / 64, (player.position.Y) / 64);
             //Console.Clear();
             //Console.WriteLine($"{(int)gridPos.X},{(int)gridPos.Y}");
-            if (collision[(int)gridPos.Y + 2,(int)gridPos.X] == 1 || collision[(int)gridPos.Y + 2,(int)gridPos.X + 1] == 1)
+            if (collision[(int)gridPos.Y + 2,(int)gridPos.X] == 1 || collision[(int)gridPosR.Y + 2,(int)gridPosR.X] == 1)
             {
                 gravity.TurnOff();
                 //Console.WriteLine("collided.");

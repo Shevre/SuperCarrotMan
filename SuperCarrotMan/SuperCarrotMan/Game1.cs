@@ -6,19 +6,23 @@ using System.IO;
 using System;
 using System.Xml;
 using Shev.monoGameUI;
+using DiscordRPC;
+using DiscordRPC.Logging;
 
 namespace SuperCarrotMan
 {
 
     enum GameState { MainMenu,Paused,Playing};
 
-    public class Game1 : Game
+    public partial class Game1 : Game
     {
         
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        int maxFPS;
         string LevelPath = "";
+
+        public DiscordRpcClient client;
 
         static int defScreenWidth = 960;
         static int defScreenHeight = 540;
@@ -44,6 +48,8 @@ namespace SuperCarrotMan
 
         Menu mainMenu;
         Menu levelSelectMenu;
+
+        Menu PauseMenu;
 
         int currentLevel = 0;
 
@@ -80,6 +86,7 @@ namespace SuperCarrotMan
 
                                 _nScreenHeight = int.Parse(configReader.GetAttribute("height"));
                                 _nScreenWidth = int.Parse(configReader.GetAttribute("width"));
+                                maxFPS = int.Parse(configReader.GetAttribute("refreshRate"));
                                 if (configReader.GetAttribute("fullscreen") == "true") graphics.IsFullScreen = true;
 
                                 break;
@@ -147,7 +154,47 @@ namespace SuperCarrotMan
             {
                 Console.WriteLine(l);
             }
-            
+
+
+            #region discord RPC stuff
+
+            client = new DiscordRpcClient(applicationId);
+
+            //Set the logger
+            client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
+
+            //Subscribe to events
+            client.OnReady += (sender, e) =>
+            {
+                Console.WriteLine("Received Ready from user {0}", e.User.Username);
+            };
+
+            client.OnPresenceUpdate += (sender, e) =>
+            {
+                Console.WriteLine("Received Update! {0}", e.Presence);
+            };
+
+            //Connect to the RPC
+            client.Initialize();
+
+            //Set the rich presence
+            //Call this as many times as you want and anywhere in your code.
+            client.SetPresence(new RichPresence()
+            {
+                Details = "SuperCarrotMan",
+                State = "In Menus",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "banner",
+                    LargeImageText = "In Menus",
+                    SmallImageKey = "banner"
+                }
+            });
+
+            #endregion
+
+            //TargetElapsedTime = TimeSpan.FromSeconds(1d / maxFPS);
+
             base.Initialize();
             
         }
@@ -162,11 +209,12 @@ namespace SuperCarrotMan
             AnimationSet playerRun = contentLoader.GetAnimSet("ContentConfig.xml", "PlayerFrameRun", Content, 100);
             contentLoader.SetContent("ContentConfig.xml", Content, tiles);
              
-            player = new Player(new Vector2(128, 128), playerWalk, playerRun, camera, 0.25f, playerKeyboardKeys, playerControllerButtons);
+            player = new Player(new Vector2(128, 128), playerWalk, playerRun, camera, 0.25f, playerKeyboardKeys, playerControllerButtons,40,36,20,18);
             
             Cursor = Content.Load<Texture2D>("Cursor");
 
             #region Menus
+            #region MainMenu
             mainMenu = new Menu(new Color(57, 247, 235));
 
             Texture2D BackImage = Content.Load<Texture2D>("Back");
@@ -197,6 +245,17 @@ namespace SuperCarrotMan
             mainMenu.AddUIElement(new Button("SelectButton", defaultTexture, pressedTexture, new Vector2(_nScreenWidth / 2, 200), 600, 80, "Select Level", Content.Load<SpriteFont>("ButtonText"), TextAllign.Center, ButtonTypes.MenuButton, levelSelectMenu));
             #endregion
 
+            #region PauseMenu
+
+            PauseMenu = new Menu(Color.Transparent);
+
+            //PauseMenu.AddUIElement(new bgBox("PauseBox", Content.Load<Texture2D>("PauseMenu"), new Vector2(_nScreenWidth / 2 - (_nScreenWidth / 4), _nScreenHeight / 4), _nScreenWidth / 2, _nScreenHeight / 2));
+            PauseMenu.AddUIElement(new Button("PlayButton", defaultTexture, pressedTexture, new Vector2(_nScreenWidth / 2 - (_nScreenWidth / 4) + 20, (_nScreenHeight / 4) + 40), 300, 60, "Play", Content.Load<SpriteFont>("ButtonText")));
+            PauseMenu.AddUIElement(new Button("BackButton", defaultTexture, pressedTexture, new Vector2(_nScreenWidth / 2 - (_nScreenWidth / 4) + 20, (_nScreenHeight / 4) + 120), 300, 60, "Back", Content.Load<SpriteFont>("ButtonText")));
+            #endregion
+
+            #endregion
+
         }
 
         protected override void UnloadContent()
@@ -214,7 +273,19 @@ namespace SuperCarrotMan
                     if (levelSelectMenu.getButton($"levelButton{i}").ButtonClicked)
                     {
                         currentLevel = i;
+                        player.SetPosition(levels[currentLevel].playerStartPos);
                         gameState = GameState.Playing;
+                        client.SetPresence(new RichPresence()
+                        {
+                            Details = "SuperCarrotMan",
+                            State = "Playing a level",
+                            Assets = new Assets()
+                            {
+                                LargeImageKey = "banner",
+                                LargeImageText = "Playing a level",
+                                SmallImageKey = "banner"
+                            }
+                        });
                     }
                 }
                 
@@ -237,8 +308,58 @@ namespace SuperCarrotMan
                 {
                     camera.offsetX += 2;
                 }*/
+                if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Start))
+                { 
+                    gameState = GameState.Paused;
+                    client.SetPresence(new RichPresence()
+                    {
+                        Details = "SuperCarrotMan",
+                        State = "In pause menu",
+                        Assets = new Assets()
+                        {
+                            LargeImageKey = "banner",
+                            LargeImageText = "In pause menu",
+                            SmallImageKey = "banner"
+                        }
+                    });
+                }
                 player.Update(gameTime,gravity);
                 levels[currentLevel].Update(gameTime, player,gravity);
+                
+            }
+            else if(gameState == GameState.Paused) 
+            {
+                PauseMenu.Update(this);
+                if (PauseMenu.getButton("BackButton").ButtonClicked)
+                {
+                    gameState = GameState.MainMenu;
+                    client.SetPresence(new RichPresence()
+                    {
+                        Details = "SuperCarrotMan",
+                        State = "In Menus",
+                        Assets = new Assets()
+                        {
+                            LargeImageKey = "banner",
+                            LargeImageText = "In Menus",
+                            SmallImageKey = "banner"
+                        }
+                    });
+                }
+                if (PauseMenu.getButton("PlayButton").ButtonClicked)
+                {
+                    gameState = GameState.Playing;
+                    client.SetPresence(new RichPresence()
+                    {
+                        Details = "SuperCarrotMan",
+                        State = "Playing a level",
+                        Assets = new Assets()
+                        {
+                            LargeImageKey = "banner",
+                            LargeImageText = "Playing a level",
+                            SmallImageKey = "banner"
+                        }
+                    });
+                }
             }
             
 
@@ -250,7 +371,7 @@ namespace SuperCarrotMan
         protected override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            if (gameState == GameState.MainMenu || gameState == GameState.Paused)
+            if (gameState == GameState.MainMenu)
             {
                 GraphicsDevice.Clear(mainMenu.backgroundColor);
                 
@@ -265,7 +386,15 @@ namespace SuperCarrotMan
                 levels[currentLevel].Draw(spriteBatch, tiles, camera,_nScreenWidth,_nScreenHeight,Scale);
                 player.Draw(spriteBatch,gameTime,Scale);
             }
+            else if (gameState == GameState.Paused)
+            {
+                GraphicsDevice.Clear(levels[currentLevel].skyColor);
 
+                levels[currentLevel].Draw(spriteBatch, tiles, camera, _nScreenWidth, _nScreenHeight, Scale);
+                player.Draw(spriteBatch, gameTime, Scale);
+                PauseMenu.Draw(spriteBatch);
+                spriteBatch.Draw(Cursor, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), Color.White);
+            }
 
 
 

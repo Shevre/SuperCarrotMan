@@ -18,6 +18,10 @@ namespace SuperCarrotMan
         Direction direction = Direction.Right;
         bool jumping = false;
         
+        public int width { private set; get; }
+        public int height { private set; get; }
+        public int Xoffset { private set; get; }
+        public int Yoffset { private set; get; }
 
         PlayerKeyboardKeys playerKeyboardKeys;
         PlayerControllerButtons playerControllerButtons;
@@ -25,7 +29,7 @@ namespace SuperCarrotMan
 
         float runningMultiplier = 1;
 
-        public Player(Vector2 startPos, AnimationSet animSetWalk,AnimationSet animSetRun,Camera camera,float movementSpeed,PlayerKeyboardKeys keyboardKeys, PlayerControllerButtons controllerButtons) 
+        public Player(Vector2 startPos, AnimationSet animSetWalk,AnimationSet animSetRun,Camera camera,float movementSpeed,PlayerKeyboardKeys keyboardKeys, PlayerControllerButtons controllerButtons, int WidthReduction = 0, int HeightReduction = 0,int Xoffset = 0,int Yoffset = 0) 
         {
             SetPosition(startPos);
             SetAnimSet(animSetWalk);
@@ -34,6 +38,10 @@ namespace SuperCarrotMan
             playerKeyboardKeys = keyboardKeys;
             this.movementSpeed = movementSpeed;
             this.animSetRun = animSetRun;
+            width = animSetWalk.getIdle().Width - WidthReduction;
+            height = animSetWalk.getIdle().Height - HeightReduction;
+            this.Xoffset = Xoffset;
+            this.Yoffset = Yoffset;
             
         }
 
@@ -67,7 +75,7 @@ namespace SuperCarrotMan
                 {
                     spriteBatch.Draw(animSetRun.getFrame(gameTime), position * Scale, null, Color.White, 0, new Vector2(0, 0), Scale, SpriteEffects.FlipHorizontally, 0);
                 }
-
+                
                 
             }
             else 

@@ -83,6 +83,11 @@ namespace Shev.monoGameUI
                         Button b = (Button)ui;
                         b.Draw(spriteBatch);
                     }
+                    else if (ui.GetType() == typeof(bgBox))
+                    {
+                        bgBox b = (bgBox)ui;
+                        b.Draw(spriteBatch);
+                    }
                     else 
                     {
                         ui.Draw(spriteBatch);
@@ -343,7 +348,7 @@ namespace Shev.monoGameUI
 
     class bgBox : UIElement 
     {
-        public bgBox(string name, Texture2D texture,Vector2 pos, int width, int height,) 
+        public bgBox(string name, Texture2D texture,Vector2 pos, int width, int height) 
         {
             this.name = name;
             this.Position = pos;
