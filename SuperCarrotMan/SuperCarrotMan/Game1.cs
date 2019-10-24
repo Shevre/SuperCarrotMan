@@ -22,6 +22,7 @@ namespace SuperCarrotMan
         int maxFPS;
         string LevelPath = "";
 
+        string applicationId = "636296900005462047";
         public DiscordRpcClient client;
 
         static int defScreenWidth = 960;

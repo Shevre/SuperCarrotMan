@@ -44,7 +44,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="applicationkey.cs" />
     <Compile Include="DevConsole.cs" />
     <Compile Include="Entities.cs" />
     <Compile Include="Game1.cs" />
