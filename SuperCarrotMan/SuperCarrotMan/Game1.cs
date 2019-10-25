@@ -261,7 +261,8 @@ namespace SuperCarrotMan
 
         protected override void UnloadContent()
         {
-            
+            Dispose();
+            client.Dispose();
         }
 
         protected override void Update(GameTime gameTime)

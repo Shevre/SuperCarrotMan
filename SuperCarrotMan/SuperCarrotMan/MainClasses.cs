@@ -116,8 +116,8 @@ namespace SuperCarrotMan
 
         public void Update(GameTime gameTime,Player player,Gravity gravity) 
         {
-            Vector2 gridPos = new Vector2((player.position.X + player.Xoffset) / 64, (player.position.Y) / 64);
-            Vector2 gridPosR = new Vector2((player.position.X + player.Xoffset + player.width) / 64, (player.position.Y) / 64);
+            Vector2 gridPos = GetPositionSafe( new Vector2((player.position.X + player.Xoffset) / 64, (player.position.Y) / 64));
+            Vector2 gridPosR = GetPositionSafe( new Vector2((player.position.X + player.Xoffset + player.width) / 64, (player.position.Y) / 64));
             //Console.Clear();
             //Console.WriteLine($"{(int)gridPos.X},{(int)gridPos.Y}");
             if (collision[(int)gridPos.Y + 2,(int)gridPos.X] == 1 || collision[(int)gridPosR.Y + 2,(int)gridPosR.X] == 1)
@@ -129,6 +129,30 @@ namespace SuperCarrotMan
             {
                 gravity.TurnOn();
             }
+
+            
+        }
+
+        private Vector2 GetPositionSafe(Vector2 gridPos)
+        {
+            Vector2 returnPos = gridPos;
+            if (gridPos.X > tileH)
+            {
+                returnPos.X = tileH;
+            }
+            if (gridPos.X < 0)
+            {
+                returnPos.X = 0;
+            }
+            if (gridPos.Y > tileW)
+            {
+                returnPos.Y = tileW;
+            }
+            if(gridPos.Y < 0)
+            {
+                returnPos.Y = 0;
+            }
+            return returnPos;
         }
 
         public void Draw(SpriteBatch spriteBatch,List<Texture2D> tiles,Camera camera,int screenWidth, int screenHeight,float Scale)
