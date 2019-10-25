@@ -131,6 +131,7 @@ namespace Shev.monoGameUI
     {
         enum State { Default, Down }
         State state = State.Default;
+        
 
         ButtonTypes type;
 
@@ -143,7 +144,7 @@ namespace Shev.monoGameUI
         TextAllign textAllign;
 
         Menu NavigateTo;
-
+        
         Texture2D image;
 
         public Button(string name,Texture2D defaultTexture, Texture2D pressedTexture, Vector2 pos, int width, int height, string Text,SpriteFont font,TextAllign textAllign = TextAllign.Center,ButtonTypes buttonType = ButtonTypes.GenericButton,Menu NavigateTo = null) //min size is 6x6
@@ -158,7 +159,7 @@ namespace Shev.monoGameUI
             this.text = Text;
             this.textAllign = textAllign;
             type = buttonType;
-
+            
 
             if (type == ButtonTypes.MenuButton)
             {
@@ -187,6 +188,7 @@ namespace Shev.monoGameUI
             }
 
         }
+      
         private bool MouseHold = false;
         public void Update(Game game,Menu menu)
         {
@@ -205,7 +207,7 @@ namespace Shev.monoGameUI
             else if(state == State.Down && Mouse.GetState().LeftButton == ButtonState.Released && MouseHold) 
             {
                 ButtonClicked = true;
-
+                
                 switch (type)
                 {
                     case ButtonTypes.CloseButton:

@@ -13,6 +13,22 @@ namespace SuperCarrotMan
 {
 
     enum GameState { MainMenu,Paused,Playing};
+    public struct TileData 
+    {
+        public string name;
+        public int localId;
+
+        public TileData(string name, int localId)
+        {
+            this.name = name;
+            this.localId = localId;
+        }
+
+        public void SetLocalId (int i)
+        {
+            localId = i;
+        }
+    }
 
     public partial class Game1 : Game
     {
@@ -33,13 +49,13 @@ namespace SuperCarrotMan
 
         float Scale = 1;
 
-        Gravity gravity = new Gravity(0.125f);
+        Gravity gravity = new Gravity(0.225f);
         
         bool _blDevConsole = false;
 
         Camera camera = new Camera();
 
-        List<Texture2D> tiles = new List<Texture2D>();
+        List<string> tileDatas = new List<string>();
         Texture2D Cursor;
 
         PlayerKeyboardKeys playerKeyboardKeys = new PlayerKeyboardKeys(Keys.Up, Keys.Right, Keys.Down, Keys.Left, Keys.Space, Keys.Q,Keys.LeftShift,Keys.S,Keys.Enter);
@@ -56,12 +72,15 @@ namespace SuperCarrotMan
 
         GameState gameState = GameState.MainMenu;
 
+        bool discordrpc = true;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
-        List<Level> levels = new List<Level>();
+        Level level;
+        List<LevelData> levelDatas = new List<LevelData>();
         
         protected override void Initialize()
         {
@@ -136,31 +155,14 @@ namespace SuperCarrotMan
             Scale = (float)_nScreenWidth / (float)defScreenWidth;
             #endregion
 
-            bool _blLoop = true;
-            int i = 1;
-            while(_blLoop)
-            {
-                Console.WriteLine(LevelPath + @"\level" + i.ToString() + ".xml");
-                if (File.Exists(LevelPath +  @"\level" + i.ToString() + ".xml"))
-                {
-                    levels.Add(new Level(LevelPath + @"\level" + i.ToString() + ".xml"));
-                }
-                else 
-                {
-                    _blLoop = false;
-                }
-                i++;
-            }
-            foreach (Level l in levels)
-            {
-                Console.WriteLine(l);
-            }
+            
 
 
             #region discord RPC stuff
 
             client = new DiscordRpcClient(applicationId);
-
+            
+            
             //Set the logger
             client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
 
@@ -177,20 +179,26 @@ namespace SuperCarrotMan
 
             //Connect to the RPC
             client.Initialize();
+            
+                client.SetPresence(new RichPresence()
+                {
+                    Details = "SuperCarrotMan",
+                    State = "In Menus",
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = "banner",
+                        LargeImageText = "In Menus",
+                        SmallImageKey = "banner"
+                    }
+                });
+            
+
 
             //Set the rich presence
             //Call this as many times as you want and anywhere in your code.
-            client.SetPresence(new RichPresence()
-            {
-                Details = "SuperCarrotMan",
-                State = "In Menus",
-                Assets = new Assets()
-                {
-                    LargeImageKey = "banner",
-                    LargeImageText = "In Menus",
-                    SmallImageKey = "banner"
-                }
-            });
+            
+
+            
 
             #endregion
 
@@ -200,6 +208,8 @@ namespace SuperCarrotMan
             
         }
 
+        
+
         protected override void LoadContent()
         {
             
@@ -208,8 +218,26 @@ namespace SuperCarrotMan
             ContentLoader contentLoader = new ContentLoader();
             AnimationSet playerWalk = contentLoader.GetAnimSet("ContentConfig.xml", "PlayerFrameWalk", Content, 100);
             AnimationSet playerRun = contentLoader.GetAnimSet("ContentConfig.xml", "PlayerFrameRun", Content, 100);
-            contentLoader.SetContent("ContentConfig.xml", Content, tiles);
-             
+            contentLoader.SetContent("ContentConfig.xml", Content, tileDatas);
+            bool _blLoop = true;
+            int h = 1;
+            while (_blLoop)
+            {
+                Console.WriteLine(LevelPath + @"\level" + h.ToString() + ".xml");
+                if (File.Exists(LevelPath + @"\level" + h.ToString() + ".xml"))
+                {
+                    levelDatas.Add(new LevelData(LevelPath + @"\level" + h.ToString() + ".xml"));
+                }
+                else
+                {
+                    _blLoop = false;
+                }
+                h++;
+            }
+            foreach (LevelData l in levelDatas)
+            {
+                Console.WriteLine(l.name);
+            }
             player = new Player(new Vector2(128, 128), playerWalk, playerRun, camera, 0.25f, playerKeyboardKeys, playerControllerButtons,40,36,20,18);
             
             Cursor = Content.Load<Texture2D>("Cursor");
@@ -224,7 +252,7 @@ namespace SuperCarrotMan
 
 
             mainMenu.AddUIElement(new Button("CloseButton",defaultTexture,pressedTexture, new Vector2(_nScreenWidth / 2, 290), 420, 80, "Exit",Content.Load<SpriteFont>("ButtonText"),TextAllign.Center,ButtonTypes.CloseButton));
-            mainMenu.AddUIElement(new ImageBox(("TestImage"), tiles[6], new Vector2(20, 20)));
+            
 
             #region Submenus
 
@@ -232,10 +260,12 @@ namespace SuperCarrotMan
             levelSelectMenu = new Menu(new Color(201, 201, 70));
             levelSelectMenu.AddUIElement(new Button("BackButton", defaultTexture, pressedTexture, new Vector2(20, _nScreenHeight - 100), 80, 80, BackImage, TextAllign.Center, ButtonTypes.BackButton));
 
-            for (int i = 0; i < levels.Count; i++)
+            for (int i = 0; i < levelDatas.Count; i++)
             {
-                levelSelectMenu.AddUIElement(new Button($"levelButton{i}", defaultTexture, pressedTexture, new Vector2(((_nScreenWidth / 2) - 210), 80 + i * 90),420,80, levels[i].name,Content.Load<SpriteFont>("ButtonText")));
+                levelSelectMenu.AddUIElement(new Button($"levelButton{i}", defaultTexture, pressedTexture, new Vector2(((_nScreenWidth / 2) - 210), 80 + i * 90),420,80, levelDatas[i].name,Content.Load<SpriteFont>("ButtonText")));
+                
             }
+            
 
             #endregion
 
@@ -259,6 +289,8 @@ namespace SuperCarrotMan
 
         }
 
+        
+
         protected override void UnloadContent()
         {
             Dispose();
@@ -270,12 +302,13 @@ namespace SuperCarrotMan
             if (gameState == GameState.MainMenu)
             {
                 mainMenu.Update(this);
-                for (int i = 0; i < levels.Count; i++)
+                for (int i = 0; i < levelDatas.Count; i++)
                 {
                     if (levelSelectMenu.getButton($"levelButton{i}").ButtonClicked)
                     {
                         currentLevel = i;
-                        player.SetPosition(levels[currentLevel].playerStartPos);
+                        level = new Level(levelDatas[i].xmlLocation, tileDatas,Content) ;
+                        player.SetPosition(level.playerStartPos);
                         gameState = GameState.Playing;
                         client.SetPresence(new RichPresence()
                         {
@@ -326,7 +359,7 @@ namespace SuperCarrotMan
                     });
                 }
                 player.Update(gameTime,gravity);
-                levels[currentLevel].Update(gameTime, player,gravity);
+                level.Update(gameTime, player,gravity);
                 
             }
             else if(gameState == GameState.Paused) 
@@ -383,16 +416,16 @@ namespace SuperCarrotMan
             }
             if (gameState == GameState.Playing)
             {
-                GraphicsDevice.Clear(levels[currentLevel].skyColor);
+                GraphicsDevice.Clear(level.skyColor);
                 
-                levels[currentLevel].Draw(spriteBatch, tiles, camera,_nScreenWidth,_nScreenHeight,Scale);
+                level.Draw(spriteBatch, player.camera,_nScreenWidth,_nScreenHeight,Scale);
                 player.Draw(spriteBatch,gameTime,Scale);
             }
             else if (gameState == GameState.Paused)
             {
-                GraphicsDevice.Clear(levels[currentLevel].skyColor);
+                GraphicsDevice.Clear(level.skyColor);
 
-                levels[currentLevel].Draw(spriteBatch, tiles, camera, _nScreenWidth, _nScreenHeight, Scale);
+                level.Draw(spriteBatch, player.camera, _nScreenWidth, _nScreenHeight, Scale);
                 player.Draw(spriteBatch, gameTime, Scale);
                 PauseMenu.Draw(spriteBatch);
                 spriteBatch.Draw(Cursor, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), Color.White);
@@ -409,14 +442,14 @@ namespace SuperCarrotMan
     }
     public struct ContentLoader
     {
-        public void SetContent(string contentConfigPath, Microsoft.Xna.Framework.Content.ContentManager Content, List<Texture2D> Tiles, AnimationSet playerAnimSet = null,AnimationSet playerRunAnimSet = null, List<Texture2D> EnemyTextures = null, Texture2D Selector = null)
+        public void SetContent(string contentConfigPath, Microsoft.Xna.Framework.Content.ContentManager Content, List<string> tileDatas, AnimationSet playerAnimSet = null,AnimationSet playerRunAnimSet = null, List<Texture2D> EnemyTextures = null, Texture2D Selector = null)
         {
             XmlDocument contentConfig = new XmlDocument();
             contentConfig.Load(contentConfigPath);
             XmlNodeList Tilenodes = contentConfig.SelectNodes("//ContentConfig/Tile");
             foreach (XmlNode node in Tilenodes)
             {
-                Tiles.Add(Content.Load<Texture2D>(node.Attributes.GetNamedItem("name").Value));
+                tileDatas.Add(node.Attributes.GetNamedItem("name").Value);
             }
             if (playerAnimSet != null)
             {

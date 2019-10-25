@@ -12,7 +12,7 @@ namespace SuperCarrotMan
         enum MovementStates {Idle,Walking,Running}
         enum Direction {Left,Right }
         #region Base Stuff
-        Camera camera;
+        public Camera camera;
         
         MovementStates movementState = MovementStates.Idle;
         Direction direction = Direction.Right;
@@ -49,6 +49,8 @@ namespace SuperCarrotMan
         {
             CheckMovement(gameTime,gravity);
             ApplyVelocity();
+            camera.offsetX += velocity.X;
+            camera.offsetY += velocity.Y;
         }
 
         public new void Draw(SpriteBatch spriteBatch, GameTime gameTime,float Scale) 
@@ -107,6 +109,7 @@ namespace SuperCarrotMan
             SetVelocity(gravity.applyGravity(velocity, gameTime));
 
             if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Jump)) SetVelocity(new Vector2(velocity.X, -0.25f * (float)gameTime.ElapsedGameTime.TotalMilliseconds));
+
             
 
             if (velocity.X != 0)
