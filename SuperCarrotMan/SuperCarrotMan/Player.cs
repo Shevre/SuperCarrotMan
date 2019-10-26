@@ -7,7 +7,7 @@ using System;
 
 namespace SuperCarrotMan
 {
-    class Player : Entity
+    public class Player : Entity
     {
         enum MovementStates {Idle,Walking,Running}
         enum Direction {Left,Right }
@@ -17,11 +17,10 @@ namespace SuperCarrotMan
         MovementStates movementState = MovementStates.Idle;
         Direction direction = Direction.Right;
         bool jumping = false;
-        
-        public int width { private set; get; }
-        public int height { private set; get; }
-        public int Xoffset { private set; get; }
-        public int Yoffset { private set; get; }
+
+        public bool CanMoveLeft = true;
+        public bool CanMoveRight = true;
+
 
         PlayerKeyboardKeys playerKeyboardKeys;
         PlayerControllerButtons playerControllerButtons;
@@ -49,8 +48,7 @@ namespace SuperCarrotMan
         {
             CheckMovement(gameTime,gravity);
             ApplyVelocity();
-            camera.offsetX += velocity.X;
-            camera.offsetY += velocity.Y;
+            
         }
 
         public new void Draw(SpriteBatch spriteBatch, GameTime gameTime,float Scale) 
@@ -102,8 +100,8 @@ namespace SuperCarrotMan
         {
             if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Run)) runningMultiplier = 1.5f;
             else runningMultiplier = 1;
-            if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Left)) SetVelocity(new Vector2(-movementSpeed * runningMultiplier * (float)gameTime.ElapsedGameTime.TotalMilliseconds,velocity.Y  ));
-            else if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Right)) SetVelocity(new Vector2(movementSpeed * runningMultiplier * (float)gameTime.ElapsedGameTime.TotalMilliseconds, velocity.Y));
+            if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Left) && CanMoveLeft) SetVelocity(new Vector2(-movementSpeed * runningMultiplier * (float)gameTime.ElapsedGameTime.TotalMilliseconds,velocity.Y  ));
+            else if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Right) && CanMoveRight) SetVelocity(new Vector2(movementSpeed * runningMultiplier * (float)gameTime.ElapsedGameTime.TotalMilliseconds, velocity.Y));
             else SetVelocity(new Vector2(0, velocity.Y));
 
             SetVelocity(gravity.applyGravity(velocity, gameTime));
@@ -133,6 +131,29 @@ namespace SuperCarrotMan
         }
 
         #endregion
+    }
+
+    public class PlayerMoveBox : Entity
+    {
+        public PlayerMoveBox(int width, int height,Player player) 
+        {
+            this.width = width;
+            this.height = height;
+            SetPosition(new Vector2(player.position.X - (width / 2),player.position.Y - (height / 2)));
+        }
+
+        public void Update(Player player) 
+        {
+            if (player.position.X - player.animSet.Width > position.X + width)
+            {
+                SetPosition(new Vector2(position.X + (player.position.X - (position.X + width)), position.Y));
+            }
+            if (player.position.Y - player.animSet.Height > position.Y + height)
+            {
+                SetPosition(new Vector2(position.X, position.Y + (player.position.Y - (position.Y + height))));
+            }
+        }
+
     }
 
 }

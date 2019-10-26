@@ -7,7 +7,7 @@ using System;
 
 namespace SuperCarrotMan
 {
-    class Entity
+    public class Entity
     {
         public AnimationSet animSet { private set; get; }
         public void SetAnimSet(AnimationSet animSet) { this.animSet = animSet; }
@@ -20,6 +20,11 @@ namespace SuperCarrotMan
         public void ApplyVelocity() { position += velocity; }
 
         public float movementSpeed;
+
+        public int width;
+        public int height;
+        public int Xoffset;
+        public int Yoffset;
 
         public void Update(GameTime gameTime, Gravity gravity) 
         {

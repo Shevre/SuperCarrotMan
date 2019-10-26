@@ -41,8 +41,9 @@ namespace SuperCarrotMan
         string applicationId = "636296900005462047";
         public DiscordRpcClient client;
 
-        static int defScreenWidth = 960;
-        static int defScreenHeight = 540;
+        public static int defScreenWidth = 960;
+        public static int defScreenHeight = 540;
+        //640,360
 
         int _nScreenWidth = defScreenHeight;
         int _nScreenHeight = defScreenHeight;
@@ -62,6 +63,8 @@ namespace SuperCarrotMan
         PlayerControllerButtons playerControllerButtons = new PlayerControllerButtons(Buttons.DPadUp,Buttons.DPadRight,Buttons.DPadDown,Buttons.DPadLeft,Buttons.B,Buttons.A,Buttons.Y,Buttons.X,Buttons.Start);
 
         Player player;
+
+        PlayerMoveBox playerMoveBox;
 
         Menu mainMenu;
         Menu levelSelectMenu;
@@ -309,6 +312,7 @@ namespace SuperCarrotMan
                         currentLevel = i;
                         level = new Level(levelDatas[i].xmlLocation, tileDatas,Content) ;
                         player.SetPosition(level.playerStartPos);
+                        playerMoveBox = new PlayerMoveBox((int)(defScreenWidth / 1.5), (int)(defScreenHeight / 1.5), player);
                         gameState = GameState.Playing;
                         client.SetPresence(new RichPresence()
                         {
@@ -327,22 +331,22 @@ namespace SuperCarrotMan
             }
             else if (gameState == GameState.Playing)
             {
-                /*if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 {
-                    camera.offsetY += 2;
+                    
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Down))
                 {
-                    camera.offsetY -= 2;
+                    
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
                 {
-                    camera.offsetX -= 2;
+                    
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Left))
                 {
-                    camera.offsetX += 2;
-                }*/
+                   
+                }
                 if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Start))
                 { 
                     gameState = GameState.Paused;
@@ -360,7 +364,8 @@ namespace SuperCarrotMan
                 }
                 player.Update(gameTime,gravity);
                 level.Update(gameTime, player,gravity);
-                
+                playerMoveBox.Update(player);
+                camera.Follow(player,Scale);
             }
             else if(gameState == GameState.Paused) 
             {
@@ -405,9 +410,10 @@ namespace SuperCarrotMan
 
         protected override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin();
+            
             if (gameState == GameState.MainMenu)
             {
+                spriteBatch.Begin();
                 GraphicsDevice.Clear(mainMenu.backgroundColor);
                 
                 mainMenu.Draw(spriteBatch);
@@ -416,17 +422,21 @@ namespace SuperCarrotMan
             }
             if (gameState == GameState.Playing)
             {
+                spriteBatch.Begin(transformMatrix: camera.Transform);
                 GraphicsDevice.Clear(level.skyColor);
                 
-                level.Draw(spriteBatch, player.camera,_nScreenWidth,_nScreenHeight,Scale);
+                level.Draw(spriteBatch, camera,_nScreenWidth,_nScreenHeight,Scale);
                 player.Draw(spriteBatch,gameTime,Scale);
             }
             else if (gameState == GameState.Paused)
             {
+                spriteBatch.Begin(transformMatrix: camera.Transform);
                 GraphicsDevice.Clear(level.skyColor);
 
-                level.Draw(spriteBatch, player.camera, _nScreenWidth, _nScreenHeight, Scale);
+                level.Draw(spriteBatch, camera, _nScreenWidth, _nScreenHeight, Scale);
                 player.Draw(spriteBatch, gameTime, Scale);
+                spriteBatch.End();
+                spriteBatch.Begin();
                 PauseMenu.Draw(spriteBatch);
                 spriteBatch.Draw(Cursor, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), Color.White);
             }
