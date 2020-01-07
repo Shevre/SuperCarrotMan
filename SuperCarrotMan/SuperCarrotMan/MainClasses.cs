@@ -300,7 +300,7 @@ namespace SuperCarrotMan
         {
             if (on)
             {
-                return new Vector2(velocity.X, G * (float)gameTime.ElapsedGameTime.TotalMilliseconds);
+                return new Vector2(velocity.X, velocity.Y + G * (float)gameTime.ElapsedGameTime.TotalMilliseconds);
             }
             else
             {

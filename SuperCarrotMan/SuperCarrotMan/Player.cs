@@ -106,7 +106,7 @@ namespace SuperCarrotMan
 
             SetVelocity(gravity.applyGravity(velocity, gameTime));
 
-            if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Jump)) SetVelocity(new Vector2(velocity.X, -0.25f * (float)gameTime.ElapsedGameTime.TotalMilliseconds));
+            if (Keyboard.GetState().IsKeyDown(playerKeyboardKeys.Jump)) SetVelocity(new Vector2(velocity.X, -1f * (float)gameTime.ElapsedGameTime.TotalMilliseconds));
 
             
 
