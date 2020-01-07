@@ -11,7 +11,10 @@ namespace SuperCarrotManv2.Entities
     public class Entity : Core.TexturedCollisionObject
     { 
 
-        public Entity(Vector2 position, Vector2 collisionBox, Texture2D texture) : base(position, collisionBox, texture)
+        public Entity(Vector2 position, Vector2 collisionBox, Texture2D texture, bool gravAffected = true) : base(position, collisionBox, texture,gravAffected)
+        {
+        }
+        public Entity(Vector2 position, Vector2 collisionBox, Texture2D texture,Vector2 textureOffset, bool gravAffected = true) : base(position, collisionBox, texture,textureOffset,gravAffected)
         {
         }
     }

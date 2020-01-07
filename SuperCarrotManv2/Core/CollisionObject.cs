@@ -6,12 +6,20 @@ namespace SuperCarrotManv2.Core
     public class CollisionObject : GameObject {
 
         private Vector2 Position;
+        public void setPosition(Vector2 pos) 
+        {
+            Position = pos;
+        }
         public Vector2 getPosition() => Position;
         private Vector2 CollisionBox;
         public Vector2 getCollisionBox() => CollisionBox;
         public bool GravAffected = true;
         public bool TouchingFloor = false;
         public Vector2 Velocity = new Vector2();
+
+        public Rectangle GetRectangle() => new Rectangle(Position.ToPoint(), CollisionBox.ToPoint());
+
+
         public CollisionObject(Vector2 position,Vector2 collisionBox,bool gravAffected = true) 
         {
             Position = position;
@@ -21,23 +29,34 @@ namespace SuperCarrotManv2.Core
 
         public override void Update() 
         {
-            Position += Velocity;
             if (TouchingFloor) Velocity.Y = 0;
+            Position += Velocity;
+            
             base.Update();
         }
+
+        
+        
     }
 
     public class TexturedCollisionObject : CollisionObject,Drawable {
 
         private Texture2D Texture;
+        private Vector2 TextureOffset = new Vector2(0,0);
         public TexturedCollisionObject(Vector2 position, Vector2 collisionBox, Texture2D texture,bool gravAffected = true) : base(position, collisionBox,gravAffected) 
         {
             Texture = texture;
         }
 
+        public TexturedCollisionObject(Vector2 position, Vector2 collisionBox, Texture2D texture,Vector2 textureOffset, bool gravAffected = true) : base(position, collisionBox, gravAffected)
+        {
+            Texture = texture;
+            TextureOffset = textureOffset;
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, getPosition(), Color.White);
+            spriteBatch.Draw(Texture, getPosition() + TextureOffset, Color.White);
             base.Draw(spriteBatch);
         }
     }

@@ -1,15 +1,15 @@
-﻿using System;
+﻿
+
+using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperCarrotManv2.Core
 {
     public class PhysicsHandler {
         List<CollisionObject> CollisionObjects = new List<CollisionObject>();
-        private float GravIntensity;
-        public PhysicsHandler(float gravIntensity) 
+        private int GravIntensity;
+        public PhysicsHandler(int gravIntensity) 
         {
             GravIntensity = gravIntensity;
 
@@ -25,7 +25,35 @@ namespace SuperCarrotManv2.Core
             foreach (CollisionObject cObj in CollisionObjects)
             {
                 if (cObj.GravAffected) cObj.Velocity.Y += GravIntensity;
-                cObj.Update();
+                
+                if (cObj.Velocity != new Vector2(0, 0) && cObj.GravAffected)
+                {
+                    Rectangle colliderRect = cObj.GetRectangle();
+                    foreach (CollisionObject cObj_ in CollisionObjects)
+                    {
+                        if(cObj != cObj_) 
+                        {
+                            Rectangle collideeRect = cObj_.GetRectangle();
+                            collideeRect.Y += GravIntensity;
+                            if (colliderRect.Intersects(collideeRect))
+                            {
+                                Console.WriteLine("Interacting!");
+                                if(colliderRect.Y < collideeRect.Y) 
+                                {
+                                    cObj.TouchingFloor = true;
+                                    cObj.setPosition(new Vector2(colliderRect.X,collideeRect.Y - colliderRect.Height ));
+                                }
+                                    
+                            }
+                            else 
+                            {
+                                cObj.TouchingFloor = false;             
+                            }
+                        }
+                    }
+                    cObj.Update();
+                }
+                
             }
         }
     }
