@@ -1,10 +1,1 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"R:/dev/superCarrotMan/SuperCarrotManv2/Content/01.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Content/01.xnb","TextureProcessor","Texture2DContent",11990,16469,0.5711295
-"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/1.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Content/CarrotMan/Walk/1.xnb","TextureProcessor","Texture2DContent",9772,32853,0.0120027
-"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/2.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Content/CarrotMan/Walk/2.xnb","TextureProcessor","Texture2DContent",11065,32853,0.0139948
-"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/3.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Content/CarrotMan/Walk/3.xnb","TextureProcessor","Texture2DContent",11636,32853,0.0120027
-"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/4.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Content/CarrotMan/Walk/4.xnb","TextureProcessor","Texture2DContent",11065,32853,0.0130029
-"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/5.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Content/CarrotMan/Walk/5.xnb","TextureProcessor","Texture2DContent",9772,32853,0.0110015
-"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/6.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Content/CarrotMan/Walk/6.xnb","TextureProcessor","Texture2DContent",10261,32853,0.0110026
-"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/7.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Content/CarrotMan/Walk/7.xnb","TextureProcessor","Texture2DContent",11575,32853,0.0110122
-"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/8.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Content/CarrotMan/Walk/8.xnb","TextureProcessor","Texture2DContent",10261,32853,0.0110023

@@ -41,14 +41,15 @@ namespace SuperCarrotManv2
             floorTest0 = new TexturedCollisionObject(new Vector2(0, 300), new Vector2(64, 64), Content.Load<Texture2D>("01"),false);
             floorTest1 = new TexturedCollisionObject(new Vector2(64, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
             floorTest2 = new TexturedCollisionObject(new Vector2(128, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
-            floorTest3 = new TexturedCollisionObject(new Vector2(128, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
-            floorTest4 = new TexturedCollisionObject(new Vector2(128, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
+            floorTest3 = new TexturedCollisionObject(new Vector2(192, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
+            floorTest4 = new TexturedCollisionObject(new Vector2(256, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
             DrawingHandler.AddDrawable(player);
             DrawingHandler.AddDrawable(floorTest0);
             DrawingHandler.AddDrawable(floorTest1);
             DrawingHandler.AddDrawable(floorTest2);
             DrawingHandler.AddDrawable(floorTest3);
             DrawingHandler.AddDrawable(floorTest4);
+            
             PhysicsHandler.AddCollisionObject(player);
             PhysicsHandler.AddCollisionObject(floorTest0);
             PhysicsHandler.AddCollisionObject(floorTest1);

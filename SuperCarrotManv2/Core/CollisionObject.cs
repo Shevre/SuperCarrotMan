@@ -30,7 +30,9 @@ namespace SuperCarrotManv2.Core
         public override void Update() 
         {
             if (TouchingFloor) Velocity.Y = 0;
+            if (Velocity.Y > 8) Velocity.Y = 8;
             Position += Velocity;
+            
             
             base.Update();
         }

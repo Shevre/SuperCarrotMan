@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
@@ -22,9 +23,16 @@ namespace SuperCarrotManv2.Core
 
         public void Update() 
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.O)) GravIntensity = 0;
+            if (Keyboard.GetState().IsKeyDown(Keys.P)) GravIntensity = 1;
+
             foreach (CollisionObject cObj in CollisionObjects)
             {
-                if (cObj.GravAffected) cObj.Velocity.Y += GravIntensity;
+                if (cObj.GravAffected)
+                { 
+                    cObj.Velocity.Y += GravIntensity;
+                    if (GravIntensity == 0) cObj.Velocity.Y = 0;
+                }
                 
                 if (cObj.Velocity != new Vector2(0, 0) && cObj.GravAffected)
                 {
@@ -34,11 +42,11 @@ namespace SuperCarrotManv2.Core
                         if(cObj != cObj_) 
                         {
                             Rectangle collideeRect = cObj_.GetRectangle();
-                            collideeRect.Y += GravIntensity;
+                            //colliderRect.Y += GravIntensity;
                             if (colliderRect.Intersects(collideeRect))
                             {
                                 Console.WriteLine("Interacting!");
-                                if(colliderRect.Y < collideeRect.Y) 
+                                if(colliderRect.Y< collideeRect.Y) 
                                 {
                                     cObj.TouchingFloor = true;
                                     cObj.setPosition(new Vector2(colliderRect.X,collideeRect.Y - colliderRect.Height ));
@@ -51,9 +59,10 @@ namespace SuperCarrotManv2.Core
                             }
                         }
                     }
-                    cObj.Update();
+                    
                 }
-                
+                cObj.Update();
+
             }
         }
     }
