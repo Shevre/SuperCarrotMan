@@ -79,3 +79,5 @@ C:\Users\Leerling\Desktop\Anime_Pictures\SuperCarrotMan\SuperCarrotManv2\obj\Deb
 C:\Users\Leerling\Desktop\Anime_Pictures\SuperCarrotMan\SuperCarrotManv2\obj\Debug\SuperCarrotManv2.csproj.CopyComplete
 C:\Users\Leerling\Desktop\Anime_Pictures\SuperCarrotMan\SuperCarrotManv2\obj\Debug\SuperCarrotManv2.exe
 C:\Users\Leerling\Desktop\Anime_Pictures\SuperCarrotMan\SuperCarrotManv2\obj\Debug\SuperCarrotManv2.pdb
+R:\dev\superCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\pixle.xnb
+R:\dev\superCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\File.xnb

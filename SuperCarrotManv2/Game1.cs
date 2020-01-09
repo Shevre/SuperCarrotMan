@@ -22,6 +22,9 @@ namespace SuperCarrotManv2
         TexturedCollisionObject floorTest2;
         TexturedCollisionObject floorTest3;
         TexturedCollisionObject floorTest4;
+        Texture2D DebugPixel;
+        SpriteFont debugFont;
+        public static DebugHandler DebugHandler = new DebugHandler();
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -41,7 +44,7 @@ namespace SuperCarrotManv2
             floorTest0 = new TexturedCollisionObject(new Vector2(0, 300), new Vector2(64, 64), Content.Load<Texture2D>("01"),false);
             floorTest1 = new TexturedCollisionObject(new Vector2(64, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
             floorTest2 = new TexturedCollisionObject(new Vector2(128, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
-            floorTest3 = new TexturedCollisionObject(new Vector2(192, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
+            floorTest3 = new TexturedCollisionObject(new Vector2(320, 368), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
             floorTest4 = new TexturedCollisionObject(new Vector2(256, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
             DrawingHandler.AddDrawable(player);
             DrawingHandler.AddDrawable(floorTest0);
@@ -54,8 +57,11 @@ namespace SuperCarrotManv2
             PhysicsHandler.AddCollisionObject(floorTest0);
             PhysicsHandler.AddCollisionObject(floorTest1);
             PhysicsHandler.AddCollisionObject(floorTest2);
-            PhysicsHandler.AddCollisionObject(floorTest3);
             PhysicsHandler.AddCollisionObject(floorTest4);
+            PhysicsHandler.AddCollisionObject(floorTest3);
+            
+            DebugPixel = Content.Load<Texture2D>("pixle");
+            debugFont = Content.Load<SpriteFont>("File");
         }
 
         protected override void UnloadContent()
@@ -70,15 +76,26 @@ namespace SuperCarrotManv2
             PhysicsHandler.Update();
             base.Update(gameTime);
         }
-
+        
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             spriteBatch.Begin();
             DrawingHandler.Draw(spriteBatch);
+            spriteBatch.Draw(DebugPixel, player.getPosition(), Color.White);
+            DebugHandler.Log(" Touching Floor: ");
+            if (player.TouchingFloor)
+            {
+                DebugHandler.Log( "Yes ");
+            }
+            else 
+            {
+                DebugHandler.Log("No ");
+            }
+            spriteBatch.DrawString(debugFont, DebugHandler.debugString, new Vector2(0, 0), Color.Magenta);
             spriteBatch.End();
             base.Draw(gameTime);
+            DebugHandler.ClearString();
         }
     }
 }

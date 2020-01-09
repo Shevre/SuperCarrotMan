@@ -45,6 +45,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Core\BitmapFont1.cs" />
+    <Compile Include="Core\DebugHandler.cs" />
+    <Compile Include="Core\DrawSpriteText.cs" />
     <Compile Include="Core\PhysicsHandler.cs" />
     <Compile Include="Core\CollisionObject.cs" />
     <Compile Include="Core\Drawable.cs" />

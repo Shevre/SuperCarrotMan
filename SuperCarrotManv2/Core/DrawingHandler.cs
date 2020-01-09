@@ -25,6 +25,7 @@ namespace SuperCarrotManv2.Core
             foreach(Drawable d in Drawables) 
             {
                 d.Draw(spriteBatch);
+                
             }
         }
     }
