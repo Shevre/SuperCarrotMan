@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>R:/dev/superCarrotMan/SuperCarrotManv2/Content/File.spritefont</SourceFile>
-  <SourceTime>2020-01-09T00:58:42.423683+01:00</SourceTime>
-  <DestFile>R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Content/File.xnb</DestFile>
-  <DestTime>2020-01-09T00:58:56.5181872+01:00</DestTime>
+  <SourceFile>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/File.spritefont</SourceFile>
+  <SourceTime>2020-01-10T11:24:52.2808173+01:00</SourceTime>
+  <DestFile>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Content/File.xnb</DestFile>
+  <DestTime>2020-01-10T11:25:13.1279482+01:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

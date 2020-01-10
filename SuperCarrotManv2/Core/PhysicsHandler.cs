@@ -9,8 +9,8 @@ namespace SuperCarrotManv2.Core
 {
     public class PhysicsHandler {
         List<CollisionObject> CollisionObjects = new List<CollisionObject>();
-        private int GravIntensity;
-        public PhysicsHandler(int gravIntensity) 
+        private float GravIntensity;
+        public PhysicsHandler(float gravIntensity) 
         {
             GravIntensity = gravIntensity;
 
@@ -23,8 +23,6 @@ namespace SuperCarrotManv2.Core
 
         public void Update() 
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.O)) GravIntensity = 0;
-            if (Keyboard.GetState().IsKeyDown(Keys.P)) GravIntensity = 1;
             foreach (CollisionObject cObj in CollisionObjects)
             {
                 if (cObj.GravAffected && !cObj.TouchingFloor)
@@ -36,13 +34,13 @@ namespace SuperCarrotManv2.Core
                 
                 if (cObj.Velocity != new Vector2(0,0) && cObj.GravAffected)
                 {
-                    Rectangle colliderRect = cObj.GetRectangle();
+                    VecRectangle colliderRect = cObj.GetVecRectangle();
                     bool collided = false;
                     foreach (CollisionObject cObj_ in CollisionObjects)
                     {
                         if(cObj != cObj_) 
                         {
-                            Rectangle collideeRect = cObj_.GetRectangle();
+                            VecRectangle collideeRect = cObj_.GetVecRectangle();
                             colliderRect.Y += GravIntensity;
                             if (colliderRect.Intersects(collideeRect))
                             {

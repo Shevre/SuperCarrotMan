@@ -13,7 +13,7 @@ namespace SuperCarrotManv2
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        PhysicsHandler PhysicsHandler = new PhysicsHandler(1);
+        PhysicsHandler PhysicsHandler = new PhysicsHandler(0.3f);
         DrawingHandler DrawingHandler = new DrawingHandler();
 
         Player player;
@@ -82,7 +82,6 @@ namespace SuperCarrotManv2
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             DrawingHandler.Draw(spriteBatch);
-            spriteBatch.Draw(DebugPixel, player.getPosition(), Color.White);
             DebugHandler.Log(" Touching Floor: ");
             if (player.TouchingFloor)
             {

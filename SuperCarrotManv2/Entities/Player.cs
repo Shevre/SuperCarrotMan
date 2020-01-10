@@ -22,18 +22,19 @@ namespace SuperCarrotManv2.Entities
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                Velocity.X = -2;
+                Velocity.X += -0.1f;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                Velocity.X = 2;
+                Velocity.X += 0.1f;
             }
             else Velocity.X = 0;
             if (Keyboard.GetState().IsKeyDown(Keys.Space)) 
             {
-                Velocity.Y = -4;
+                Velocity.Y += -0.5f;
                 TouchingFloor = false;
             }
+            if (getPosition().Y > 300) setPosition(new Vector2(getPosition().X, -100));
             base.Update();
         }
     }

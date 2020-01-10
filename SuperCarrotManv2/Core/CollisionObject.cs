@@ -17,7 +17,7 @@ namespace SuperCarrotManv2.Core
         public bool TouchingFloor = false;
         public Vector2 Velocity = new Vector2();
 
-        public Rectangle GetRectangle() => new Rectangle(Position.ToPoint(), CollisionBox.ToPoint());
+        public VecRectangle GetVecRectangle() => new VecRectangle(Position, CollisionBox);
 
 
         public CollisionObject(Vector2 position,Vector2 collisionBox,bool gravAffected = true) 
@@ -30,7 +30,7 @@ namespace SuperCarrotManv2.Core
         public override void Update() 
         {
             if (TouchingFloor) Velocity.Y = 0;
-            if (Velocity.Y > 8) Velocity.Y = 8;
+            //if (Velocity.Y > 8) Velocity.Y = 8;
             Position += Velocity;
             
             
