@@ -11,30 +11,55 @@ namespace SuperCarrotManv2.Entities
 {
     public class Player : Entity
     {
+        bool jumped = false;
+        int jumpCounter = 0;
+
+        float baseSpeed = 3f, runSpeed = 4f,accelVal = 0.3f;
+        float maxVelocity;
         public Player(Vector2 position, Vector2 collisionBox, Texture2D texture, bool gravAffected = true) : base(position, collisionBox, texture, gravAffected)
         {
-
+            maxVelocity = baseSpeed;
+            type = Core.CollisionObjectTypes.Player;
         }
         public Player(Vector2 position, Vector2 collisionBox, Texture2D texture, Vector2 textureOffset, bool gravAffected = true) : base(position, collisionBox, texture, textureOffset, gravAffected)
         {
+            maxVelocity = baseSpeed;
+            type = Core.CollisionObjectTypes.Player;
         }
         public override void Update()
         {
+            if (TouchingFloor) jumped = false;
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) maxVelocity = runSpeed;
+            else maxVelocity = baseSpeed;
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                Velocity.X += -0.1f;
+                if (Velocity.X > -maxVelocity) Velocity.X += -accelVal;
+                else Velocity.X = -maxVelocity;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                Velocity.X += 0.1f;
+                if (Velocity.X < maxVelocity) Velocity.X += accelVal;
+                else Velocity.X = maxVelocity;
             }
-            else Velocity.X = 0;
-            if (Keyboard.GetState().IsKeyDown(Keys.Space)) 
+            else
             {
-                Velocity.Y += -0.5f;
-                TouchingFloor = false;
+                if (0.1 > Velocity.X && Velocity.X > -0.1) Velocity.X = 0;
+                else if (Velocity.X < 0) Velocity.X += 0.2f;
+                else if (Velocity.X > 0) Velocity.X -= 0.2f;
             }
-            if (getPosition().Y > 300) setPosition(new Vector2(getPosition().X, -100));
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && !jumped && Velocity.Y < 3f) 
+            {
+                Velocity.Y += -1f;
+                TouchingFloor = false;
+                jumpCounter++;
+                if(jumpCounter > 8) 
+                {
+                    jumped = true;
+                    
+                    jumpCounter = 0;
+                }
+            }
+            Game1.DebugHandler.Log($"player1 velocity: {Velocity}");
             base.Update();
         }
     }

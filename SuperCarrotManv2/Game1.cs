@@ -41,9 +41,9 @@ namespace SuperCarrotManv2
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player(new Vector2(0, 0), new Vector2(24, 105),Content.Load<Texture2D>(@"CarrotMan\Walk\1"),new Vector2(-19,-23));
-            floorTest0 = new TexturedCollisionObject(new Vector2(0, 300), new Vector2(64, 64), Content.Load<Texture2D>("01"),false);
+            floorTest0 = new TexturedCollisionObject(new Vector2(0, 260), new Vector2(64, 64), Content.Load<Texture2D>("01"),false);
             floorTest1 = new TexturedCollisionObject(new Vector2(64, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
-            floorTest2 = new TexturedCollisionObject(new Vector2(128, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
+            floorTest2 = new TexturedCollisionObject(new Vector2(128, 260), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
             floorTest3 = new TexturedCollisionObject(new Vector2(320, 368), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
             floorTest4 = new TexturedCollisionObject(new Vector2(256, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
             DrawingHandler.AddDrawable(player);
@@ -70,6 +70,7 @@ namespace SuperCarrotManv2
 
         protected override void Update(GameTime gameTime)
         {
+            
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -79,6 +80,7 @@ namespace SuperCarrotManv2
         
         protected override void Draw(GameTime gameTime)
         {
+            
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             DrawingHandler.Draw(spriteBatch);

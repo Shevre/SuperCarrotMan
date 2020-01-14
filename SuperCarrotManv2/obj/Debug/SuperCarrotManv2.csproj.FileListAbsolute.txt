@@ -83,3 +83,4 @@ R:\dev\superCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\pixle.
 R:\dev\superCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\File.xnb
 C:\Users\Leerling\Desktop\Anime_Pictures\SuperCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\File.xnb
 C:\Users\Leerling\Desktop\Anime_Pictures\SuperCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\pixle.xnb
+C:\Users\Leerling\Desktop\Anime_Pictures\SuperCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\Audio\Megalovania.xnb

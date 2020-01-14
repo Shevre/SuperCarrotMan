@@ -25,6 +25,12 @@
 /processorParam:TextureFormat=Color
 /build:01.png
 
+#begin Audio/Megalovania.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Megalovania.wav
+
 #begin CarrotMan/Walk/1.png
 /importer:TextureImporter
 /processor:TextureProcessor

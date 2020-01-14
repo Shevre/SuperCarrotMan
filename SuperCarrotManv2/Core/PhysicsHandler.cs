@@ -25,7 +25,7 @@ namespace SuperCarrotManv2.Core
         {
             foreach (CollisionObject cObj in CollisionObjects)
             {
-                if (cObj.GravAffected && !cObj.TouchingFloor)
+                /*if (cObj.GravAffected && !cObj.TouchingFloor)
                 { 
                     cObj.Velocity.Y += GravIntensity;
                     if (GravIntensity == 0) cObj.Velocity.Y = 0;
@@ -35,7 +35,8 @@ namespace SuperCarrotManv2.Core
                 if (cObj.Velocity != new Vector2(0,0) && cObj.GravAffected)
                 {
                     VecRectangle colliderRect = cObj.GetVecRectangle();
-                    bool collided = false;
+                    bool collidedT = false;
+                    bool collidedR = false;
                     foreach (CollisionObject cObj_ in CollisionObjects)
                     {
                         if(cObj != cObj_) 
@@ -46,18 +47,25 @@ namespace SuperCarrotManv2.Core
                             {
 
                                 Game1.DebugHandler.Log("Yes");
-                                if (colliderRect.Y< collideeRect.Y) 
+                                if (colliderRect.Y < collideeRect.Y && !collidedT)
                                 {
-                                    collided = true;
+                                    collidedT = true;
                                     cObj.TouchingFloor = true;
-                                    cObj.setPosition(new Vector2(colliderRect.X,collideeRect.Y - colliderRect.Height ));
+                                    cObj.setPosition(new Vector2(cObj.getPosition().X, collideeRect.Y - colliderRect.Height));
                                 }
+                                else if (colliderRect.X > collideeRect.X && !collidedR)
+                                {
+                                    collidedR = true;
+                                    cObj.setPosition(new Vector2(collideeRect.Right, cObj.getPosition().Y));
+                                    
+                                }
+                                
                                     
                             }
                             
                         }
                     }
-                    if (!collided) 
+                    if (!collidedT) 
                     {
                         cObj.TouchingFloor = false;
                         
@@ -65,9 +73,16 @@ namespace SuperCarrotManv2.Core
                     
                 }
                 
-                cObj.Update();
+                cObj.Update();*/
+
+                cObj.ApplyXVelocity();
+
+
+                cObj.ApplyYVelocity();
 
             }
+            
+
         }
     }
 }

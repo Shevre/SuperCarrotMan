@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SuperCarrotManv2.Core
 {
+    public enum CollisionObjectTypes { Generic,Player }
     public class CollisionObject : GameObject {
 
         private Vector2 Position;
@@ -16,6 +17,7 @@ namespace SuperCarrotManv2.Core
         public bool GravAffected = true;
         public bool TouchingFloor = false;
         public Vector2 Velocity = new Vector2();
+        public CollisionObjectTypes type = CollisionObjectTypes.Generic;
 
         public VecRectangle GetVecRectangle() => new VecRectangle(Position, CollisionBox);
 
@@ -29,12 +31,20 @@ namespace SuperCarrotManv2.Core
 
         public override void Update() 
         {
-            if (TouchingFloor) Velocity.Y = 0;
-            //if (Velocity.Y > 8) Velocity.Y = 8;
-            Position += Velocity;
+            
             
             
             base.Update();
+        }
+
+        public void ApplyYVelocity() 
+        {
+            Position.Y += Velocity.Y;
+        }
+
+        public void ApplyXVelocity() 
+        {
+            Position.X += Velocity.X;
         }
 
         

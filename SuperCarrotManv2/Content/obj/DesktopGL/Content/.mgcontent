@@ -5,6 +5,7 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/01.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/Audio/Megalovania.wav</File>
     <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/1.png</File>
     <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/2.png</File>
     <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/3.png</File>
@@ -17,6 +18,7 @@
     <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/pixle.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
