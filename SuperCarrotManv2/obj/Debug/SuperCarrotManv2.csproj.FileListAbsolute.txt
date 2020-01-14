@@ -84,3 +84,7 @@ R:\dev\superCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\File.x
 C:\Users\Leerling\Desktop\Anime_Pictures\SuperCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\File.xnb
 C:\Users\Leerling\Desktop\Anime_Pictures\SuperCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\pixle.xnb
 C:\Users\Leerling\Desktop\Anime_Pictures\SuperCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\Audio\Megalovania.xnb
+R:\dev\superCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\Audio\Megalovania.xnb
+R:\dev\superCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\Audio\mayojacuzzi.ogg
+R:\dev\superCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\Audio\mayojacuzzi.xnb
+R:\dev\superCarrotMan\SuperCarrotManv2\bin\DesktopGL\AnyCPU\Debug\Content\test.xnb

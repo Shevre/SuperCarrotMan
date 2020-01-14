@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SuperCarrotManv2.Core
 {
-    public enum CollisionObjectTypes { Generic,Player }
+    public enum CollisionObjectTypes { Generic,Terrain,Player }
     public class CollisionObject : GameObject {
 
         private Vector2 Position;
