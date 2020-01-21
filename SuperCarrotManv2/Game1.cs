@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using SuperCarrotManv2.Core;
 using SuperCarrotManv2.Entities;
 using SuperCarrotManv2.GAME;
@@ -12,11 +13,12 @@ namespace SuperCarrotManv2
     /// </summary>
     public class Game1 : Game
     {
+        //Song song;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         PhysicsHandler PhysicsHandler = new PhysicsHandler(0.3f);
         DrawingHandler DrawingHandler = new DrawingHandler();
-
+        
         Player player;
         Scene1 scene1;
 
@@ -46,6 +48,9 @@ namespace SuperCarrotManv2
             DrawingHandler.AddDrawable(scene1);
             DebugPixel = Content.Load<Texture2D>("pixle");
             debugFont = Content.Load<SpriteFont>("File");
+            //song = Content.Load<Song>(@"audio\mayojacuzzi");
+            //MediaPlayer.Play(song);
+            //MediaPlayer.IsRepeating = true;
         }
 
         protected override void UnloadContent()

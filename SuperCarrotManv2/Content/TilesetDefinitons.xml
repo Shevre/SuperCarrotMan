@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDefinitions>
+  <ResourceDefinition name="Outside">
+    <Tile Id="1" Collide="true">Tiles\Grass\00</Tile>
+    <Tile Id="2" Collide="true">Tiles\Grass\01</Tile>
+    <Tile Id="3" Collide="true">Tiles\Grass\02</Tile>
+    <Tile Id="4" Collide="true">Tiles\Grass\10</Tile>
+    <Tile Id="5" Collide="true">Tiles\Grass\11</Tile>
+    <Tile Id="6" Collide="true">Tiles\Grass\12</Tile>
+    <Tile Id="7" Collide="true">Tiles\Grass\20</Tile>
+    <Tile Id="8" Collide="true">Tiles\Grass\21</Tile>
+    <Tile Id="9" Collide="true">Tiles\Grass\22</Tile>
+  </ResourceDefinition>
+</ResourceDefinitions>

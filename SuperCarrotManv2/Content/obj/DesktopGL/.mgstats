@@ -1,4 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+<<<<<<< HEAD
 "C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/Grass/00.png","C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Grass/00.xnb","TextureProcessor","Texture2DContent",13472,16469,0,4273906
 "C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/Grass/01.png","C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Grass/01.xnb","TextureProcessor","Texture2DContent",11990,16469,0,0219433
 "C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/Grass/02.png","C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Grass/02.xnb","TextureProcessor","Texture2DContent",13625,16469,0,031915
@@ -8,3 +9,26 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/Grass/20.png","C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Grass/20.xnb","TextureProcessor","Texture2DContent",13491,16469,0,0239351
 "C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/Grass/21.png","C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Grass/21.xnb","TextureProcessor","Texture2DContent",13524,16469,0,0259305
 "C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/Grass/22.png","C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Grass/22.xnb","TextureProcessor","Texture2DContent",13609,16469,0,0319142
+=======
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/01.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/01.xnb","TextureProcessor","Texture2DContent",11990,16469,0.1290301
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/Audio/mayojacuzzi.ogg","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Audio/mayojacuzzi.xnb","SongProcessor","SongContent",967874,129,1.142198
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/1.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/CarrotMan/Walk/1.xnb","TextureProcessor","Texture2DContent",9772,32853,0.0110123
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/2.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/CarrotMan/Walk/2.xnb","TextureProcessor","Texture2DContent",11065,32853,0.0130122
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/3.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/CarrotMan/Walk/3.xnb","TextureProcessor","Texture2DContent",11636,32853,0.0130033
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/4.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/CarrotMan/Walk/4.xnb","TextureProcessor","Texture2DContent",11065,32853,0.0130028
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/5.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/CarrotMan/Walk/5.xnb","TextureProcessor","Texture2DContent",9772,32853,0.0120028
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/6.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/CarrotMan/Walk/6.xnb","TextureProcessor","Texture2DContent",10261,32853,0.0119935
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/7.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/CarrotMan/Walk/7.xnb","TextureProcessor","Texture2DContent",11575,32853,0.0120127
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/8.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/CarrotMan/Walk/8.xnb","TextureProcessor","Texture2DContent",10261,32853,0.0139929
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/File.spritefont","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/File.xnb","FontDescriptionProcessor","SpriteFontContent",2008,37905,0.1830526
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/pixle.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/pixle.xnb","TextureProcessor","Texture2DContent",155,89,0.0070119
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/Tiles/Grass/00.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Tiles/Grass/00.xnb","TextureProcessor","Texture2DContent",13472,16469,0.0119931
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/Tiles/Grass/01.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Tiles/Grass/01.xnb","TextureProcessor","Texture2DContent",11990,16469,0.0120025
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/Tiles/Grass/02.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Tiles/Grass/02.xnb","TextureProcessor","Texture2DContent",13625,16469,0.0110027
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/Tiles/Grass/10.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Tiles/Grass/10.xnb","TextureProcessor","Texture2DContent",13751,16469,0.0120023
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/Tiles/Grass/11.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Tiles/Grass/11.xnb","TextureProcessor","Texture2DContent",11943,16469,0.0120022
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/Tiles/Grass/12.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Tiles/Grass/12.xnb","TextureProcessor","Texture2DContent",13691,16469,0.0110029
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/Tiles/Grass/20.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Tiles/Grass/20.xnb","TextureProcessor","Texture2DContent",13491,16469,0.0120023
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/Tiles/Grass/21.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Tiles/Grass/21.xnb","TextureProcessor","Texture2DContent",13524,16469,0.0120123
+"R:/dev/superCarrotMan/SuperCarrotManv2/Content/Tiles/Grass/22.png","R:/dev/superCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/Tiles/Grass/22.xnb","TextureProcessor","Texture2DContent",13609,16469,0.0129935
+>>>>>>> 54144aeea36b6c4b463485948f66456c6e92e80a
