@@ -25,13 +25,13 @@ namespace SuperCarrotManv2.Core
         {
             foreach (CollisionObject cObj in CollisionObjects)
             {
-                /*if (cObj.GravAffected && !cObj.TouchingFloor)
+                if (cObj.GravAffected && !cObj.TouchingFloor)
                 { 
                     cObj.Velocity.Y += GravIntensity;
                     if (GravIntensity == 0) cObj.Velocity.Y = 0;
                 }
-                
-                
+
+                /*
                 if (cObj.Velocity != new Vector2(0,0) && cObj.GravAffected)
                 {
                     VecRectangle colliderRect = cObj.GetVecRectangle();
@@ -72,8 +72,8 @@ namespace SuperCarrotManv2.Core
                     }
                     
                 }
-                
-                cObj.Update();*/
+                */
+                cObj.Update();
 
                 cObj.ApplyXVelocity();
 

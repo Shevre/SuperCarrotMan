@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SuperCarrotManv2.Core;
 using SuperCarrotManv2.Entities;
+using SuperCarrotManv2.GAME;
 
 namespace SuperCarrotManv2
 {
@@ -17,11 +18,8 @@ namespace SuperCarrotManv2
         DrawingHandler DrawingHandler = new DrawingHandler();
 
         Player player;
-        TexturedCollisionObject floorTest0;
-        TexturedCollisionObject floorTest1;
-        TexturedCollisionObject floorTest2;
-        TexturedCollisionObject floorTest3;
-        TexturedCollisionObject floorTest4;
+        Scene1 scene1;
+
         Texture2D DebugPixel;
         SpriteFont debugFont;
         public static DebugHandler DebugHandler = new DebugHandler();
@@ -41,25 +39,11 @@ namespace SuperCarrotManv2
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player(new Vector2(0, 0), new Vector2(24, 105),Content.Load<Texture2D>(@"CarrotMan\Walk\1"),new Vector2(-19,-23));
-            floorTest0 = new TexturedCollisionObject(new Vector2(0, 260), new Vector2(64, 64), Content.Load<Texture2D>("01"),false);
-            floorTest1 = new TexturedCollisionObject(new Vector2(64, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
-            floorTest2 = new TexturedCollisionObject(new Vector2(128, 260), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
-            floorTest3 = new TexturedCollisionObject(new Vector2(320, 368), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
-            floorTest4 = new TexturedCollisionObject(new Vector2(256, 364), new Vector2(64, 64), Content.Load<Texture2D>("01"), false);
+
+            scene1 = new Scene1(Content);
+
             DrawingHandler.AddDrawable(player);
-            DrawingHandler.AddDrawable(floorTest0);
-            DrawingHandler.AddDrawable(floorTest1);
-            DrawingHandler.AddDrawable(floorTest2);
-            DrawingHandler.AddDrawable(floorTest3);
-            DrawingHandler.AddDrawable(floorTest4);
-            
-            PhysicsHandler.AddCollisionObject(player);
-            PhysicsHandler.AddCollisionObject(floorTest0);
-            PhysicsHandler.AddCollisionObject(floorTest1);
-            PhysicsHandler.AddCollisionObject(floorTest2);
-            PhysicsHandler.AddCollisionObject(floorTest4);
-            PhysicsHandler.AddCollisionObject(floorTest3);
-            
+            DrawingHandler.AddDrawable(scene1);
             DebugPixel = Content.Load<Texture2D>("pixle");
             debugFont = Content.Load<SpriteFont>("File");
         }
@@ -73,7 +57,7 @@ namespace SuperCarrotManv2
             
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            scene1.Update();
             PhysicsHandler.Update();
             base.Update(gameTime);
         }

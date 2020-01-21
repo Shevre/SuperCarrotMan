@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SuperCarrotManv2.Entities
+namespace SuperCarrotManv2.Core
 {
-    public class Entity : Core.TexturedCollisionObject
+    public class Entity : TexturedCollisionObject
     { 
 
         public Entity(Vector2 position, Vector2 collisionBox, Texture2D texture, bool gravAffected = true) : base(position, collisionBox, texture,gravAffected)

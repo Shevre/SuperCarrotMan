@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SuperCarrotManv2.Entities
 {
-    public class Player : Entity
+    public class Player : Core.Entity
     {
         bool jumped = false;
         int jumpCounter = 0;
