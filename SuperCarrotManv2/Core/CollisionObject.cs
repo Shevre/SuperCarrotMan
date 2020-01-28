@@ -23,12 +23,13 @@ namespace SuperCarrotManv2.Core
         public VecRectangle GetVecRectangle() => vecRecangle;
         
 
-        public CollisionObject(Vector2 position,Vector2 collisionBox,bool gravAffected = true) 
+        public CollisionObject(Vector2 position,Vector2 collisionBox,bool gravAffected = true,CollisionObjectTypes collisionObjectType = CollisionObjectTypes.Generic) 
         {
             Position = position;
             CollisionBox = collisionBox;
             GravAffected = gravAffected;
             vecRecangle = new VecRectangle(position, collisionBox);
+            type = collisionObjectType;
         }
 
         public override void Update() 
@@ -51,10 +52,6 @@ namespace SuperCarrotManv2.Core
             vecRecangle.X += Velocity.X;
         }
 
-        public void DebugDraw(SpriteBatch spriteBatch) 
-        {
-            vecRecangle.Draw(spriteBatch);
-        }
 
         
         

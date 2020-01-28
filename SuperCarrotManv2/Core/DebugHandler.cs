@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,8 @@ namespace SuperCarrotManv2.Core
             {
                 foreach (CollisionObject item in collisionObjects)
                 {
-                    item.GetVecRectangle().Draw(spriteBatch);
+                    if(item.type == CollisionObjectTypes.Player) item.GetVecRectangle().Draw(spriteBatch, Color.Goldenrod);
+                    else item.GetVecRectangle().Draw(spriteBatch,Color.Red);
                 }
             }
 

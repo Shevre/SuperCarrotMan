@@ -39,9 +39,9 @@ namespace SuperCarrotManv2.Core
             return (x && y);
         }
 
-        public void Draw(SpriteBatch spriteBatch) 
+        public void Draw(SpriteBatch spriteBatch,Color color) 
         {
-            spriteBatch.DrawRectangle(new Rectangle((int)X, (int)Y, (int)Width, (int)Height), Color.Red);
+            spriteBatch.DrawRectangle(new Rectangle((int)X, (int)Y, (int)Width, (int)Height), color);
         }
     }
 

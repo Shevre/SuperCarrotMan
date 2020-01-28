@@ -56,6 +56,7 @@ namespace SuperCarrotManv2.Core
             Tiles.AddRange(tiles);
             TileSize = tileSize;
             MergeCollision(collisionArray);
+            Console.WriteLine("funny");
         }
 
         public void Draw(SpriteBatch spriteBatch) 
@@ -71,16 +72,45 @@ namespace SuperCarrotManv2.Core
 
         void MergeCollision(int[][] collisionArray) 
         {
-            
+            List<List<Point>> p = new List<List<Point>>();
+            int pointOffset = 0;
+            p.Add(new List<Point>());
             for (int y = 0; y < Height; y++)
             {
+                if(p[pointOffset].Count > 0) 
+                {
+                    p.Add(new List<Point>());
+                    pointOffset++;
+                }
+                
                 for (int x = 0; x < Width; x++)
                 {
-                    if(collisionArray[y][x] != 0)CollisionObjects.Add(new CollisionObject(new Vector2(x * 64, y * 64), new Vector2(64, 64),false));
-
+                    //if(collisionArray[y][x] != 0)CollisionObjects.Add(new CollisionObject(new Vector2(x * 64, y * 64), new Vector2(64, 64),false));
+                    if(collisionArray[y][x] == 1) 
+                    {
+                        p[pointOffset].Add(new Point(x, y));
+                    }
+                    else if(collisionArray[y][x] == 0 && p[pointOffset].Count > 0) 
+                    {
+                        p.Add(new List<Point>());
+                        pointOffset++;
+                    }
                     
                 }
             }
+            foreach (List<Point> PointList in p)
+            {
+                if (PointList.Count > 0) CollisionObjects.Add(new CollisionObject(new Vector2(PointList[0].X * TileSize.X, PointList[0].Y * TileSize.Y), new Vector2(((PointList[PointList.Count - 1].X - PointList[0].X) + 1) * TileSize.X, TileSize.Y), false));
+
+            }
+
+            //for (int i = 0; i < p.Count; i++)
+            //{
+            //    if (p[i].Count > 0) CollisionObjects.Add(new CollisionObject(new Vector2(p[i][0].X * TileSize.X, p[i][0].Y * TileSize.Y), new Vector2(((p[i][p[i].Count - 1].X - p[i][0].X) + 1) * TileSize.X, TileSize.Y), false));
+
+
+            //}
+
         }
     }
 }

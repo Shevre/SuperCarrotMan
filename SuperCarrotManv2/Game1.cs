@@ -43,7 +43,7 @@ namespace SuperCarrotManv2
             testRect = new VecRectangle(5, 8, 20, 30);
             currentState = Keyboard.GetState();
             prevState = Keyboard.GetState();
-            this.IsMouseVisible = true;
+            IsMouseVisible = true;
             base.Initialize();
         }
 
@@ -69,6 +69,7 @@ namespace SuperCarrotManv2
                 World = Matrix.CreateOrthographicOffCenter(
                 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0, 0, 1)
             };
+
         }
 
         protected override void UnloadContent()
@@ -78,7 +79,7 @@ namespace SuperCarrotManv2
         protected override void Update(GameTime gameTime)
         {
             currentState = Keyboard.GetState();
-            if (currentState.IsKeyDown(Keys.LeftControl) && (currentState.IsKeyDown(Keys.P) && prevState.IsKeyDown(Keys.P))) Paused = !Paused;
+            if (currentState.IsKeyDown(Keys.LeftControl) && (currentState.IsKeyDown(Keys.P) && prevState.IsKeyUp(Keys.P))) Paused = !Paused;
             if (!Paused) 
             {
                 
