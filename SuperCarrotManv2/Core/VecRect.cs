@@ -1,10 +1,12 @@
 ﻿
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using C3.XNA;
 
 namespace SuperCarrotManv2.Core
 {
-    public struct VecRectangle
+    public class VecRectangle
     {
         public float X, Y;
         public float Width, Height;
@@ -17,6 +19,7 @@ namespace SuperCarrotManv2.Core
             Height = size.Y;
             Bottom = Y + Height;
             Right = X + Width;
+           
         }
 
         public VecRectangle(float x, float y, float width, float height)
@@ -34,6 +37,11 @@ namespace SuperCarrotManv2.Core
             bool y = ((target.Y <= Y && target.Bottom > Y) || (target.Y <= Bottom && target.Bottom > Bottom));
             bool x = ((target.X <= X && target.Right > X) || (target.X <= Right && target.Right > Right));
             return (x && y);
+        }
+
+        public void Draw(SpriteBatch spriteBatch) 
+        {
+            spriteBatch.DrawRectangle(new Rectangle((int)X, (int)Y, (int)Width, (int)Height), Color.Red);
         }
     }
 

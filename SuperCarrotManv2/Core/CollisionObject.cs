@@ -18,15 +18,17 @@ namespace SuperCarrotManv2.Core
         public bool TouchingFloor = false;
         public Vector2 Velocity = new Vector2();
         public CollisionObjectTypes type = CollisionObjectTypes.Generic;
-
-        public VecRectangle GetVecRectangle() => new VecRectangle(Position, CollisionBox);
-
+        private VecRectangle vecRecangle;
+      
+        public VecRectangle GetVecRectangle() => vecRecangle;
+        
 
         public CollisionObject(Vector2 position,Vector2 collisionBox,bool gravAffected = true) 
         {
             Position = position;
             CollisionBox = collisionBox;
             GravAffected = gravAffected;
+            vecRecangle = new VecRectangle(position, collisionBox);
         }
 
         public override void Update() 
@@ -40,11 +42,18 @@ namespace SuperCarrotManv2.Core
         public void ApplyYVelocity() 
         {
             Position.Y += Velocity.Y;
+            vecRecangle.Y += Velocity.Y;
         }
 
         public void ApplyXVelocity() 
         {
             Position.X += Velocity.X;
+            vecRecangle.X += Velocity.X;
+        }
+
+        public void DebugDraw(SpriteBatch spriteBatch) 
+        {
+            vecRecangle.Draw(spriteBatch);
         }
 
         

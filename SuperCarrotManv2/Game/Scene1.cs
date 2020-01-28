@@ -14,19 +14,21 @@ namespace SuperCarrotManv2.GAME
 
         public Scene1(ContentManager content) : base(content)
         {
-            List<Texture2D> texture2Ds = new List<Texture2D>();
-            texture2Ds.Add(content.Load<Texture2D>(@"Grass\00"));
-            texture2Ds.Add(content.Load<Texture2D>(@"Grass\01"));
-            texture2Ds.Add(content.Load<Texture2D>(@"Grass\02"));
-            texture2Ds.Add(content.Load<Texture2D>(@"Grass\10"));
-            texture2Ds.Add(content.Load<Texture2D>(@"Grass\11"));
-            texture2Ds.Add(content.Load<Texture2D>(@"Grass\12"));
-            texture2Ds.Add(content.Load<Texture2D>(@"Grass\20"));
-            texture2Ds.Add(content.Load<Texture2D>(@"Grass\21"));
-            texture2Ds.Add(content.Load<Texture2D>(@"Grass\22"));
+            #region TEXTURES
+            List<Texture2D> TEXTURES = new List<Texture2D>();
+            TEXTURES.Add(content.Load<Texture2D>(@"Grass\00"));
+            TEXTURES.Add(content.Load<Texture2D>(@"Grass\01"));
+            TEXTURES.Add(content.Load<Texture2D>(@"Grass\02"));
+            TEXTURES.Add(content.Load<Texture2D>(@"Grass\10"));
+            TEXTURES.Add(content.Load<Texture2D>(@"Grass\11"));
+            TEXTURES.Add(content.Load<Texture2D>(@"Grass\12"));
+            TEXTURES.Add(content.Load<Texture2D>(@"Grass\20"));
+            TEXTURES.Add(content.Load<Texture2D>(@"Grass\21"));
+            TEXTURES.Add(content.Load<Texture2D>(@"Grass\22"));
+            #endregion
 
-            //TILEMAP
-            int[][] tileArray = new int[8][];
+            #region TILEMAP
+            /*TILES*/int[][] tileArray = new int[8][];
             tileArray[0] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             tileArray[1] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             tileArray[2] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2 };
@@ -35,8 +37,8 @@ namespace SuperCarrotManv2.GAME
             tileArray[5] = new int[] { 5, 5, 5, 5, 9, 0, 0, 0, 0, 0, 0, 0, 0 };
             tileArray[6] = new int[] { 5, 5, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             tileArray[7] = new int[] { 5, 5, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
-            int[][] collisionArray = new int[8][];
+            
+            /*COLLISION*/int[][] collisionArray = new int[8][];
             collisionArray[0] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             collisionArray[1] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             collisionArray[2] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 };
@@ -45,8 +47,8 @@ namespace SuperCarrotManv2.GAME
             collisionArray[5] = new int[] { 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 };
             collisionArray[6] = new int[] { 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             collisionArray[7] = new int[] { 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
-            TileMap = new TileMap(tileArray,collisionArray, texture2Ds, new Microsoft.Xna.Framework.Point(64, 64));
+            #endregion
+            TileMap = new TileMap(tileArray,collisionArray, TEXTURES, new Microsoft.Xna.Framework.Point(64, 64));
         }
     }
 }

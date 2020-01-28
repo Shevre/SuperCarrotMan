@@ -9,6 +9,7 @@ namespace SuperCarrotManv2.Core
 {
     public class PhysicsHandler {
         List<CollisionObject> CollisionObjects = new List<CollisionObject>();
+        public List<CollisionObject> GetCollisionObjects() => CollisionObjects;
         private float GravIntensity;
         public PhysicsHandler(float gravIntensity) 
         {
@@ -19,6 +20,11 @@ namespace SuperCarrotManv2.Core
         public void AddCollisionObject(CollisionObject collisionObject) 
         {
             CollisionObjects.Add(collisionObject);
+        }
+
+        public void AddCollisionObject(Scene scene)
+        {
+            CollisionObjects.AddRange(scene.TileMap.CollisionObjects);
         }
 
         public void Update() 

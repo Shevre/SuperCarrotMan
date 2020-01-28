@@ -24,6 +24,13 @@ namespace SuperCarrotManv2
 
         Texture2D DebugPixel;
         SpriteFont debugFont;
+
+        BasicEffect basicEffect;
+
+        VecRectangle testRect;
+
+        KeyboardState currentState;
+        KeyboardState prevState;
         public static DebugHandler DebugHandler = new DebugHandler();
         public Game1()
         {
@@ -33,12 +40,16 @@ namespace SuperCarrotManv2
         
         protected override void Initialize()
         {
-
+            testRect = new VecRectangle(5, 8, 20, 30);
+            currentState = Keyboard.GetState();
+            prevState = Keyboard.GetState();
+            this.IsMouseVisible = true;
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+            
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player(new Vector2(0, 0), new Vector2(24, 105),Content.Load<Texture2D>(@"CarrotMan\Walk\1"),new Vector2(-19,-23));
 
@@ -46,25 +57,40 @@ namespace SuperCarrotManv2
 
             DrawingHandler.AddDrawable(player);
             DrawingHandler.AddDrawable(scene1);
+            PhysicsHandler.AddCollisionObject(player);
+            PhysicsHandler.AddCollisionObject(scene1);
             DebugPixel = Content.Load<Texture2D>("pixle");
             debugFont = Content.Load<SpriteFont>("File");
             //song = Content.Load<Song>(@"audio\mayojacuzzi");
             //MediaPlayer.Play(song);
             //MediaPlayer.IsRepeating = true;
+            basicEffect = new BasicEffect(GraphicsDevice)
+            {
+                World = Matrix.CreateOrthographicOffCenter(
+                0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0, 0, 1)
+            };
         }
 
         protected override void UnloadContent()
         {
         }
-
+        bool Paused = false;
         protected override void Update(GameTime gameTime)
         {
-            
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-            scene1.Update();
-            PhysicsHandler.Update();
+            currentState = Keyboard.GetState();
+            if (currentState.IsKeyDown(Keys.LeftControl) && (currentState.IsKeyDown(Keys.P) && prevState.IsKeyDown(Keys.P))) Paused = !Paused;
+            if (!Paused) 
+            {
+                
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    Exit();
+                scene1.Update();
+                PhysicsHandler.Update();
+
+            }
+            DebugHandler.DebugUpdate(currentState, prevState);
             base.Update(gameTime);
+            prevState = currentState;
         }
         
         protected override void Draw(GameTime gameTime)
@@ -82,10 +108,15 @@ namespace SuperCarrotManv2
             {
                 DebugHandler.Log("No ");
             }
-            spriteBatch.DrawString(debugFont, DebugHandler.debugString, new Vector2(0, 0), Color.Magenta);
+            if(DebugHandler.IsDebugging())spriteBatch.DrawString(debugFont, DebugHandler.debugString, new Vector2(0, 0), Color.Magenta);
+            DebugHandler.DebugDraw(spriteBatch, PhysicsHandler.GetCollisionObjects());
             spriteBatch.End();
+            
             base.Draw(gameTime);
             DebugHandler.ClearString();
+            
         }
+
+        
     }
 }

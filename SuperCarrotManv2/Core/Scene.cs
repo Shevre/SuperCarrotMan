@@ -71,35 +71,16 @@ namespace SuperCarrotManv2.Core
 
         void MergeCollision(int[][] collisionArray) 
         {
-            //List<Point> Merged = new List<Point>();
-            //for (int y = 0; y < Height; y++)
-            //{
-            //    for (int x = 0; x < Width; x++)
-            //    {
-            //        Point currentPoint = new Point(x, y);
-            //        if (!Merged.Contains(currentPoint)) 
-            //        {
-            //            if (collisionArray[y][x] == 1) 
-            //            {
-            //                bool running = true, xChecked = false, yChecked = false;
-            //                int xCount = 0, yCount = 0;
-            //                while (running)
-            //                {
-            //                    if (collisionArray[y + 1 + yCount][x] == 1) yCount++;
-            //                    else yChecked = true;
-            //                    if (collisionArray[y][x + 1 + xCount] == 1) xCount++;
-            //                    else xChecked = true;
-                                
-                                
+            
+            for (int y = 0; y < Height; y++)
+            {
+                for (int x = 0; x < Width; x++)
+                {
+                    if(collisionArray[y][x] != 0)CollisionObjects.Add(new CollisionObject(new Vector2(x * 64, y * 64), new Vector2(64, 64),false));
 
-                                
-            //                    running = !(xChecked && yChecked);
-            //                }
-            //            }
-                        
-            //        }
-            //    }
-            //}
+                    
+                }
+            }
         }
     }
 }
