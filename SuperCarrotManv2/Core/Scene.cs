@@ -47,7 +47,7 @@ namespace SuperCarrotManv2.Core
         public List<Texture2D> Tiles { private set; get; } = new List<Texture2D>();
         Point TileSize;
         public List<CollisionObject> CollisionObjects = new List<CollisionObject>();
-        public TileMap(int[][] tileArray,int[][] collisionArray, List<Texture2D> tiles,Point tileSize) 
+        public TileMap(int[][] tileArray,List<CollisionObject> collisionObjects, List<Texture2D> tiles,Point tileSize) 
         {
             Tiles.Add(null);
             TileArray = tileArray;
@@ -55,7 +55,7 @@ namespace SuperCarrotManv2.Core
             Height = TileArray.Length;
             Tiles.AddRange(tiles);
             TileSize = tileSize;
-            MergeCollision(collisionArray);
+            CollisionObjects.AddRange(collisionObjects);
             Console.WriteLine("funny");
         }
 

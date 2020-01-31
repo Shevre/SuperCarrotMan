@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using SuperCarrotManv2.Core;
 
 namespace SuperCarrotManv2.GAME
@@ -37,18 +38,17 @@ namespace SuperCarrotManv2.GAME
             tileArray[5] = new int[] { 5, 5, 5, 5, 9, 0, 0, 0, 0, 5, 0, 0, 0 };
             tileArray[6] = new int[] { 5, 5, 5, 6, 0, 0, 0, 0, 0, 5, 5, 5, 5 };
             tileArray[7] = new int[] { 5, 5, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            
-            /*COLLISION*/int[][] collisionArray = new int[8][];
-            collisionArray[0] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            collisionArray[1] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            collisionArray[2] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 };
-            collisionArray[3] = new int[] { 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1 };
-            collisionArray[4] = new int[] { 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 };
-            collisionArray[5] = new int[] { 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0 };
-            collisionArray[6] = new int[] { 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1 };
-            collisionArray[7] = new int[] { 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+            /*COLLISION*/
+            List<CollisionObject> collisionList = new List<CollisionObject>();
+            collisionList.Add(new CollisionObject(new Vector2(0, 192), new Vector2(256, 320), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(256, 192), new Vector2(64, 192), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(576, 128), new Vector2(256,128), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(576, 320), new Vector2(64, 128), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(640, 384), new Vector2(192, 64), false, CollisionObjectTypes.Terrain));
+
             #endregion
-            TileMap = new TileMap(tileArray,collisionArray, TEXTURES, new Microsoft.Xna.Framework.Point(64, 64));
+            TileMap = new TileMap(tileArray,collisionList, TEXTURES, new Microsoft.Xna.Framework.Point(64, 64));
         }
     }
 }
