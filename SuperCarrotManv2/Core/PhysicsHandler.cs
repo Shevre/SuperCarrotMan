@@ -81,10 +81,14 @@ namespace SuperCarrotManv2.Core
                 */
                 cObj.Update();
 
+
+                cObj.ApplyYVelocity();
+
+
                 cObj.ApplyXVelocity();
 
 
-                cObj.ApplyYVelocity();
+                
 
             }
             
