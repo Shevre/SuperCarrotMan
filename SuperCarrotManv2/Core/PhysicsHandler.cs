@@ -29,12 +29,12 @@ namespace SuperCarrotManv2.Core
 
         public void Update() 
         {
-            foreach (CollisionObject cObj in CollisionObjects)
+            foreach (CollisionObject Collider in CollisionObjects)
             {
-                if (cObj.GravAffected && !cObj.TouchingFloor)
+                if (Collider.GravAffected)
                 { 
-                    cObj.Velocity.Y += GravIntensity;
-                    if (GravIntensity == 0) cObj.Velocity.Y = 0;
+                    Collider.Velocity.Y += GravIntensity;
+                    if (GravIntensity == 0) Collider.Velocity.Y = 0;
                 }
 
                 /*
@@ -79,17 +79,36 @@ namespace SuperCarrotManv2.Core
                     
                 }
                 */
-                cObj.Update();
+                Collider.Update();
 
                 
-                cObj.ApplyYVelocity();
-                if (cObj.Velocity.Y != ExtentionMethods.getEmptyVector().Y)
+                Collider.ApplyYVelocity();
+                if (Collider.Velocity.Y != ExtentionMethods.getEmptyVector().Y)
                 {
-
+                    foreach (CollisionObject Collidee in CollisionObjects)
+                    {
+                        if(Collider != Collidee) 
+                            if (Collider.GetVecRectangle().Intersects(Collidee.GetVecRectangle())) 
+                            {
+                                Game1.DebugHandler.Log("yes ");
+                                if(Collider.Position.Y - Collidee.GetVecRectangle().Y > Collider.Position.Y - Collidee.GetVecRectangle().Bottom)
+                                {
+                                    //Intersect doesnt get detected correctly?
+                                    Game1.DebugHandler.Log("yes2 ");
+                                    Collider.TouchingFloor = true;
+                                    Collider.Velocity.Y = 0f;
+                                    Collider.setYPosition(Collidee.Position.Y - Collider.GetVecRectangle().Height);
+                                }
+                                else
+                                {
+                                    Collider.setYPosition(Collidee.GetVecRectangle().Bottom); 
+                                }
+                            }
+                    }
                 }
                 
-                cObj.ApplyXVelocity();
-                if (cObj.Velocity.X != ExtentionMethods.getEmptyVector().X)
+                Collider.ApplyXVelocity();
+                if (Collider.Velocity.X != ExtentionMethods.getEmptyVector().X)
                 {
 
                 }
@@ -102,7 +121,7 @@ namespace SuperCarrotManv2.Core
         }
     }
 
-    public static class ExtentionMethods 
+    public static partial class ExtentionMethods 
     {
         static Vector2 emptyVector;
         public static Vector2 getEmptyVector() 

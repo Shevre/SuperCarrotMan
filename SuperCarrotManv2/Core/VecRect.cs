@@ -32,6 +32,30 @@ namespace SuperCarrotManv2.Core
             Right = X + Width;
         }
 
+        public void setXPosition(float x) 
+        {
+            X = x;
+            Right = X + Width;
+            
+        }
+        public void setYPosition(float y)
+        {
+            Y = y;
+            Bottom = Y + Height;
+
+        }
+        public void AddX(float x) 
+        {
+            X += x;
+            Right = X + Width;
+        }
+        public void AddY(float y)
+        {
+            Y += y;
+            
+            Bottom = Y + Height;
+        }
+
         public bool Intersects(VecRectangle target) 
         {
             bool y = ((target.Y <= Y && target.Bottom > Y) || (target.Y <= Bottom && target.Bottom > Bottom));

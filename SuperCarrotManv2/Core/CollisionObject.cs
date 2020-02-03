@@ -6,10 +6,22 @@ namespace SuperCarrotManv2.Core
     public enum CollisionObjectTypes { Generic,Terrain,Player }
     public class CollisionObject : GameObject {
 
-        private Vector2 Position;
+        public Vector2 Position;
         public void setPosition(Vector2 pos) 
         {
             Position = pos;
+            vecRecangle.X = pos.X;
+            vecRecangle.Y = pos.Y;
+        }
+        public void setXPosition(float X)
+        {
+            Position.X = X;
+            vecRecangle.setXPosition(X);
+        }
+        public void setYPosition(float Y)
+        {
+            Position.Y = Y;
+            vecRecangle.setYPosition(Y);
         }
         public Vector2 getPosition() => Position;
         private Vector2 CollisionBox;
@@ -43,13 +55,13 @@ namespace SuperCarrotManv2.Core
         public void ApplyYVelocity() 
         {
             Position.Y += Velocity.Y;
-            vecRecangle.Y += Velocity.Y;
+            vecRecangle.AddY(Velocity.Y);
         }
 
         public void ApplyXVelocity() 
         {
             Position.X += Velocity.X;
-            vecRecangle.X += Velocity.X;
+            vecRecangle.AddX(Velocity.X);
         }
 
 

@@ -59,7 +59,7 @@ namespace SuperCarrotManv2.Entities
                     jumpCounter = 0;
                 }
             }
-            Game1.DebugHandler.Log($"player1 velocity: {Velocity}");
+            Game1.DebugHandler.Log($"player1 velocity: {Velocity} position: {Position}");
             base.Update();
         }
     }

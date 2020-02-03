@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuperCarrotManv2.Core
 {
-    public static class ExtentionMethods
+    public static partial class ExtentionMethods
     {
         private static Texture2D _blankTexture;
 

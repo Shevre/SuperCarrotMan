@@ -16,7 +16,7 @@ namespace SuperCarrotManv2
         //Song song;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        PhysicsHandler PhysicsHandler = new PhysicsHandler(0.3f);
+        PhysicsHandler PhysicsHandler = new PhysicsHandler(0.1f);
         DrawingHandler DrawingHandler = new DrawingHandler();
         
         Player player;
