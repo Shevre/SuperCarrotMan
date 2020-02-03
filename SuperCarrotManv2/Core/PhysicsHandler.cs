@@ -81,18 +81,38 @@ namespace SuperCarrotManv2.Core
                 */
                 cObj.Update();
 
-
-                cObj.ApplyYVelocity();
-
-
-                cObj.ApplyXVelocity();
-
-
                 
+                cObj.ApplyYVelocity();
+                if (cObj.Velocity.Y != ExtentionMethods.getEmptyVector().Y)
+                {
+
+                }
+                
+                cObj.ApplyXVelocity();
+                if (cObj.Velocity.X != ExtentionMethods.getEmptyVector().X)
+                {
+
+                }
+
+
 
             }
             
 
+        }
+    }
+
+    public static class ExtentionMethods 
+    {
+        static Vector2 emptyVector;
+        public static Vector2 getEmptyVector() 
+        {
+            if(emptyVector == null) 
+            {
+                emptyVector = new Vector2(0, 0);
+                
+            }
+            return emptyVector;
         }
     }
 }
