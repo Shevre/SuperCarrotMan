@@ -91,10 +91,10 @@ namespace SuperCarrotManv2.Core
                             if (Collider.GetVecRectangle().Intersects(Collidee.GetVecRectangle())) 
                             {
                                 Game1.DebugHandler.Log("yes ");
-                                if(Collider.Position.Y - Collidee.GetVecRectangle().Y > Collider.Position.Y - Collidee.GetVecRectangle().Bottom)
+                                if(-(Collidee.GetVecRectangle().Height / 2) > Collider.Position.Y - Collidee.GetVecRectangle().Bottom)
                                 {
-                                    //Intersect doesnt get detected correctly?
-                                    Game1.DebugHandler.Log("yes2 ");
+                                    
+                                    
                                     Collider.TouchingFloor = true;
                                     Collider.Velocity.Y = 0f;
                                     Collider.setYPosition(Collidee.Position.Y - Collider.GetVecRectangle().Height);
@@ -110,7 +110,26 @@ namespace SuperCarrotManv2.Core
                 Collider.ApplyXVelocity();
                 if (Collider.Velocity.X != ExtentionMethods.getEmptyVector().X)
                 {
+                    foreach (CollisionObject Collidee in CollisionObjects)
+                    {
+                        if (Collider != Collidee)
+                            if (Collider.GetVecRectangle().Intersects(Collidee.GetVecRectangle()))
+                            {
+                                Game1.DebugHandler.Log("yesX ");
+                                if (-(Collidee.GetVecRectangle().Width / 2) > Collider.Position.X - Collidee.GetVecRectangle().Right)
+                                {
 
+                                    Game1.DebugHandler.Log("yesX2 ");
+                                    
+                                    Collider.Velocity.X = 0f;
+                                    Collider.setXPosition(Collidee.Position.X - Collider.GetVecRectangle().Width);
+                                }
+                                else
+                                {
+                                    Collider.setXPosition(Collidee.GetVecRectangle().Right);
+                                }
+                            }
+                    }
                 }
 
 

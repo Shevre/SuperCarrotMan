@@ -58,8 +58,8 @@ namespace SuperCarrotManv2.Core
 
         public bool Intersects(VecRectangle target) 
         {
-            bool y = ((target.Y <= Y && target.Bottom > Y) || (target.Y <= Bottom && target.Bottom > Bottom));
-            bool x = ((target.X <= X && target.Right > X) || (target.X <= Right && target.Right > Right));
+            bool y = ((target.Y < Y && target.Bottom > Y) || (target.Y < Bottom && target.Bottom > Bottom));
+            bool x = ((target.X < X && target.Right > X) || (target.X < Right && target.Right > Right));
             return (x && y);
         }
 
