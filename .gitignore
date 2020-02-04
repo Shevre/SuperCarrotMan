@@ -1,2 +1,5 @@
 *.wav
 *.cfg
+SuperCarrotManv2/bin
+SuperCarrotManv2/Content/obj
+SuperCarrotManv2/obj
