@@ -1,5 +1,6 @@
 *.wav
 *.cfg
+*.csproj.user
 SuperCarrotManv2/bin
 SuperCarrotManv2/Content/obj
 SuperCarrotManv2/obj
