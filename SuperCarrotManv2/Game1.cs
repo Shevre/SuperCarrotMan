@@ -14,10 +14,16 @@ namespace SuperCarrotManv2
     public class Game1 : Game
     {
         //Song song;
+        public static int defScreenWidth = 1280;
+        public static int defScreenHeight = 720;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         PhysicsHandler PhysicsHandler = new PhysicsHandler(0.1f);
         DrawingHandler DrawingHandler = new DrawingHandler();
+
+        RenderTarget2D GameLayer;
+        RenderTarget2D UIlayer;
         
         Player player;
         Scene1 scene1;
@@ -44,6 +50,9 @@ namespace SuperCarrotManv2
             currentState = Keyboard.GetState();
             prevState = Keyboard.GetState();
             IsMouseVisible = true;
+            graphics.PreferredBackBufferHeight = defScreenHeight;
+            graphics.PreferredBackBufferWidth = defScreenWidth;
+            graphics.ApplyChanges();
             base.Initialize();
         }
 
@@ -57,8 +66,8 @@ namespace SuperCarrotManv2
 
             DrawingHandler.AddDrawable(player);
             DrawingHandler.AddDrawable(scene1);
-            PhysicsHandler.AddCollisionObject(player);
-            PhysicsHandler.AddCollisionObject(scene1);
+            scene1.AddPlayer(player);
+            
             DebugPixel = Content.Load<Texture2D>("pixle");
             debugFont = Content.Load<SpriteFont>("File");
             //song = Content.Load<Song>(@"audio\mayojacuzzi");
@@ -69,7 +78,8 @@ namespace SuperCarrotManv2
                 World = Matrix.CreateOrthographicOffCenter(
                 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0, 0, 1)
             };
-
+            GameLayer = new RenderTarget2D(GraphicsDevice, defScreenWidth, defScreenHeight);
+            UIlayer = new RenderTarget2D(GraphicsDevice, defScreenWidth, defScreenHeight);
         }
 
         protected override void UnloadContent()
@@ -86,7 +96,7 @@ namespace SuperCarrotManv2
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                     Exit();
                 scene1.Update();
-                PhysicsHandler.Update();
+                
 
             }
             DebugHandler.DebugUpdate(currentState, prevState);
@@ -96,9 +106,9 @@ namespace SuperCarrotManv2
         
         protected override void Draw(GameTime gameTime)
         {
-            
+            spriteBatch.GraphicsDevice.SetRenderTarget(GameLayer);
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
+            spriteBatch.Begin(transformMatrix: scene1.getCameraTransform());
             DrawingHandler.Draw(spriteBatch);
             DebugHandler.Log(" Touching Floor: ");
             if (player.TouchingFloor)
@@ -109,10 +119,21 @@ namespace SuperCarrotManv2
             {
                 DebugHandler.Log("No ");
             }
-            if(DebugHandler.IsDebugging())spriteBatch.DrawString(debugFont, DebugHandler.debugString, new Vector2(0, 0), Color.Magenta);
-            DebugHandler.DebugDraw(spriteBatch, PhysicsHandler.GetCollisionObjects());
-            spriteBatch.End();
             
+            DebugHandler.DebugDraw(spriteBatch, scene1.physics.GetCollisionObjects());
+            
+            spriteBatch.End();
+            spriteBatch.GraphicsDevice.SetRenderTarget(UIlayer);
+            GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin();
+            if (DebugHandler.IsDebugging()) spriteBatch.DrawString(debugFont, DebugHandler.debugString, new Vector2(0, 0), Color.Magenta);
+            spriteBatch.End();
+            spriteBatch.GraphicsDevice.SetRenderTarget(null);
+            spriteBatch.Begin();
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Draw(GameLayer, ExtentionMethods.getEmptyVector(), Color.White);
+            spriteBatch.Draw(UIlayer, ExtentionMethods.getEmptyVector(), Color.White);
+            spriteBatch.End();
             base.Draw(gameTime);
             DebugHandler.ClearString();
             

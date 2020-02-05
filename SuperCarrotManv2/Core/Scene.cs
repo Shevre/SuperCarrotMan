@@ -14,19 +14,24 @@ namespace SuperCarrotManv2.Core
         public List<Entity> Entities = new List<Entity>();
 
         public TileMap TileMap;
-        
-        
 
+        public PhysicsHandler physics;
+        private Camera Camera = new Camera();
+        public Matrix getCameraTransform() => Camera.Transform;
 
+        public float gravIntensity = 0.3f;
+
+        public Entities.Player Player;
 
         public Scene(ContentManager content) 
         {
-            
+            physics = new PhysicsHandler(gravIntensity);
         }
 
         public void Update() 
         {
-            
+            physics.Update();
+            Camera.Follow(Player);
         }
 
         public void Draw(SpriteBatch spriteBatch) 
@@ -36,6 +41,13 @@ namespace SuperCarrotManv2.Core
             {
                 e.Draw(spriteBatch);
             }
+        }
+
+        public void AddPlayer(Entities.Player player) 
+        {
+            Player = player;
+            physics.AddCollisionObject(player);
+            
         }
     }
 

@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="c3XNAprimitives\Primitives2D.cs" />
     <Compile Include="Core\BitmapFont1.cs" />
+    <Compile Include="Core\Camera.cs" />
     <Compile Include="Core\ContentHandler.cs" />
     <Compile Include="Core\DebugHandler.cs" />
     <Compile Include="Core\BlankTexture.cs" />

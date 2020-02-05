@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>R:/dev/superCarrotMan/Master/SuperCarrotManv2/Content/CarrotMan/Walk/1.png</SourceFile>
-  <SourceTime>2020-01-21T18:45:06.6282991+01:00</SourceTime>
-  <DestFile>R:/dev/superCarrotMan/Master/SuperCarrotManv2/Content/bin/DesktopGL/Content/CarrotMan/Walk/1.xnb</DestFile>
-  <DestTime>2020-02-04T20:28:32.42976+01:00</DestTime>
+  <SourceFile>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/Master/SuperCarrotManv2/Content/CarrotMan/Walk/1.png</SourceFile>
+  <SourceTime>2019-10-15T16:19:32.1188362+02:00</SourceTime>
+  <DestFile>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/Master/SuperCarrotManv2/Content/bin/DesktopGL/Content/CarrotMan/Walk/1.xnb</DestFile>
+  <DestTime>2020-02-05T08:36:27.1905657+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

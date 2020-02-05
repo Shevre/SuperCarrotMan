@@ -32,8 +32,8 @@ namespace SuperCarrotManv2.GAME
             /*TILES*/int[][] tileArray = new int[8][];
             tileArray[0] = new int[] { 0, 0, 7, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0 };
             tileArray[1] = new int[] { 0, 0, 0, 7, 9, 0, 0, 0, 0, 1, 2, 2, 2 };
-            tileArray[2] = new int[] { 0, 0, 0, 0, 0, 5, 0, 0, 0, 7, 8, 8, 8 };
-            tileArray[3] = new int[] { 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0 };
+            tileArray[2] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8, 8, 8 };
+            tileArray[3] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             tileArray[4] = new int[] { 2, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0 };
             tileArray[5] = new int[] { 5, 5, 5, 5, 9, 0, 0, 0, 0, 5, 0, 0, 0 };
             tileArray[6] = new int[] { 5, 5, 5, 6, 0, 0, 0, 0, 5, 5, 5, 5, 5 };
@@ -41,10 +41,10 @@ namespace SuperCarrotManv2.GAME
 
             /*COLLISION*/
             List<CollisionObject> collisionList = new List<CollisionObject>();
-            collisionList.Add(new CollisionObject(new Vector2(128, 0), new Vector2(64, 64), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(128, -64), new Vector2(64, 128), false, CollisionObjectTypes.Terrain));
             collisionList.Add(new CollisionObject(new Vector2(192, 0), new Vector2(128, 128), false, CollisionObjectTypes.Terrain));
             collisionList.Add(new CollisionObject(new Vector2(0, 256), new Vector2(256, 256), false, CollisionObjectTypes.Terrain));
-            collisionList.Add(new CollisionObject(new Vector2(320, 128), new Vector2(64, 128), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(384, 256), new Vector2(64, 32), false, CollisionObjectTypes.Terrain));
             collisionList.Add(new CollisionObject(new Vector2(256, 256), new Vector2(64, 128), false, CollisionObjectTypes.Terrain));
             collisionList.Add(new CollisionObject(new Vector2(576, 64), new Vector2(256,128), false, CollisionObjectTypes.Terrain));
             collisionList.Add(new CollisionObject(new Vector2(576, 320), new Vector2(64, 65), false, CollisionObjectTypes.Terrain));
@@ -52,6 +52,7 @@ namespace SuperCarrotManv2.GAME
 
             #endregion
             TileMap = new TileMap(tileArray,collisionList, TEXTURES, new Microsoft.Xna.Framework.Point(64, 64));
+            physics.AddCollisionObject(this);
         }
     }
 }
