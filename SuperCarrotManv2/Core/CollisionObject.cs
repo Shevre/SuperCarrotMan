@@ -23,6 +23,20 @@ namespace SuperCarrotManv2.Core
             Position.Y = Y;
             vecRecangle.setYPosition(Y);
         }
+        public void AdjustCollisionBox(float w,float h)
+        {
+            CollisionBox.X += w;
+            vecRecangle.addWidth(w);
+            CollisionBox.Y += h;
+            vecRecangle.addHeight(h);
+        }
+        public void SetCollisionBox(float w, float h)
+        {
+            CollisionBox.X = w;
+            vecRecangle.setWidth(w);
+            CollisionBox.Y = h;
+            vecRecangle.setHeight(h);
+        }
         public Vector2 getPosition() => Position;
         private Vector2 CollisionBox;
         public Vector2 getCollisionBox() => CollisionBox;
@@ -72,7 +86,18 @@ namespace SuperCarrotManv2.Core
     public class TexturedCollisionObject : CollisionObject,Drawable {
 
         private Texture2D Texture;
+        public Texture2D getTexture() => Texture;
         private Vector2 TextureOffset = new Vector2(0,0);
+        public Vector2 getTextureOffset() => TextureOffset;
+        public void AdjustTextureOffset(float x, float y)
+        {
+            TextureOffset.X += x;
+            TextureOffset.Y += y;
+        }
+        public void SetTextureOffset(Vector2 h)
+        {
+            TextureOffset = h;
+        }
         public TexturedCollisionObject(Vector2 position, Vector2 collisionBox, Texture2D texture,bool gravAffected = true) : base(position, collisionBox,gravAffected) 
         {
             Texture = texture;

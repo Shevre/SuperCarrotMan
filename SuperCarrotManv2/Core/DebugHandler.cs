@@ -29,15 +29,21 @@ namespace SuperCarrotManv2.Core
             if (currentState.IsKeyDown(Keys.LeftControl) && (currentState.IsKeyDown(Keys.D) && prevState.IsKeyUp(Keys.D))) Debugging = !Debugging;
         }
 
-        public void DebugDraw(SpriteBatch spriteBatch,List<CollisionObject> collisionObjects) 
+        public void DebugDraw(SpriteBatch spriteBatch,List<CollisionObject> collisionObjects = null,List<AreaEventObject> areaEventObjects = null) 
         {
             if (Debugging) 
             {
-                foreach (CollisionObject item in collisionObjects)
-                {
-                    if(item.type == CollisionObjectTypes.Player) item.GetVecRectangle().Draw(spriteBatch, Color.Goldenrod);
-                    else item.GetVecRectangle().Draw(spriteBatch,Color.Red);
-                }
+                if(collisionObjects != null)
+                    foreach (CollisionObject item in collisionObjects)
+                    {
+                        if(item.type == CollisionObjectTypes.Player) item.GetVecRectangle().Draw(spriteBatch, Color.Goldenrod);
+                        else item.GetVecRectangle().Draw(spriteBatch,Color.Red);
+                    };
+                if (areaEventObjects != null)
+                    foreach (AreaEventObject item in areaEventObjects)
+                    {
+                        item.BoundingBox.Draw(spriteBatch, Color.Black);
+                    };
             }
 
             

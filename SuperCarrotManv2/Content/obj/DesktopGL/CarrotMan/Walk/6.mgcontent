@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>/home/shev/dev/SuperCarrotMan/SuperCarrotManv2/Content/CarrotMan/Walk/6.png</SourceFile>
-  <SourceTime>2020-01-08T12:28:19.2732196+01:00</SourceTime>
-  <DestFile>/home/shev/dev/SuperCarrotMan/SuperCarrotManv2/Content/bin/DesktopGL/CarrotMan/Walk/6.xnb</DestFile>
-  <DestTime>2020-01-31T20:58:09.1686498+01:00</DestTime>
+  <SourceFile>R:/dev/superCarrotMan/Master/SuperCarrotManv2/Content/CarrotMan/Walk/6.png</SourceFile>
+  <SourceTime>2020-01-21T18:45:06.6292992+01:00</SourceTime>
+  <DestFile>R:/dev/superCarrotMan/Master/SuperCarrotManv2/Content/bin/DesktopGL/CarrotMan/Walk/6.xnb</DestFile>
+  <DestTime>2020-02-07T04:46:21.463267+01:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2019-12-13T17:41:55.2761052+01:00</ImporterTime>
+  <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2019-12-13T17:41:55.2761052+01:00</ProcessorTime>
+  <ProcessorTime>2018-12-08T17:35:54+01:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>

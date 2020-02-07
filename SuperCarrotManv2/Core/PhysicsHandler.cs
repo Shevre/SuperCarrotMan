@@ -37,48 +37,7 @@ namespace SuperCarrotManv2.Core
                     if (GravIntensity == 0) Collider.Velocity.Y = 0;
                 }
 
-                /*
-                if (cObj.Velocity != new Vector2(0,0) && cObj.GravAffected)
-                {
-                    VecRectangle colliderRect = cObj.GetVecRectangle();
-                    bool collidedT = false;
-                    bool collidedR = false;
-                    foreach (CollisionObject cObj_ in CollisionObjects)
-                    {
-                        if(cObj != cObj_) 
-                        {
-                            VecRectangle collideeRect = cObj_.GetVecRectangle();
-                            colliderRect.Y += GravIntensity;
-                            if (colliderRect.Intersects(collideeRect))
-                            {
-
-                                Game1.DebugHandler.Log("Yes");
-                                if (colliderRect.Y < collideeRect.Y && !collidedT)
-                                {
-                                    collidedT = true;
-                                    cObj.TouchingFloor = true;
-                                    cObj.setPosition(new Vector2(cObj.getPosition().X, collideeRect.Y - colliderRect.Height));
-                                }
-                                else if (colliderRect.X > collideeRect.X && !collidedR)
-                                {
-                                    collidedR = true;
-                                    cObj.setPosition(new Vector2(collideeRect.Right, cObj.getPosition().Y));
-                                    
-                                }
-                                
-                                    
-                            }
-                            
-                        }
-                    }
-                    if (!collidedT) 
-                    {
-                        cObj.TouchingFloor = false;
-                        
-                    }
-                    
-                }
-                */
+                
                 Collider.Update();
 
                 
@@ -91,7 +50,7 @@ namespace SuperCarrotManv2.Core
                             if (Collider.GetVecRectangle().Intersects(Collidee.GetVecRectangle())) 
                             {
                                 Game1.DebugHandler.Log("yes ");
-                                if(-(Collidee.GetVecRectangle().Height / 2) > Collider.Position.Y - Collidee.GetVecRectangle().Bottom)
+                                if(/*-(Collidee.GetVecRectangle().Height / 2) > Collider.Position.Y - Collidee.GetVecRectangle().Bottom*/Collider.Velocity.Y > 0)
                                 {
                                     
                                     
@@ -101,7 +60,14 @@ namespace SuperCarrotManv2.Core
                                 }
                                 else
                                 {
-                                    Collider.setYPosition(Collidee.GetVecRectangle().Bottom); 
+                                    Collider.setYPosition(Collidee.GetVecRectangle().Bottom);
+                                    Collider.Velocity.Y = 0f;
+                                    if (Collider.type == CollisionObjectTypes.Player)
+                                    {
+                                        ((Entities.Player)Collider).jumpCounter = 0;
+
+                                        ((Entities.Player)Collider).jumped = true;
+                                    }
                                 }
                             }
                     }
@@ -116,7 +82,7 @@ namespace SuperCarrotManv2.Core
                             if (Collider.GetVecRectangle().Intersects(Collidee.GetVecRectangle()))
                             {
                                 Game1.DebugHandler.Log("yesX ");
-                                if (-(Collidee.GetVecRectangle().Width / 2) > Collider.Position.X - Collidee.GetVecRectangle().Right)
+                                if (/*-(Collidee.GetVecRectangle().Width / 2) > Collider.Position.X - Collidee.GetVecRectangle().Right*/Collider.Velocity.X > 0)
                                 {
 
                                     Game1.DebugHandler.Log("yesX2 ");
@@ -126,6 +92,7 @@ namespace SuperCarrotManv2.Core
                                 }
                                 else
                                 {
+                                    Collider.Velocity.X = 0f;
                                     Collider.setXPosition(Collidee.GetVecRectangle().Right);
                                 }
                             }

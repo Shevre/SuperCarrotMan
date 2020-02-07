@@ -12,7 +12,9 @@ namespace SuperCarrotManv2.GAME
 {
     class Scene1 : Scene
     {
-
+        
+        
+        public bool drawIK = false;
         public Scene1(ContentManager content) : base(content)
         {
             #region TEXTURES
@@ -26,33 +28,94 @@ namespace SuperCarrotManv2.GAME
             TEXTURES.Add(content.Load<Texture2D>(@"Grass\20"));
             TEXTURES.Add(content.Load<Texture2D>(@"Grass\21"));
             TEXTURES.Add(content.Load<Texture2D>(@"Grass\22"));
+            TEXTURES.Add(content.Load<Texture2D>("sans"));
             #endregion
 
             #region TILEMAP
-            /*TILES*/int[][] tileArray = new int[8][];
-            tileArray[0] = new int[] { 0, 0, 7, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0 };
-            tileArray[1] = new int[] { 0, 0, 0, 7, 9, 0, 0, 0, 0, 1, 2, 2, 2 };
-            tileArray[2] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8, 8, 8 };
-            tileArray[3] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            tileArray[4] = new int[] { 2, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0 };
-            tileArray[5] = new int[] { 5, 5, 5, 5, 9, 0, 0, 0, 0, 5, 0, 0, 0 };
-            tileArray[6] = new int[] { 5, 5, 5, 6, 0, 0, 0, 0, 5, 5, 5, 5, 5 };
-            tileArray[7] = new int[] { 5, 5, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            /*TILES*/
+            int[][] tileArray = new int[8][];
+            tileArray[0] = new int[] { 0, 0, 7, 5, 6, 0 , 0 , 0, 0 , 0, 0, 0, 0 };
+            tileArray[1] = new int[] { 0, 0, 0, 7, 9, 10, 0 , 0, 0 , 1, 2, 2, 2 };
+            tileArray[2] = new int[] { 0, 0, 0, 0, 0, 0 , 0 , 0, 10, 7, 8, 8, 8 };
+            tileArray[3] = new int[] { 0, 0, 0, 0, 0, 0 , 0 , 0, 0 , 0, 0, 0, 0 };
+            tileArray[4] = new int[] { 2, 2, 2, 2, 3, 0 , 10, 0, 0 , 0, 0, 0, 0 };
+            tileArray[5] = new int[] { 5, 5, 5, 5, 9, 0 , 0 , 0, 0 , 5, 0, 0, 0 };
+            tileArray[6] = new int[] { 5, 5, 5, 6, 0, 0 , 0 , 0, 5 , 5, 5, 5, 5 };
+            tileArray[7] = new int[] { 5, 5, 5, 6, 0, 0 , 0 , 0, 0 , 0, 0, 0, 0 };
 
             /*COLLISION*/
             List<CollisionObject> collisionList = new List<CollisionObject>();
-            collisionList.Add(new CollisionObject(new Vector2(128, -64), new Vector2(64, 128), false, CollisionObjectTypes.Terrain));
-            collisionList.Add(new CollisionObject(new Vector2(192, 0), new Vector2(128, 128), false, CollisionObjectTypes.Terrain));
-            collisionList.Add(new CollisionObject(new Vector2(0, 256), new Vector2(256, 256), false, CollisionObjectTypes.Terrain));
-            collisionList.Add(new CollisionObject(new Vector2(384, 256), new Vector2(64, 32), false, CollisionObjectTypes.Terrain));
-            collisionList.Add(new CollisionObject(new Vector2(256, 256), new Vector2(64, 128), false, CollisionObjectTypes.Terrain));
-            collisionList.Add(new CollisionObject(new Vector2(576, 64), new Vector2(256,128), false, CollisionObjectTypes.Terrain));
-            collisionList.Add(new CollisionObject(new Vector2(576, 320), new Vector2(64, 65), false, CollisionObjectTypes.Terrain));
-            collisionList.Add(new CollisionObject(new Vector2(512, 384), new Vector2(320, 64), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(-1 ,-200), new Vector2(1  , 712), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(832,-200), new Vector2(1  , 712), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(128, 0  ), new Vector2(64 , 64 ), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(192, 0  ), new Vector2(128, 128), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(0  , 256), new Vector2(256, 256), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(256, 256), new Vector2(64 , 128), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(384, 256), new Vector2(64 , 32 ), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(576, 64 ), new Vector2(256, 128), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(512, 128), new Vector2(64 , 32 ), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(320, 64 ), new Vector2(64 , 32 ), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(576, 320), new Vector2(64 , 65 ), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(512, 384), new Vector2(320, 64 ), false, CollisionObjectTypes.Terrain));
+            collisionList.Add(new CollisionObject(new Vector2(0  , 512), new Vector2(832, 1  ), false, CollisionObjectTypes.Terrain));
 
             #endregion
+
+            #region EVENTS
+            AreaEventObject testEvent = new AreaEventObject(new Vector2(128, 128), new Vector2(64, 128));
+            testEvent.EventTriggered += TestEvent_EventTriggered;
+            events.addEventObject(testEvent);
+
+            AreaEventObject testEvent2 = new AreaEventObject(new Vector2(768, -64), new Vector2(64, 128));
+            testEvent2.EventTriggered += TestEvent2_EventTriggered;
+            events.addEventObject(testEvent2);
+            #endregion
+
+
             TileMap = new TileMap(tileArray,collisionList, TEXTURES, new Microsoft.Xna.Framework.Point(64, 64));
             physics.AddCollisionObject(this);
+            
+        }
+
+        private void TestEvent_EventTriggered()
+        {
+            Game1.IK.YES = true;
+            
+        }
+
+        private void TestEvent2_EventTriggered()
+        {
+            Game1.IK.YES = false;
+        }
+
+       
+    }
+
+    public class IK : Drawable
+    {
+        public bool YES = false;
+        public Texture2D iK;
+        Vector2 pos;
+        public IK(ContentManager content)
+        {
+            iK = content.Load<Texture2D>("ik");
+        }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            
+            if (YES)
+            {
+                pos.X += 4;
+                if(pos.X > 1280)
+                {
+                    pos.X = 0;
+                }
+
+                spriteBatch.Draw(iK, new Rectangle(pos.ToPoint(),new Point(1280,720)), Color.White);
+                
+                    spriteBatch.Draw(iK, new Rectangle(new Point(pos.ToPoint().X - 1280,0), new Point(1280, 720)), Color.White);
+                
+            }
         }
     }
 }

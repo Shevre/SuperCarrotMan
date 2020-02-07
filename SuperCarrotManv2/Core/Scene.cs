@@ -16,6 +16,8 @@ namespace SuperCarrotManv2.Core
         public TileMap TileMap;
 
         public PhysicsHandler physics;
+        public EventsHandler events;
+        
         private Camera Camera = new Camera();
         public Matrix getCameraTransform() => Camera.Transform;
 
@@ -26,12 +28,15 @@ namespace SuperCarrotManv2.Core
         public Scene(ContentManager content) 
         {
             physics = new PhysicsHandler(gravIntensity);
+            events = new EventsHandler();
         }
 
         public void Update() 
         {
             physics.Update();
+            events.Update(this);
             Camera.Follow(Player);
+
         }
 
         public void Draw(SpriteBatch spriteBatch) 

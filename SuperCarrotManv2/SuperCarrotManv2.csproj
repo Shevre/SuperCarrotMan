@@ -51,6 +51,8 @@
     <Compile Include="Core\ContentHandler.cs" />
     <Compile Include="Core\DebugHandler.cs" />
     <Compile Include="Core\BlankTexture.cs" />
+    <Compile Include="Core\EventHandler.cs" />
+    <Compile Include="Core\EventObject.cs" />
     <Compile Include="Core\PhysicsHandler.cs" />
     <Compile Include="Core\CollisionObject.cs" />
     <Compile Include="Core\Drawable.cs" />

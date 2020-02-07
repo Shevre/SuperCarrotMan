@@ -24,8 +24,10 @@ namespace SuperCarrotManv2
 
         RenderTarget2D GameLayer;
         RenderTarget2D UIlayer;
+        RenderTarget2D Background;
+
+        public static IK IK;
         
-        Player player;
         Scene1 scene1;
 
         Texture2D DebugPixel;
@@ -60,8 +62,8 @@ namespace SuperCarrotManv2
         {
             
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Player(new Vector2(0, 0), new Vector2(24, 105),Content.Load<Texture2D>(@"CarrotMan\Walk\1"),new Vector2(-19,-23));
-
+            Player player = new Player(new Vector2(0, 0), new Vector2(24, 105),Content.Load<Texture2D>(@"CarrotMan\Walk\1"),new Vector2(-19,-23));
+            IK = new IK(Content);
             scene1 = new Scene1(Content);
 
             DrawingHandler.AddDrawable(player);
@@ -80,6 +82,7 @@ namespace SuperCarrotManv2
             };
             GameLayer = new RenderTarget2D(GraphicsDevice, defScreenWidth, defScreenHeight);
             UIlayer = new RenderTarget2D(GraphicsDevice, defScreenWidth, defScreenHeight);
+            Background = new RenderTarget2D(GraphicsDevice, defScreenWidth, defScreenHeight);
         }
 
         protected override void UnloadContent()
@@ -106,12 +109,22 @@ namespace SuperCarrotManv2
         
         protected override void Draw(GameTime gameTime)
         {
-            spriteBatch.GraphicsDevice.SetRenderTarget(GameLayer);
+
+
+
+            spriteBatch.GraphicsDevice.SetRenderTarget(Background);
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            
+            spriteBatch.Begin();
+            IK.Draw(spriteBatch);
+            spriteBatch.End();
+            spriteBatch.GraphicsDevice.SetRenderTarget(GameLayer);
+            GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(transformMatrix: scene1.getCameraTransform());
+            
             DrawingHandler.Draw(spriteBatch);
             DebugHandler.Log(" Touching Floor: ");
-            if (player.TouchingFloor)
+            if (scene1.Player.TouchingFloor)
             {
                 DebugHandler.Log( "Yes ");
             }
@@ -120,17 +133,19 @@ namespace SuperCarrotManv2
                 DebugHandler.Log("No ");
             }
             
-            DebugHandler.DebugDraw(spriteBatch, scene1.physics.GetCollisionObjects());
+            DebugHandler.DebugDraw(spriteBatch, scene1.physics.GetCollisionObjects(),scene1.events.areaEventObjects);
             
             spriteBatch.End();
             spriteBatch.GraphicsDevice.SetRenderTarget(UIlayer);
             GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin();
             if (DebugHandler.IsDebugging()) spriteBatch.DrawString(debugFont, DebugHandler.debugString, new Vector2(0, 0), Color.Magenta);
+            
             spriteBatch.End();
             spriteBatch.GraphicsDevice.SetRenderTarget(null);
             spriteBatch.Begin();
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Draw(Background, ExtentionMethods.getEmptyVector(), Color.White);
             spriteBatch.Draw(GameLayer, ExtentionMethods.getEmptyVector(), Color.White);
             spriteBatch.Draw(UIlayer, ExtentionMethods.getEmptyVector(), Color.White);
             spriteBatch.End();
