@@ -17,5 +17,11 @@ namespace SuperCarrotManv2.Core
         public Entity(Vector2 position, Vector2 collisionBox, Texture2D texture,Vector2 textureOffset, bool gravAffected = true) : base(position, collisionBox, texture,textureOffset,gravAffected)
         {
         }
+        public Entity(Vector2 position, Vector2 collisionBox, AnimationSet animationSet, bool gravAffected = true) : base(position, collisionBox, animationSet, gravAffected)
+        {
+        }
+        public Entity(Vector2 position, Vector2 collisionBox, AnimationSet animationSet, Vector2 textureOffset, bool gravAffected = true) : base(position, collisionBox, animationSet, textureOffset, gravAffected)
+        {
+        }
     }
 }

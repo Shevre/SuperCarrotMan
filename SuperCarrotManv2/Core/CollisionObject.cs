@@ -86,9 +86,16 @@ namespace SuperCarrotManv2.Core
     public class TexturedCollisionObject : CollisionObject,Drawable {
 
         private Texture2D Texture;
-        public Texture2D getTexture() => Texture;
+        public AnimationSet AnimationSet { private set; get; }
+        public Texture2D getTexture() 
+        {
+            if (Animated) return AnimationSet.getCurrentFrame();
+            else return Texture;
+        }
+        
         private Vector2 TextureOffset = new Vector2(0,0);
         public Vector2 getTextureOffset() => TextureOffset;
+        bool Animated = false;
         public void AdjustTextureOffset(float x, float y)
         {
             TextureOffset.X += x;
@@ -108,10 +115,25 @@ namespace SuperCarrotManv2.Core
             Texture = texture;
             TextureOffset = textureOffset;
         }
-
-        public override void Draw(SpriteBatch spriteBatch)
+        public TexturedCollisionObject(Vector2 position, Vector2 collisionBox, AnimationSet animationSet, bool gravAffected = true) : base(position, collisionBox, gravAffected)
         {
-            spriteBatch.Draw(Texture, getPosition() + TextureOffset, Color.White);
+            AnimationSet = animationSet;
+            Animated = true;
+        }
+        public TexturedCollisionObject(Vector2 position, Vector2 collisionBox, AnimationSet animationSet, Vector2 textureOffset, bool gravAffected = true) : base(position, collisionBox, gravAffected)
+        {
+            AnimationSet = animationSet;
+            TextureOffset = textureOffset;
+            Animated = true;
+        }
+
+        public void Draw(SpriteBatch spriteBatch,SpriteEffects spriteEffects = SpriteEffects.None)
+        {
+            if (Animated)
+                spriteBatch.Draw(AnimationSet.getCurrentFrame(), getPosition() + TextureOffset,AnimationSet.getCurrentFrame().Bounds, Color.White,0f,ExtentionMethods.getEmptyVector(),1f,spriteEffects,0f);
+            else
+                spriteBatch.Draw(Texture, getPosition() + TextureOffset,Color.White);
+
             base.Draw(spriteBatch);
         }
     }

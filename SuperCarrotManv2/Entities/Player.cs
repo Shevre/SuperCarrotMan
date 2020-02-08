@@ -18,62 +18,71 @@ namespace SuperCarrotManv2.Entities
         float baseSpeed = 3f, runSpeed = 4f,accelVal = 0.3f;
         float maxVelocity;
         float TexSizeOffsetRatioY = 0.8203125f;
-        public Player(Vector2 position, Vector2 collisionBox, Texture2D texture, bool gravAffected = true) : base(position, collisionBox, texture, gravAffected)
+        bool downPressed = false;
+        bool COMPRESSED = false;
+        bool GoingLeft = false;
+        int AnimCounter = 0;
+
+        public Player(Vector2 position, Vector2 collisionBox, Core.AnimationSet animationSet, bool gravAffected = true) : base(position, collisionBox, animationSet, gravAffected)
         {
             maxVelocity = baseSpeed;
             type = Core.CollisionObjectTypes.Player;
-            currentDrawHeight = texture.Height;
+            currentDrawHeight = animationSet.Height;
             StandardTextureOffset = getTextureOffset();
             
         }
-        public Player(Vector2 position, Vector2 collisionBox, Texture2D texture, Vector2 textureOffset, bool gravAffected = true) : base(position, collisionBox, texture, textureOffset, gravAffected)
+        public Player(Vector2 position, Vector2 collisionBox, Core.AnimationSet animationSet, Vector2 textureOffset, bool gravAffected = true) : base(position, collisionBox, animationSet, textureOffset, gravAffected)
         {
             maxVelocity = baseSpeed;
             type = Core.CollisionObjectTypes.Player;
-            currentDrawHeight = texture.Height;
+            currentDrawHeight = animationSet.Height;
             StandardTextureOffset = getTextureOffset();
             
 
         }
         Vector2 StandardTextureOffset;
-        bool downPressed = false;
+        
         public override void Update()
         {
             if (TouchingFloor) jumped = false;
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift)) maxVelocity = runSpeed;
             else maxVelocity = baseSpeed;
-            //if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            //{
-            //    currentDrawHeight = 64;
-            //    if (!downPressed)
-            //    {
-            //        setYPosition(Position.Y + 52.5f);
-            //        downPressed = true;
-            //    }
-            //    SetTextureOffset(new Vector2(StandardTextureOffset.X,StandardTextureOffset.Y / 2));
-            //    //AdjustTextureOffset(0, 1f);
-            //    SetCollisionBox(getCollisionBox().X, 52.5f);
-            //}
-            //else
-            //{
-            //    if (downPressed)
-            //    {
-            //        setYPosition(Position.Y - 52.5f);
-            //        downPressed = false;
-            //    }
-            //    currentDrawHeight = 128;
-            //    SetTextureOffset(new Vector2(StandardTextureOffset.X, StandardTextureOffset.Y));
-            //    SetCollisionBox(getCollisionBox().X, 105f);
-            //}
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                currentDrawHeight = 64;
+                if (!downPressed)
+                {
+                    setYPosition(Position.Y + 52.5f);
+                    downPressed = true;
+                }
+                SetTextureOffset(new Vector2(StandardTextureOffset.X, StandardTextureOffset.Y / 2));
+                //AdjustTextureOffset(0, 1f);
+                SetCollisionBox(getCollisionBox().X, 52.5f);
+                COMPRESSED = true;
+            }
+            else
+            {
+                if (downPressed)
+                {
+                    setYPosition(Position.Y - 52.5f);
+                    downPressed = false;
+                }
+                currentDrawHeight = 128;
+                SetTextureOffset(new Vector2(StandardTextureOffset.X, StandardTextureOffset.Y));
+                SetCollisionBox(getCollisionBox().X, 105f);
+                COMPRESSED = false;
+            }
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
                 if (Velocity.X > -maxVelocity) Velocity.X += -accelVal;
                 else Velocity.X = -maxVelocity;
+                GoingLeft = true;
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 if (Velocity.X < maxVelocity) Velocity.X += accelVal;
                 else Velocity.X = maxVelocity;
+                GoingLeft = false;
             }
             else
             {
@@ -93,12 +102,27 @@ namespace SuperCarrotManv2.Entities
                     jumpCounter = 0;
                 }
             }
+            if (Velocity.X != 0f)
+            {
+                AnimCounter++;
+                if (AnimCounter == 4)
+                {
+                    AnimationSet.Advance();
+                    AnimCounter = 0;
+                }
+            }
+            else AnimationSet.Reset();
             Game1.DebugHandler.Log($"player1 velocity: {Velocity} position: {Position}");
+
+
             base.Update();
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(getTexture(), new Rectangle(GetVecRectangle().GetIntRectangle().X + (int)getTextureOffset().X, GetVecRectangle().GetIntRectangle().Y + (int)getTextureOffset().Y, 64, currentDrawHeight), Color.White);
+            if (COMPRESSED && GoingLeft) spriteBatch.Draw(getTexture(), new Rectangle(GetVecRectangle().GetIntRectangle().X + (int)getTextureOffset().X, GetVecRectangle().GetIntRectangle().Y + (int)getTextureOffset().Y, 64, currentDrawHeight),getTexture().Bounds, Color.White,0f,Core.ExtentionMethods.getEmptyVector(),SpriteEffects.FlipHorizontally,0f);
+            else if (COMPRESSED) spriteBatch.Draw(getTexture(), new Rectangle(GetVecRectangle().GetIntRectangle().X + (int)getTextureOffset().X, GetVecRectangle().GetIntRectangle().Y + (int)getTextureOffset().Y, 64, currentDrawHeight), Color.White);
+            else if (GoingLeft) base.Draw(spriteBatch, SpriteEffects.FlipHorizontally);
+            else base.Draw(spriteBatch);
         }
     }
 }
