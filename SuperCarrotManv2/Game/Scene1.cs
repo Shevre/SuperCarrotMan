@@ -12,11 +12,14 @@ namespace SuperCarrotManv2.GAME
 {
     class Scene1 : Scene
     {
-        
-        
+
+        Entity crib;
         public bool drawIK = false;
         public Scene1(ContentManager content) : base(content)
         {
+            crib = new Entity(new Vector2(640, -128), new Vector2(93, 89), content.Load<Texture2D>(@"CocoCrib\Walk\1"));
+            AddEntity(crib);
+
             #region TEXTURES
             List<Texture2D> TEXTURES = new List<Texture2D>();
             TEXTURES.Add(content.Load<Texture2D>(@"Grass\00"));
@@ -86,6 +89,7 @@ namespace SuperCarrotManv2.GAME
         private void TestEvent2_EventTriggered()
         {
             Game1.IK.YES = false;
+            crib.setPosition(new Vector2(crib.getPosition().X, -256));
         }
 
        

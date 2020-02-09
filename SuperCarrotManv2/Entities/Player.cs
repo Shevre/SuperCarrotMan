@@ -117,7 +117,7 @@ namespace SuperCarrotManv2.Entities
 
             base.Update();
         }
-        public override void Draw(SpriteBatch spriteBatch)
+        public new void Draw(SpriteBatch spriteBatch)
         {
             if (COMPRESSED && GoingLeft) spriteBatch.Draw(getTexture(), new Rectangle(GetVecRectangle().GetIntRectangle().X + (int)getTextureOffset().X, GetVecRectangle().GetIntRectangle().Y + (int)getTextureOffset().Y, 64, currentDrawHeight),getTexture().Bounds, Color.White,0f,Core.ExtentionMethods.getEmptyVector(),SpriteEffects.FlipHorizontally,0f);
             else if (COMPRESSED) spriteBatch.Draw(getTexture(), new Rectangle(GetVecRectangle().GetIntRectangle().X + (int)getTextureOffset().X, GetVecRectangle().GetIntRectangle().Y + (int)getTextureOffset().Y, 64, currentDrawHeight), Color.White);

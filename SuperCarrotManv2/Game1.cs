@@ -62,7 +62,7 @@ namespace SuperCarrotManv2
         {
             
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Player player = new Player(new Vector2(0, 0), new Vector2(24, 105),new AnimationSet(new Texture2D[] 
+            Player player = new Player(new Vector2(256, -128), new Vector2(24, 105),new AnimationSet(new Texture2D[] 
             {
                 Content.Load<Texture2D>(@"CarrotMan\Walk\1"), 
                 Content.Load<Texture2D>(@"CarrotMan\Walk\2"),
@@ -77,7 +77,7 @@ namespace SuperCarrotManv2
             IK = new IK(Content);
             scene1 = new Scene1(Content);
 
-            DrawingHandler.AddDrawable(player);
+            
             DrawingHandler.AddDrawable(scene1);
             scene1.AddPlayer(player);
             

@@ -41,11 +41,14 @@ namespace SuperCarrotManv2.Core
 
         public void Draw(SpriteBatch spriteBatch) 
         {
+            
             TileMap.Draw(spriteBatch);
             foreach (Entity e in Entities)
             {
                 e.Draw(spriteBatch);
             }
+            Player.Draw(spriteBatch);
+
         }
 
         public void AddPlayer(Entities.Player player) 
@@ -53,6 +56,12 @@ namespace SuperCarrotManv2.Core
             Player = player;
             physics.AddCollisionObject(player);
             
+        }
+
+        public void AddEntity(Entity entity)
+        {
+            Entities.Add(entity);
+            physics.AddCollisionObject(entity);
         }
     }
 
@@ -85,6 +94,7 @@ namespace SuperCarrotManv2.Core
                     if (TileArray[y][x] != 0) spriteBatch.Draw(Tiles[TileArray[y][x]], new Vector2(x * TileSize.X, y * TileSize.Y), Color.White);
                 }
             }
+            
         }
 
         void MergeCollision(int[][] collisionArray) 
