@@ -52,6 +52,7 @@
     <Compile Include="Core\ContentHandler.cs" />
     <Compile Include="Core\DebugHandler.cs" />
     <Compile Include="Core\BlankTexture.cs" />
+    <Compile Include="Core\Enums.cs" />
     <Compile Include="Core\EventHandler.cs" />
     <Compile Include="Core\EventObject.cs" />
     <Compile Include="Core\PhysicsHandler.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Game\Scene1.cs" />
+    <Compile Include="Misc\Portal.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
