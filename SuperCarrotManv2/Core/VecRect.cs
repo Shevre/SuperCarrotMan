@@ -97,6 +97,11 @@ namespace SuperCarrotManv2.Core
         {
             spriteBatch.DrawRectangle(new Rectangle((int)X, (int)Y, (int)Width, (int)Height), color);
         }
+
+        public Vector2 getCenterPos()
+        {
+            return new Vector2(X + (Width / 2), Y + (Height / 2));
+        }
     }
 
 }

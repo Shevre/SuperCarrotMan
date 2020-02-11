@@ -1,0 +1,17 @@
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\MonoGame.Framework.dll.config
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\x86\SDL2.dll
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\x64\SDL2.dll
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\x86\soft_oal.dll
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\x64\soft_oal.dll
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\x86\libSDL2-2.0.so.0
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\x64\libSDL2-2.0.so.0
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\x86\libopenal.so.1
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\x64\libopenal.so.1
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\libSDL2-2.0.0.dylib
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\libopenal.1.dylib
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\SuperCarrotManEditor.exe
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\SuperCarrotManEditor.pdb
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\MonoGame.Framework.dll
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\obj\Debug\SuperCarrotManEditor.csproj.CopyComplete
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\obj\Debug\SuperCarrotManEditor.exe
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\obj\Debug\SuperCarrotManEditor.pdb

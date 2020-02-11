@@ -17,7 +17,6 @@ namespace SuperCarrotManv2
         //Song song;
         public static int defScreenWidth = 1280;
         public static int defScreenHeight = 720;
-        int CurrentSceneID = 0;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -110,6 +109,7 @@ namespace SuperCarrotManv2
 
         protected override void UnloadContent()
         {
+            Content.Unload();
         }
         bool Paused = false;
         protected override void Update(GameTime gameTime)
@@ -156,7 +156,7 @@ namespace SuperCarrotManv2
                 DebugHandler.Log("No ");
             }
             
-            DebugHandler.DebugDraw(spriteBatch, currentScene.physics.GetCollisionObjects(), currentScene.events.areaEventObjects);
+            DebugHandler.DebugDraw(spriteBatch, currentScene.physics.GetCollisionObjects(), currentScene.physics.GetCollisionAreas(),currentScene.events.areaEventObjects);
             
             spriteBatch.End();
             spriteBatch.GraphicsDevice.SetRenderTarget(UIlayer);
@@ -176,21 +176,21 @@ namespace SuperCarrotManv2
             DebugHandler.ClearString();
             
         }
-        public void ChangeScene(Vector2 position,Player player,Scene CurrentScene,int NextScene)
+        public void ChangeScene(Vector2 position,Scene CurrentScene,int NextScene)
         {
-            player.setPosition(position);
+            CurrentScene.Player.setPosition(position);
             switch (NextScene)
             {
                 case 0:
 
                     currentScene = new Scene1(Content,this);
-                    currentScene.AddPlayer(player);
+                    currentScene.AddPlayer(CurrentScene.Player);
                     DrawingHandler.currentDrawScene = currentScene;
                     break;
                 case 1:
 
                     currentScene = new Scene2(Content,this);
-                    currentScene.AddPlayer(player);
+                    currentScene.AddPlayer(CurrentScene.Player);
                     DrawingHandler.currentDrawScene = currentScene;
                     break;
                 default:

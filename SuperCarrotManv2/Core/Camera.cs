@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SuperCarrotManv2.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,10 @@ namespace SuperCarrotManv2.Core
         public void Follow(Entity target)
         {
             Transform = Matrix.CreateTranslation((-target.getPosition().X  ) - ((target.GetVecRectangle().Width  ) / 2), (-target.getPosition().Y  ) - ((target.GetVecRectangle().Height  ) / 2) - 120, 0) * Matrix.CreateTranslation(Game1.defScreenWidth / 2, Game1.defScreenWidth / 2, 0);
+        }
+        public void Follow(CameraEntity target)
+        {
+            Transform = Matrix.CreateTranslation((-target.getPosition().X) - ((target.GetVecRectangle().Width) / 2), (-target.getPosition().Y) - ((target.GetVecRectangle().Height) / 2) - 120, 0) * Matrix.CreateTranslation(Game1.defScreenWidth / 2, Game1.defScreenWidth / 2, 0);
         }
     }
 }
