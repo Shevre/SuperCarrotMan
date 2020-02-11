@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuperCarrotManv2.Core
 {
-    public enum EventObjectTypes { Generic,AreaEvent}
+    
     public class EventObject
     {
         public delegate void EventTriggeredEventHandler();

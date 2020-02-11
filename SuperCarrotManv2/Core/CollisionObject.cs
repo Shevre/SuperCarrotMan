@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SuperCarrotManv2.Core
 {
-    public enum CollisionObjectTypes { Generic,Terrain,Player }
+
     public class CollisionObject : GameObject {
 
         public Vector2 Position;
@@ -129,10 +129,21 @@ namespace SuperCarrotManv2.Core
 
         public void Draw(SpriteBatch spriteBatch,SpriteEffects spriteEffects = SpriteEffects.None)
         {
+            
             if (Animated)
                 spriteBatch.Draw(AnimationSet.getCurrentFrame(), getPosition() + TextureOffset,AnimationSet.getCurrentFrame().Bounds, Color.White,0f,ExtentionMethods.getEmptyVector(),1f,spriteEffects,0f);
             else
                 spriteBatch.Draw(Texture, getPosition() + TextureOffset,Color.White);
+
+            base.Draw(spriteBatch);
+        }
+        public void Draw(SpriteBatch spriteBatch,AnimationSet animOverride, SpriteEffects spriteEffects = SpriteEffects.None)
+        {
+
+            if (Animated)
+                spriteBatch.Draw(animOverride.getCurrentFrame(), getPosition() + TextureOffset, AnimationSet.getCurrentFrame().Bounds, Color.White, 0f, ExtentionMethods.getEmptyVector(), 1f, spriteEffects, 0f);
+            else
+                spriteBatch.Draw(Texture, getPosition() + TextureOffset, Color.White);
 
             base.Draw(spriteBatch);
         }

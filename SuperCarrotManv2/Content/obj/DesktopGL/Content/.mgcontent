@@ -6,6 +6,12 @@
   <SourceFiles>
     <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/Master/SuperCarrotManv2/Content/01.png</File>
     <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/Master/SuperCarrotManv2/Content/Audio/mayojacuzzi.ogg</File>
+    <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/Master/SuperCarrotManv2/Content/CarrotMan/Run/1.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/Master/SuperCarrotManv2/Content/CarrotMan/Run/2.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/Master/SuperCarrotManv2/Content/CarrotMan/Run/3.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/Master/SuperCarrotManv2/Content/CarrotMan/Run/4.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/Master/SuperCarrotManv2/Content/CarrotMan/Run/5.png</File>
+    <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/Master/SuperCarrotManv2/Content/CarrotMan/Run/6.png</File>
     <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/Master/SuperCarrotManv2/Content/CarrotMan/Walk/1.png</File>
     <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/Master/SuperCarrotManv2/Content/CarrotMan/Walk/2.png</File>
     <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/Master/SuperCarrotManv2/Content/CarrotMan/Walk/3.png</File>
@@ -46,6 +52,12 @@
     <File>C:/Users/Leerling/Desktop/Anime_Pictures/SuperCarrotMan/Master/SuperCarrotManv2/Content/Tiles/Grass/22.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

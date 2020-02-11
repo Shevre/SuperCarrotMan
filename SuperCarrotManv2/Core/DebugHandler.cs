@@ -37,6 +37,7 @@ namespace SuperCarrotManv2.Core
                     foreach (CollisionObject item in collisionObjects)
                     {
                         if(item.type == CollisionObjectTypes.Player) item.GetVecRectangle().Draw(spriteBatch, Color.Goldenrod);
+                        else if (item.type == CollisionObjectTypes.Entity) item.GetVecRectangle().Draw(spriteBatch, Color.BlueViolet);
                         else item.GetVecRectangle().Draw(spriteBatch,Color.Red);
                     };
                 if (areaEventObjects != null)

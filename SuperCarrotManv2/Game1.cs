@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Media;
 using SuperCarrotManv2.Core;
 using SuperCarrotManv2.Entities;
 using SuperCarrotManv2.GAME;
+using System.Collections.Generic;
 
 namespace SuperCarrotManv2
 {
@@ -16,19 +17,22 @@ namespace SuperCarrotManv2
         //Song song;
         public static int defScreenWidth = 1280;
         public static int defScreenHeight = 720;
+        int CurrentSceneID = 0;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         PhysicsHandler PhysicsHandler = new PhysicsHandler(0.1f);
-        DrawingHandler DrawingHandler = new DrawingHandler();
+        static DrawingHandler DrawingHandler = new DrawingHandler();
 
         RenderTarget2D GameLayer;
         RenderTarget2D UIlayer;
         RenderTarget2D Background;
 
-        public static IK IK;
         
-        Scene1 scene1;
+
+        public static IK IK;
+
+        Scene currentScene;
 
         Texture2D DebugPixel;
         SpriteFont debugFont;
@@ -73,14 +77,22 @@ namespace SuperCarrotManv2
                 Content.Load<Texture2D>(@"CarrotMan\Walk\7"),
                 Content.Load<Texture2D>(@"CarrotMan\Walk\8"),
             }),
+            new AnimationSet(new Texture2D[] {
+                Content.Load<Texture2D>(@"CarrotMan\Run\1"),
+                Content.Load<Texture2D>(@"CarrotMan\Run\2"),
+                Content.Load<Texture2D>(@"CarrotMan\Run\3"),
+                Content.Load<Texture2D>(@"CarrotMan\Run\4"),
+                Content.Load<Texture2D>(@"CarrotMan\Run\5"),
+                Content.Load<Texture2D>(@"CarrotMan\Run\6"),
+            }),
             new Vector2(-19,-23));
             IK = new IK(Content);
-            scene1 = new Scene1(Content);
+            currentScene = new Scene1(Content,this);
+
 
             
-            DrawingHandler.AddDrawable(scene1);
-            scene1.AddPlayer(player);
-            
+            currentScene.AddPlayer(player);
+            DrawingHandler.currentDrawScene = currentScene;
             DebugPixel = Content.Load<Texture2D>("pixle");
             debugFont = Content.Load<SpriteFont>("File");
             //song = Content.Load<Song>(@"audio\mayojacuzzi");
@@ -109,7 +121,7 @@ namespace SuperCarrotManv2
                 
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                     Exit();
-                scene1.Update();
+                currentScene.Update();
                 
 
             }
@@ -131,11 +143,11 @@ namespace SuperCarrotManv2
             spriteBatch.End();
             spriteBatch.GraphicsDevice.SetRenderTarget(GameLayer);
             GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(transformMatrix: scene1.getCameraTransform());
+            spriteBatch.Begin(transformMatrix: currentScene.getCameraTransform());
             
             DrawingHandler.Draw(spriteBatch);
             DebugHandler.Log(" Touching Floor: ");
-            if (scene1.Player.TouchingFloor)
+            if (currentScene.Player.TouchingFloor)
             {
                 DebugHandler.Log( "Yes ");
             }
@@ -144,7 +156,7 @@ namespace SuperCarrotManv2
                 DebugHandler.Log("No ");
             }
             
-            DebugHandler.DebugDraw(spriteBatch, scene1.physics.GetCollisionObjects(),scene1.events.areaEventObjects);
+            DebugHandler.DebugDraw(spriteBatch, currentScene.physics.GetCollisionObjects(), currentScene.events.areaEventObjects);
             
             spriteBatch.End();
             spriteBatch.GraphicsDevice.SetRenderTarget(UIlayer);
@@ -163,6 +175,28 @@ namespace SuperCarrotManv2
             base.Draw(gameTime);
             DebugHandler.ClearString();
             
+        }
+        public void ChangeScene(Vector2 position,Player player,Scene CurrentScene,int NextScene)
+        {
+            player.setPosition(position);
+            switch (NextScene)
+            {
+                case 0:
+
+                    currentScene = new Scene1(Content,this);
+                    currentScene.AddPlayer(player);
+                    DrawingHandler.currentDrawScene = currentScene;
+                    break;
+                case 1:
+
+                    currentScene = new Scene2(Content,this);
+                    currentScene.AddPlayer(player);
+                    DrawingHandler.currentDrawScene = currentScene;
+                    break;
+                default:
+                    throw new System.Exception("Please select a valid scene");
+                    break;
+            }
         }
 
         

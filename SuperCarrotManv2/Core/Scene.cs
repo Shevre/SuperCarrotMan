@@ -17,7 +17,8 @@ namespace SuperCarrotManv2.Core
 
         public PhysicsHandler physics;
         public EventsHandler events;
-        
+        public Game1 currentGame;
+
         private Camera Camera = new Camera();
         public Matrix getCameraTransform() => Camera.Transform;
 
@@ -25,8 +26,9 @@ namespace SuperCarrotManv2.Core
 
         public Entities.Player Player;
 
-        public Scene(ContentManager content) 
+        public Scene(ContentManager content,Game1 game) 
         {
+            currentGame = game;
             physics = new PhysicsHandler(gravIntensity);
             events = new EventsHandler();
         }
@@ -62,6 +64,11 @@ namespace SuperCarrotManv2.Core
         {
             Entities.Add(entity);
             physics.AddCollisionObject(entity);
+        }
+
+        public void Dispose()
+        {
+            TileMap.Dispose();
         }
     }
 
@@ -137,7 +144,15 @@ namespace SuperCarrotManv2.Core
 
 
             //}
+            
 
+        }
+        public void Dispose()
+        {
+            foreach(Texture2D t2D in Tiles)
+            {
+                if(t2D != null)t2D.Dispose();
+            }
         }
     }
 }

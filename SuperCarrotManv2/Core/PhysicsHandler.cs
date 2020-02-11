@@ -46,11 +46,11 @@ namespace SuperCarrotManv2.Core
                 {
                     foreach (CollisionObject Collidee in CollisionObjects)
                     {
-                        if(Collider != Collidee) 
+                        if(Collider != Collidee && Collidee.type != CollisionObjectTypes.Player && Collidee.type != CollisionObjectTypes.Entity) 
                             if (Collider.GetVecRectangle().Intersects(Collidee.GetVecRectangle())) 
                             {
                                 Game1.DebugHandler.Log("yes ");
-                                if(/*-(Collidee.GetVecRectangle().Height / 2) > Collider.Position.Y - Collidee.GetVecRectangle().Bottom*/Collider.Velocity.Y > 0)
+                                if(Collider.Velocity.Y > 0)
                                 {
                                     
                                     
@@ -78,11 +78,11 @@ namespace SuperCarrotManv2.Core
                 {
                     foreach (CollisionObject Collidee in CollisionObjects)
                     {
-                        if (Collider != Collidee)
+                        if (Collider != Collidee && Collidee.type != CollisionObjectTypes.Player && Collidee.type != CollisionObjectTypes.Entity)
                             if (Collider.GetVecRectangle().Intersects(Collidee.GetVecRectangle()))
                             {
                                 Game1.DebugHandler.Log("yesX ");
-                                if (/*-(Collidee.GetVecRectangle().Width / 2) > Collider.Position.X - Collidee.GetVecRectangle().Right*/Collider.Velocity.X > 0)
+                                if (Collider.Velocity.X > 0)
                                 {
 
                                     Game1.DebugHandler.Log("yesX2 ");

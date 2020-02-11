@@ -10,7 +10,7 @@ namespace SuperCarrotManv2.Core
     public class DrawingHandler {
 
         List<Drawable> Drawables = new List<Drawable>();
-
+        public Scene currentDrawScene;
         public DrawingHandler()
         {
         }
@@ -27,6 +27,7 @@ namespace SuperCarrotManv2.Core
                 d.Draw(spriteBatch);
                 
             }
+            currentDrawScene.Draw(spriteBatch);
         }
     }
 }
