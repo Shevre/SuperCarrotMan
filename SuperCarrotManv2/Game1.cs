@@ -179,6 +179,7 @@ namespace SuperCarrotManv2
         public void ChangeScene(Vector2 position,Scene CurrentScene,int NextScene)
         {
             CurrentScene.Player.setPosition(position);
+            CurrentScene.Player.Velocity = ExtentionMethods.getEmptyVector();
             switch (NextScene)
             {
                 case 0:
