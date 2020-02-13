@@ -15,3 +15,17 @@ R:\dev\superCarrotMan\Master\SuperCarrotManEditor\bin\DesktopGL\AnyCPU\Debug\Mon
 R:\dev\superCarrotMan\Master\SuperCarrotManEditor\obj\Debug\SuperCarrotManEditor.csproj.CopyComplete
 R:\dev\superCarrotMan\Master\SuperCarrotManEditor\obj\Debug\SuperCarrotManEditor.exe
 R:\dev\superCarrotMan\Master\SuperCarrotManEditor\obj\Debug\SuperCarrotManEditor.pdb
+R:\dev\superCarrotMan\Master\bin\x86\SDL2.dll
+R:\dev\superCarrotMan\Master\bin\x64\SDL2.dll
+R:\dev\superCarrotMan\Master\bin\x86\soft_oal.dll
+R:\dev\superCarrotMan\Master\bin\x64\soft_oal.dll
+R:\dev\superCarrotMan\Master\bin\x86\libSDL2-2.0.so.0
+R:\dev\superCarrotMan\Master\bin\x64\libSDL2-2.0.so.0
+R:\dev\superCarrotMan\Master\bin\x86\libopenal.so.1
+R:\dev\superCarrotMan\Master\bin\x64\libopenal.so.1
+R:\dev\superCarrotMan\Master\bin\libSDL2-2.0.0.dylib
+R:\dev\superCarrotMan\Master\bin\libopenal.1.dylib
+R:\dev\superCarrotMan\Master\bin\MonoGame.Framework.dll.config
+R:\dev\superCarrotMan\Master\bin\SuperCarrotManEditor.exe
+R:\dev\superCarrotMan\Master\bin\SuperCarrotManEditor.pdb
+R:\dev\superCarrotMan\Master\SuperCarrotManEditor\obj\Debug\SuperCarrotManEditor.csprojAssemblyReference.cache
