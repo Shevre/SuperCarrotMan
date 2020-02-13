@@ -24,7 +24,7 @@ namespace SuperCarrotManv2.GAME
 
             #region TILEMAP
 
-            #region TEXTURES
+            #region TILETEXTURES
             List<Texture2D> TILEMAPTEXTURES = new List<Texture2D>();
             TILEMAPTEXTURES.Add(content.Load<Texture2D>(@"Grass\00"));
             TILEMAPTEXTURES.Add(content.Load<Texture2D>(@"Grass\01"));
@@ -36,7 +36,7 @@ namespace SuperCarrotManv2.GAME
             TILEMAPTEXTURES.Add(content.Load<Texture2D>(@"Grass\21"));
             TILEMAPTEXTURES.Add(content.Load<Texture2D>(@"Grass\22"));
             TILEMAPTEXTURES.Add(content.Load<Texture2D>("sans"));
-            #endregion
+            #endregion TILETEXTURES
 
             #region TILES
             int[][] TILEARRAY = new int[8][];
@@ -48,7 +48,7 @@ namespace SuperCarrotManv2.GAME
             TILEARRAY[5] = new int[] { 5, 5, 5, 5, 9, 0 , 0 , 0, 0 , 5, 0, 0, 0 };
             TILEARRAY[6] = new int[] { 5, 5, 5, 6, 0, 0 , 0 , 0, 5 , 5, 5, 5, 5 };
             TILEARRAY[7] = new int[] { 5, 5, 5, 6, 0, 0 , 0 , 0, 0 , 0, 0, 0, 0 };
-            #endregion
+            #endregion TILES
 
             #region COLLISION
             List<CollisionObject> collisionObjects = new List<CollisionObject>();
@@ -66,8 +66,8 @@ namespace SuperCarrotManv2.GAME
             collisionObjects.Add(new CollisionObject(new Vector2(512, 384), new Vector2(320, 64 ), false, CollisionObjectTypes.Terrain));
             collisionObjects.Add(new CollisionObject(new Vector2(0  , 512), new Vector2(832, 1  ), false, CollisionObjectTypes.Terrain));
             CollisionArea colArea1 = new CollisionArea(collisionObjects, new VecRectangle(0, -200, 832, 712));
-            #endregion
-            #endregion
+            #endregion COLLISION
+            #endregion TILEMAP
 
             #region EVENTS
             AreaEventObject testEvent = new AreaEventObject(new Vector2(128, 128), new Vector2(64, 128));
@@ -78,7 +78,6 @@ namespace SuperCarrotManv2.GAME
             testEvent2.EventTriggered += TestEvent2_EventTriggered;
             events.addEventObject(testEvent2);
             #endregion
-
 
             TileMap = new TileMap(TILEARRAY, TILEMAPTEXTURES, new Point(64, 64));
             collisionAreas.Add(colArea1);

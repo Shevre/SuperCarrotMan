@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SuperCarrotManEditor.Core;
 
 namespace SuperCarrotManEditor
 {
@@ -11,7 +12,7 @@ namespace SuperCarrotManEditor
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
+        Editor Editor = new Editor();
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -39,7 +40,7 @@ namespace SuperCarrotManEditor
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            Editor.LoadScene(@"..\SuperCarrotManv2\Game\Scene1.cs");
             // TODO: use this.Content to load your game content here
         }
 
