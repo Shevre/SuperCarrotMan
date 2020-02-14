@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SuperCarrotManEditor.Core
+﻿namespace SuperCarrotManEditor.Core
 {
     public static class Consts
     {
@@ -13,5 +7,8 @@ namespace SuperCarrotManEditor.Core
 
         public static string TILETEXTURESSTARTID { private set; get; } = "#region TILETEXTURES";
         public static string TILETEXTURESENDID { private set; get; } = "#endregion TILETEXTURES";
+
+        public static Microsoft.Xna.Framework.Content.ContentManager CONTENT;
+
     }
 }

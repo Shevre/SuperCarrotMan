@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Shev.ExtentionMethods;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Shev.ExtentionMethods;
 
 namespace SuperCarrotManEditor.Core
 {
@@ -14,7 +11,8 @@ namespace SuperCarrotManEditor.Core
         string[] Tiles;
         string[] CollisionObjects;
         string[] TileTextures;
-        public Scene(string sceneString)
+        List<Texture2D> TileTex = new List<Texture2D>();
+        public Scene(string sceneString, Microsoft.Xna.Framework.Content.ContentManager content)
         {
             Console.WriteLine("Ayo");
             SceneString = sceneString;
@@ -26,21 +24,34 @@ namespace SuperCarrotManEditor.Core
             int l = EndIndex - StartIndex;
 
             string subString = SceneString.Substring(StartIndex, l);
-            ShevConsole.WriteColoredLine(subString,ConsoleColor.Green);
+            ShevConsole.WriteColoredLine(subString, ConsoleColor.Green);
 
             string[] tempArray;
             tempArray = subString.Substring(subString.IndexOf(Consts.TILETEXTURESSTARTID), subString.IndexOf(Consts.TILETEXTURESENDID) - subString.IndexOf(Consts.TILETEXTURESSTARTID)).Split(';');
             TileTextures = new string[tempArray.Length - 2];
             for (int i = 1; i < tempArray.Length - 1; i++)
             {
-                TileTextures[i - 1] = tempArray[i].Replace("\n","").Replace(" ","") + ';';
+                TileTextures[i - 1] = tempArray[i].Replace("\n", "").Replace(" ", "") + ';';
+
             }
             foreach (string s in TileTextures)
             {
                 ShevConsole.WriteColoredLine(s, ConsoleColor.DarkYellow);
+                ShevConsole.WriteColored(s.Replace("@", "").Replace("TILEMAPTEXTURES.Add(content.Load<Texture2D>(\"", "").Replace("\"));", ""), ConsoleColor.Blue);
+                TileTex.Add(content.Load<Texture2D>(s.Replace("@", "").Replace("TILEMAPTEXTURES.Add(content.Load<Texture2D>(\"", "").Replace("\"));\r\n", ""))); ;
             }
-            Console.Read();        
+
+            Console.Read();
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i < TileTex.Count; i++)
+            {
+                spriteBatch.Draw(TileTex[i], new Microsoft.Xna.Framework.Vector2(0, i * 64), Microsoft.Xna.Framework.Color.White);
             }
+
+        }
 
     }
 }

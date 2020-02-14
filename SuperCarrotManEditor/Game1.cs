@@ -40,7 +40,8 @@ namespace SuperCarrotManEditor
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Editor.LoadScene(@"../SuperCarrotManv2/Game/Scene1.cs");
+            Consts.CONTENT = Content;
+            Editor.LoadScene(@"../SuperCarrotManv2/Game/Scene1.cs",Content);
             // TODO: use this.Content to load your game content here
         }
 
@@ -75,7 +76,9 @@ namespace SuperCarrotManEditor
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            spriteBatch.Begin();
+            //spriteBatch.Draw(Content.Load<Texture2D>(@"Grass\00"), new Vector2(0, 0), Color.White);
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

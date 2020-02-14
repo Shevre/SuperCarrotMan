@@ -15,9 +15,9 @@ namespace SuperCarrotManEditor.Core
 
         }
 
-        public void LoadScene(string sceneLocation)
+        public void LoadScene(string sceneLocation,Microsoft.Xna.Framework.Content.ContentManager content)
         {
-            CurrentScene = new Scene(File.ReadAllText(sceneLocation));
+            CurrentScene = new Scene(File.ReadAllText(sceneLocation),content);
         }
     }
 }
