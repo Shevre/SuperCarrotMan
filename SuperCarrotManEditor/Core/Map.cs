@@ -17,21 +17,21 @@ namespace SuperCarrotManEditor.Core
         public Scene(string sceneString)
         {
             SceneString = sceneString;
-            shevConsole.WriteColoredLine("Full Code:", ConsoleColor.Cyan);
-            shevConsole.WriteColoredLine(SceneString + "\n\n", ConsoleColor.Red);
-            shevConsole.WriteColoredLine("Only Relevant Code:", ConsoleColor.Cyan);
+            ShevConsole.WriteColoredLine("Full Code:", ConsoleColor.Cyan);
+            ShevConsole.WriteColoredLine(SceneString + "\n\n", ConsoleColor.Red);
+            ShevConsole.WriteColoredLine("Only Relevant Code:", ConsoleColor.Cyan);
             int StartIndex = SceneString.IndexOf(Consts.TILEMAPSTARTID);
             int EndIndex = SceneString.IndexOf(Consts.TILEMAPENDID) + Consts.TILEMAPENDID.Length;
             int l = EndIndex - StartIndex;
 
             string subString = SceneString.Substring(StartIndex, l);
-            shevConsole.WriteColoredLine(subString,ConsoleColor.Green);
-            shevConsole.WriteColored(subString.Substring(subString.IndexOf(Consts.TILETEXTURESSTARTID), subString.IndexOf(Consts.TILETEXTURESENDID) - subString.IndexOf(Consts.TILETEXTURESSTARTID)), ConsoleColor.Yellow); 
+            ShevConsole.WriteColoredLine(subString,ConsoleColor.Green);
+            ShevConsole.WriteColored(subString.Substring(subString.IndexOf(Consts.TILETEXTURESSTARTID), subString.IndexOf(Consts.TILETEXTURESENDID) - subString.IndexOf(Consts.TILETEXTURESSTARTID)), ConsoleColor.Yellow); 
             TileTextures = subString.Substring(subString.IndexOf(Consts.TILETEXTURESSTARTID), subString.IndexOf(Consts.TILETEXTURESENDID) - subString.IndexOf(Consts.TILETEXTURESSTARTID)).Split(';');
             
             foreach (string s in TileTextures)
             {
-                shevConsole.WriteColored(s + ';', ConsoleColor.DarkYellow);
+                ShevConsole.WriteColored(s + ';', ConsoleColor.DarkYellow);
             }
             
             

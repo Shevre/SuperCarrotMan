@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shev.ExtentionMethods
 {
-    public static class shevConsole
+    public static class ShevConsole
     {
         public static void WriteColored(string text,ConsoleColor Color)
         {

@@ -40,7 +40,7 @@ namespace SuperCarrotManEditor
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Editor.LoadScene(@"..\SuperCarrotManv2\Game\Scene1.cs");
+            Editor.LoadScene(@"../SuperCarrotManv2/Game/Scene1.cs");
             // TODO: use this.Content to load your game content here
         }
 
