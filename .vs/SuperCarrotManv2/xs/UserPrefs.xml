@@ -1,21 +1,22 @@
 ﻿<Properties StartupConfiguration="{EA9CB89B-4155-4BD5-A51F-04093EBB57BA}|Default">
   <MonoDevelop.Ide.ItemProperties.SuperCarrotManv2 PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="SuperCarrotManEditor/Game1.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SuperCarrotManEditor/Core/Map.cs">
     <Files>
       <File FileName="SuperCarrotManEditor/ShevExtentionMethods/ConsoleWriteColoredText.cs" Line="16" Column="34" />
-      <File FileName="SuperCarrotManEditor/Core/Map.cs" Line="25" Column="23" />
+      <File FileName="SuperCarrotManEditor/Core/Map.cs" Line="41" Column="34" />
       <File FileName="SuperCarrotManEditor/Core/Editor.cs" Line="20" Column="1" />
       <File FileName="SuperCarrotManEditor/Game1.cs" Line="43" Column="57" />
+      <File FileName="SuperCarrotManEditor/Core/Consts.cs" Line="1" Column="1" />
+      <File FileName="SuperCarrotManEditor/ShevExtentionMethods/TrimArray.cs" Line="3" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="SuperCarrotManv2" expanded="True">
-            <Node name="SuperCarrotManEditor" expanded="True">
+            <Node name="SuperCarrotManEditor" expanded="True" selected="True">
               <Node name="Core" expanded="True" />
               <Node name="Properties" expanded="True" />
               <Node name="ShevExtentionMethods" expanded="True" />
-              <Node name="Game1.cs" selected="True" />
             </Node>
             <Node name="SuperCarrotManv2" expanded="True">
               <Node name="Content" expanded="True" />
@@ -27,6 +28,9 @@
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

@@ -16,6 +16,7 @@ namespace SuperCarrotManEditor.Core
         string[] TileTextures;
         public Scene(string sceneString)
         {
+            Console.WriteLine("Ayo");
             SceneString = sceneString;
             ShevConsole.WriteColoredLine("Full Code:", ConsoleColor.Cyan);
             ShevConsole.WriteColoredLine(SceneString + "\n\n", ConsoleColor.Red);
@@ -26,16 +27,20 @@ namespace SuperCarrotManEditor.Core
 
             string subString = SceneString.Substring(StartIndex, l);
             ShevConsole.WriteColoredLine(subString,ConsoleColor.Green);
-            ShevConsole.WriteColored(subString.Substring(subString.IndexOf(Consts.TILETEXTURESSTARTID), subString.IndexOf(Consts.TILETEXTURESENDID) - subString.IndexOf(Consts.TILETEXTURESSTARTID)), ConsoleColor.Yellow); 
-            TileTextures = subString.Substring(subString.IndexOf(Consts.TILETEXTURESSTARTID), subString.IndexOf(Consts.TILETEXTURESENDID) - subString.IndexOf(Consts.TILETEXTURESSTARTID)).Split(';');
-            
+
+            string[] tempArray;
+            tempArray = subString.Substring(subString.IndexOf(Consts.TILETEXTURESSTARTID), subString.IndexOf(Consts.TILETEXTURESENDID) - subString.IndexOf(Consts.TILETEXTURESSTARTID)).Split(';');
+            TileTextures = new string[tempArray.Length - 2];
+            for (int i = 1; i < tempArray.Length - 1; i++)
+            {
+                TileTextures[i - 1] = tempArray[i].Replace("\n","").Replace(" ","") + ';';
+            }
             foreach (string s in TileTextures)
             {
-                ShevConsole.WriteColored(s + ';', ConsoleColor.DarkYellow);
+                ShevConsole.WriteColoredLine(s, ConsoleColor.DarkYellow);
             }
-            
-            
-        }
+            Console.Read();        
+            }
 
     }
 }
