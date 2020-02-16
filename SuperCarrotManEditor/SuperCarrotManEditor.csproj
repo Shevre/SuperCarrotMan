@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Core\Consts.cs" />
     <Compile Include="Core\Editor.cs" />
-    <Compile Include="Core\Map.cs" />
+    <Compile Include="Core\Scene.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

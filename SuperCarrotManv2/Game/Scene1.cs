@@ -26,15 +26,15 @@ namespace SuperCarrotManv2.GAME
 
             #region TILETEXTURES
             List<Texture2D> TILEMAPTEXTURES = new List<Texture2D>();
-            TILEMAPTEXTURES.Add(content.Load<Texture2D>(@"Grass\00"));
-            TILEMAPTEXTURES.Add(content.Load<Texture2D>(@"Grass\01"));
-            TILEMAPTEXTURES.Add(content.Load<Texture2D>(@"Grass\02"));
-            TILEMAPTEXTURES.Add(content.Load<Texture2D>(@"Grass\10"));
-            TILEMAPTEXTURES.Add(content.Load<Texture2D>(@"Grass\11"));
-            TILEMAPTEXTURES.Add(content.Load<Texture2D>(@"Grass\12"));
-            TILEMAPTEXTURES.Add(content.Load<Texture2D>(@"Grass\20"));
-            TILEMAPTEXTURES.Add(content.Load<Texture2D>(@"Grass\21"));
-            TILEMAPTEXTURES.Add(content.Load<Texture2D>(@"Grass\22"));
+            TILEMAPTEXTURES.Add(content.Load<Texture2D>("Grass/00"));
+            TILEMAPTEXTURES.Add(content.Load<Texture2D>("Grass/01"));
+            TILEMAPTEXTURES.Add(content.Load<Texture2D>("Grass/02"));
+            TILEMAPTEXTURES.Add(content.Load<Texture2D>("Grass/10"));
+            TILEMAPTEXTURES.Add(content.Load<Texture2D>("Grass/11"));
+            TILEMAPTEXTURES.Add(content.Load<Texture2D>("Grass/12"));
+            TILEMAPTEXTURES.Add(content.Load<Texture2D>("Grass/20"));
+            TILEMAPTEXTURES.Add(content.Load<Texture2D>("Grass/21"));
+            TILEMAPTEXTURES.Add(content.Load<Texture2D>("Grass/22"));
             TILEMAPTEXTURES.Add(content.Load<Texture2D>("sans"));
             #endregion TILETEXTURES
 

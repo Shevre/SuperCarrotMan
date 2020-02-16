@@ -13,6 +13,9 @@ namespace SuperCarrotManEditor
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Editor Editor = new Editor();
+
+        KeyboardState CurrentState;
+        KeyboardState PrevState;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -28,7 +31,9 @@ namespace SuperCarrotManEditor
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            CurrentState = Keyboard.GetState();
+            PrevState = Keyboard.GetState();
+            Consts.CreateFolders();
             base.Initialize();
         }
 
@@ -61,8 +66,15 @@ namespace SuperCarrotManEditor
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            PrevState = CurrentState;
+            CurrentState = Keyboard.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            if (CurrentState.IsKeyDown(Keys.S) && PrevState.IsKeyUp(Keys.S))
+            {
+                Editor.CurrentScene.Save("","Gaming.cs");
+            }
+                
 
             // TODO: Add your update logic here
 
@@ -78,6 +90,7 @@ namespace SuperCarrotManEditor
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             //spriteBatch.Draw(Content.Load<Texture2D>(@"Grass\00"), new Vector2(0, 0), Color.White);
+            Editor.Draw(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
