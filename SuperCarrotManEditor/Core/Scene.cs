@@ -16,11 +16,7 @@ namespace SuperCarrotManEditor.Core
         List<Texture2D> TileTex = new List<Texture2D>();
         public Scene(string sceneString, Microsoft.Xna.Framework.Content.ContentManager content)
         {
-            Console.WriteLine("Ayo");
             SceneString = sceneString;
-            ShevConsole.WriteColoredLine("Full Code:", ConsoleColor.Cyan);
-            ShevConsole.WriteColoredLine(SceneString + "\n\n", ConsoleColor.Red);
-            ShevConsole.WriteColoredLine("Only Relevant Code:", ConsoleColor.Cyan);
             int StartIndex = SceneString.IndexOf(Consts.TILEMAPSTARTID);
             int EndIndex = SceneString.IndexOf(Consts.TILEMAPENDID) + Consts.TILEMAPENDID.Length;
             int l = EndIndex - StartIndex;

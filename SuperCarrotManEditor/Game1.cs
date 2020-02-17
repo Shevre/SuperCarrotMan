@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SuperCarrotManEditor.Core;
+using Shev.XNA.UI;
 
 namespace SuperCarrotManEditor
 {
@@ -13,7 +14,7 @@ namespace SuperCarrotManEditor
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Editor Editor = new Editor();
-
+        Panel Panel;
         KeyboardState CurrentState;
         KeyboardState PrevState;
         public Game1()
@@ -46,7 +47,8 @@ namespace SuperCarrotManEditor
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Consts.CONTENT = Content;
-            Editor.LoadScene(@"../SuperCarrotManv2/Game/Scene1.cs",Content);
+            Editor.LoadScene(Content);
+            Panel = new Panel(78, 80, new Point(7, 90), Color.Transparent, GraphicsDevice);
             // TODO: use this.Content to load your game content here
         }
 
@@ -91,6 +93,7 @@ namespace SuperCarrotManEditor
             spriteBatch.Begin();
             //spriteBatch.Draw(Content.Load<Texture2D>(@"Grass\00"), new Vector2(0, 0), Color.White);
             Editor.Draw(spriteBatch);
+            Panel.Draw(spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
 
