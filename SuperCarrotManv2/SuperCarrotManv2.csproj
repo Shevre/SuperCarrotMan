@@ -68,6 +68,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Game\Enums.cs" />
+    <Compile Include="Game\Scene3.cs" />
     <Compile Include="Game\Scene2.cs" />
     <Compile Include="Game\Scene1.cs" />
     <Compile Include="Misc\Portal.cs" />
@@ -132,10 +133,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
+    <None Include="Content\UI\TextBox.shui">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Areas\Area1.xml" />
-    <Content Include="Content\Areas\Area1\Scene1.xml" />
     <Content Include="Content\TilesetDefinitons.xml" />
   </ItemGroup>
   <ItemGroup />

@@ -10,13 +10,13 @@ using SuperCarrotManv2.Core;
 
 namespace SuperCarrotManv2.GAME
 {
-    public class Scene1 : Scene
+    public class Scene3 : Scene
     {
 
         Entity crib;
 
         public bool drawIK = false;
-        public Scene1(ContentManager content,Game1 game) : base(content,game)
+        public Scene3(ContentManager content,Game1 game) : base(content,game)
         {
             Area = Area.Outside;
             //crib = new Entity(new Vector2(640, -128), new Vector2(93, 89), content.Load<Texture2D>(@"CocoCrib\Walk\1"));
@@ -36,7 +36,7 @@ namespace SuperCarrotManv2.GAME
             TILEMAPTEXTURES.Add(content.Load<Texture2D>("Grass/21"));
             TILEMAPTEXTURES.Add(content.Load<Texture2D>("Grass/22"));
             TILEMAPTEXTURES.Add(content.Load<Texture2D>("sans"));
-            TILEMAPTEXTURES.Add(content.Load<Texture2D>("UI/TextBox"));
+            TILEMAPTEXTURES.Add(content.Load<Texture2D>("CarrotMan/Walk/1"));
             #endregion TILETEXTURES
 
             #region TILES
@@ -102,31 +102,5 @@ namespace SuperCarrotManv2.GAME
        
     }
 
-    public class IK : Drawable
-    {
-        public bool YES = false;
-        public Texture2D iK;
-        Vector2 pos;
-        public IK(ContentManager content)
-        {
-            iK = content.Load<Texture2D>("ik");
-        }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-
-            if (YES)
-            {
-                pos.X += 4;
-                if (pos.X > 1280)
-                {
-                    pos.X = 0;
-                }
-
-                spriteBatch.Draw(iK, new Rectangle(pos.ToPoint(), new Point(1280, 720)), Color.White);
-
-                spriteBatch.Draw(iK, new Rectangle(new Point(pos.ToPoint().X - 1280, 0), new Point(1280, 720)), Color.White);
-
-            }
-        }
-    }
+    
 }
