@@ -55,7 +55,7 @@
     <Compile Include="ShevUI\Enums.cs" />
     <Compile Include="ShevUI\Panel.cs" />
     <Compile Include="ShevUI\SinglePixel.cs" />
-    <Compile Include="ShevUI\UIElement.cs" />
+    <Compile Include="ShevUI\UIGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

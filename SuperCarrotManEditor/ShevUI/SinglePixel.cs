@@ -7,7 +7,7 @@ namespace Shev.XNA.UI
     {
         static Texture2D WhitePixel;
 
-        public static Texture2D getSingleWhitePixelTexture(this GraphicsDevice device)
+        public static Texture2D getSingleWhitePixelTexture()
         {
             if(WhitePixel != null)
             {
@@ -15,7 +15,7 @@ namespace Shev.XNA.UI
             }
             else
             {
-                WhitePixel = new Texture2D(device, 1, 1);
+                WhitePixel = new Texture2D(UIGame.GRAPHICS, 1, 1);
                 WhitePixel.SetData(new Color[] { Color.White });
                 return WhitePixel;
             }

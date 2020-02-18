@@ -20,7 +20,6 @@ namespace SuperCarrotManv2
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        PhysicsHandler PhysicsHandler = new PhysicsHandler(0.1f);
         static DrawingHandler DrawingHandler = new DrawingHandler();
 
         RenderTarget2D GameLayer;
@@ -36,9 +35,7 @@ namespace SuperCarrotManv2
         Texture2D DebugPixel;
         SpriteFont debugFont;
 
-        BasicEffect basicEffect;
 
-        VecRectangle testRect;
 
         KeyboardState currentState;
         KeyboardState prevState;
@@ -51,7 +48,6 @@ namespace SuperCarrotManv2
         
         protected override void Initialize()
         {
-            testRect = new VecRectangle(5, 8, 20, 30);
             currentState = Keyboard.GetState();
             prevState = Keyboard.GetState();
             IsMouseVisible = true;
@@ -97,11 +93,7 @@ namespace SuperCarrotManv2
             //song = Content.Load<Song>(@"audio\mayojacuzzi");
             //MediaPlayer.Play(song);
             //MediaPlayer.IsRepeating = true;
-            basicEffect = new BasicEffect(GraphicsDevice)
-            {
-                World = Matrix.CreateOrthographicOffCenter(
-                0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 0, 0, 1)
-            };
+
             GameLayer = new RenderTarget2D(GraphicsDevice, defScreenWidth, defScreenHeight);
             UIlayer = new RenderTarget2D(GraphicsDevice, defScreenWidth, defScreenHeight);
             Background = new RenderTarget2D(GraphicsDevice, defScreenWidth, defScreenHeight);

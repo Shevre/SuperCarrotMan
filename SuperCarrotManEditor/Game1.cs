@@ -9,18 +9,20 @@ namespace SuperCarrotManEditor
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game
+    public class Game1 : UIGame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Editor Editor = new Editor();
         Panel Panel;
+        
         public static KeyboardState CurrentState;
         public static KeyboardState PrevState;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            
         }
 
         /// <summary>
@@ -32,6 +34,7 @@ namespace SuperCarrotManEditor
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            
             CurrentState = Keyboard.GetState();
             PrevState = Keyboard.GetState();
             Consts.CreateFolders();
@@ -47,8 +50,8 @@ namespace SuperCarrotManEditor
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Consts.CONTENT = Content;
-            Editor.LoadScene(Content);
-            Panel = new Panel(78, 80, new Point(7, 90), Color.Red, GraphicsDevice);
+            Panel = new Panel(80, 80, new Point(10, 90), Color.Red);
+            Panel.AddChild(new Panel(20, 20, new Point(50, 50), Color.Black, true, PositionMode.Relative));
             // TODO: use this.Content to load your game content here
         }
 
@@ -73,10 +76,7 @@ namespace SuperCarrotManEditor
             Editor.Update();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if (CurrentState.IsKeyDown(Keys.S) && PrevState.IsKeyUp(Keys.S))
-            {
-                Editor.CurrentScene.Save("","Gaming.cs");
-            }
+
                 
 
             // TODO: Add your update logic here

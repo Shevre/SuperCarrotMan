@@ -13,30 +13,37 @@ namespace Shev.XNA.UI
         public List<Panel> Children = new List<Panel>();
         public Color BackgroundColor;
         public Rectangle Bounds;
-        public Texture2D WhitePixel;
-        public OverflowMode OverFlowMode;
-        public Panel(int Width, int Height, Point position, Color backgroundColor, GraphicsDevice device, OverflowMode overflowMode = OverflowMode.Contain)
+        public PositionMode PositionMode;
+        public bool Visible;
+        public Panel(int Width, int Height, Point position, Color backgroundColor, bool visible = true,PositionMode positionMode = PositionMode.Absolute, OverflowMode overflowMode = OverflowMode.Contain)
         {
             Bounds = new Rectangle(position, new Point(Width, Height));
             BackgroundColor = backgroundColor;
-            WhitePixel = device.getSingleWhitePixelTexture();
-            OverFlowMode = overflowMode;
+            Visible = visible;
+            PositionMode = positionMode;
         }
         public void Draw(SpriteBatch spriteBatch, Panel parent = null)
         {
-            switch (OverFlowMode)
+            if(Visible)
             {
-                case OverflowMode.Contain:
-                    if (parent.Bounds.Intersects(Bounds)) ;
-                    break;
-                default:
-                    spriteBatch.Draw(WhitePixel, Bounds, WhitePixel.Bounds, BackgroundColor);
-                    break;
-            }
-
-            foreach (Panel item in Children)
-            {
-                item.Draw(spriteBatch, this);
+                if(parent != null)
+                    switch (PositionMode)
+                    {
+                        case PositionMode.Absolute:
+                            spriteBatch.Draw(SinglePixel.getSingleWhitePixelTexture(), Bounds, BackgroundColor);
+                            break;
+                        case PositionMode.Relative:
+                            spriteBatch.Draw(SinglePixel.getSingleWhitePixelTexture(), new Rectangle(Bounds.Location + parent.Bounds.Location,Bounds.Size), BackgroundColor) ;
+                            break;
+                        default:
+                            spriteBatch.Draw(SinglePixel.getSingleWhitePixelTexture(), Bounds, BackgroundColor);
+                            break;
+                    }
+                else spriteBatch.Draw(SinglePixel.getSingleWhitePixelTexture(), Bounds, BackgroundColor);
+                foreach (Panel item in Children)
+                {
+                    item.Draw(spriteBatch, this);
+                }
             }
         }
         public void Update()

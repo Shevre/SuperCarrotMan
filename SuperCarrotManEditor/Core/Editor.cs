@@ -43,6 +43,13 @@ namespace SuperCarrotManEditor.Core
         public void Update()
         {
             if (Game1.CurrentState.IsKeyDown(Keys.LeftControl) && Game1.CurrentState.IsKeyDown(Keys.O) && Game1.PrevState.IsKeyUp(Keys.O)) LoadScene(Consts.CONTENT);
+            if (Game1.CurrentState.IsKeyDown(Keys.LeftControl) && Game1.CurrentState.IsKeyDown(Keys.S) && Game1.PrevState.IsKeyUp(Keys.S)) Save("", "Gaming.cs");
+        }
+
+        public void Save(string saveLocation,string fileName)
+        {
+            if (Editing) CurrentScene.Save(saveLocation, fileName);
+            else ShevConsole.WriteColoredLine("No file currently open", ConsoleColor.Red);
         }
 
         public void Draw(SpriteBatch spriteBatch)
