@@ -7,6 +7,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using System.Windows;
 using Microsoft.Win32;
+using Microsoft.Xna.Framework.Input;
 using Shev.ExtentionMethods;
 
 namespace SuperCarrotManEditor.Core
@@ -14,6 +15,7 @@ namespace SuperCarrotManEditor.Core
     public class Editor
     {
         public Scene CurrentScene { private set; get; }
+        bool Editing = false;
         public Editor()
         {
 
@@ -23,22 +25,30 @@ namespace SuperCarrotManEditor.Core
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "C# Code Files (.cs)|*.cs"; // Filter files by extension
-            Nullable<bool> result = dlg.ShowDialog();
-
+            bool? result = dlg.ShowDialog();
+            
             if(result == true)
             {
                 CurrentScene = new Scene(File.ReadAllText(dlg.FileName), content);
+                Editing = true;
             }
             else
             {
                 ShevConsole.WriteColoredLine("Please select a file",ConsoleColor.Red);
+                Editing = false;
             }
             
         }
 
+        public void Update()
+        {
+            if (Game1.CurrentState.IsKeyDown(Keys.LeftControl) && Game1.CurrentState.IsKeyDown(Keys.O) && Game1.PrevState.IsKeyUp(Keys.O)) LoadScene(Consts.CONTENT);
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
-            CurrentScene.Draw(spriteBatch);
+            if(Editing)CurrentScene.Draw(spriteBatch);
+
         }
     }
 }

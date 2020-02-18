@@ -15,8 +15,8 @@ namespace SuperCarrotManEditor
         SpriteBatch spriteBatch;
         Editor Editor = new Editor();
         Panel Panel;
-        KeyboardState CurrentState;
-        KeyboardState PrevState;
+        public static KeyboardState CurrentState;
+        public static KeyboardState PrevState;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -48,7 +48,7 @@ namespace SuperCarrotManEditor
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Consts.CONTENT = Content;
             Editor.LoadScene(Content);
-            Panel = new Panel(78, 80, new Point(7, 90), Color.Transparent, GraphicsDevice);
+            Panel = new Panel(78, 80, new Point(7, 90), Color.Red, GraphicsDevice);
             // TODO: use this.Content to load your game content here
         }
 
@@ -70,6 +70,7 @@ namespace SuperCarrotManEditor
         {
             PrevState = CurrentState;
             CurrentState = Keyboard.GetState();
+            Editor.Update();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             if (CurrentState.IsKeyDown(Keys.S) && PrevState.IsKeyUp(Keys.S))

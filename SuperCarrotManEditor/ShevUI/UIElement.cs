@@ -30,6 +30,13 @@ namespace Shev.XNA.UI
                 item.Draw(spriteBatch, this);
             }
         }
-        public void Update(){ }
+        public void Update()
+        { 
+        }
+
+        public void AddChild(UIElement uIElement)
+        {
+            Children.Add(uIElement);
+        }
     }
 }
